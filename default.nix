@@ -19,6 +19,7 @@
   rtw89-zen = pkgs.callPackage ./pkgs/rtw89-zen { };
   lxgw-fasmart-gothic = pkgs.callPackage ./pkgs/lxgw-fasmart-gothic { };
   fusion-kai = pkgs.callPackage ./pkgs/fusion-kai { };
+  noto-sans-sc = pkgs.callPackage ./pkgs/noto-sans-sc { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
