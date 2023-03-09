@@ -20,6 +20,7 @@
   lxgw-fasmart-gothic = pkgs.callPackage ./pkgs/lxgw-fasmart-gothic { };
   lxgw-wenkai-gb-fusion = pkgs.callPackage ./pkgs/lxgw-wenkai-gb-fusion { };
   noto-sans-sc = pkgs.callPackage ./pkgs/noto-sans-sc { };
+  zhudou-sans = pkgs.callPackage ./pkgs/zhudou-sans { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
