@@ -1,0 +1,20 @@
+--- a/en_XX@POSIX	2023-03-16 10:10:51.571737913 +0800
++++ b/en_XX@POSIX	2023-03-16 10:11:30.394736406 +0800
+@@ -121,7 +121,7 @@
+ first_weekday	1
+ first_workday	1
+ 
+-am_pm   "AM";"PM"
++am_pm   "";""
+ 
+ % Date formats following ISO 8601
+ % Appropriate date and time representation (%c)
+@@ -134,7 +134,7 @@
+ %
+ % Appropriate time representation (%X)   "%T"
+ t_fmt   "%T"
+-t_fmt_ampm ""
++t_fmt_ampm "%T"
+ 
+ date_fmt "%F %T %z"
+ END LC_TIME
