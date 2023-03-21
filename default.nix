@@ -21,6 +21,7 @@
   lxgw-wenkai-gb-fusion = pkgs.callPackage ./pkgs/lxgw-wenkai-gb-fusion { };
   noto-sans-sc = pkgs.callPackage ./pkgs/noto-sans-sc { };
   zhudou-sans = pkgs.callPackage ./pkgs/zhudou-sans { };
+  redfish-sans = pkgs.callPackage ./pkgs/redfish-sans { };
   locale-en_xx = pkgs.callPackage ./pkgs/locale-en_xx { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

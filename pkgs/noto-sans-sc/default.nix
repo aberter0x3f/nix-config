@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm644 *.otf -t $out/share/fonts/
+    install -Dm644 *.otf -t $out/share/fonts/opentype/
     runHook postInstall
   '';
 
