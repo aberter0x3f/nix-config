@@ -72,7 +72,7 @@ def make_font(weight, is_italic, zd_file, fs_file, s_file):
     remove_feature(font, s_name + '-', 'zero')
 
     # output_pdf(font, "０ 012 VAWA 测试：「Test」（Kern）．", 'a.pdf')
-    font.generate('RedFish-%s.otf' % (weight+('Italic' if is_italic else '')))
+    font.generate('RedFish-Sans-%s.otf' % (weight+('Italic' if is_italic else '')))
 
 make_font('ExtraLight', False, 'Zhudou Sans ExtraLight.ttf', 'FiraGO-Thin.otf' , 'sarasa-extralight.ttc(Sarasa UI SC Xlight)')
 make_font('ExtraLight', True, 'Zhudou Sans ExtraLight.ttf', 'FiraGO-ThinItalic.otf' , 'sarasa-extralightitalic.ttc(Sarasa UI SC Xlight Italic)')
