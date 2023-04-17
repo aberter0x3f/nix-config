@@ -1,10 +1,12 @@
 #!/usr/bin/env fontforge
 # -*- coding: utf-8 -*-
 
+import sys
 import fontforge
 
 def set_font_info(font, is_italic, weight):
-    font.fontname="RedFish-Sans-"+weight+('Italic' if is_italic else '')
+    font.sfnt_names = ()
+    font.fontname="RedFishSans-"+weight+('Italic' if is_italic else '')
     font.familyname="RedFish Sans"
     font.fullname="RedFish Sans "+weight+(' Italic' if is_italic else '')
     font.weight=weight
@@ -50,37 +52,25 @@ def freezen_zero(font):
         font.removeGlyph(non_zero_variant)
 
 def make_font(weight, is_italic, zd_file, fs_file, s_file):
-    font=fontforge.font()
+    font=fontforge.open(fs_file)
     set_font_info(font, is_italic, weight)
 
     zd_name = fontforge.open(zd_file).fontname
-    font.mergeFonts(zd_file, True)
+    font.mergeFonts(zd_file)
 
-    duplicate_lookup(font, zd_name + '-', 'chws', 'kern')
+    #duplicate_lookup(font, zd_name + '-', 'chws', 'kern')
     remove_feature(font, zd_name + '-', 'locl')
 
-    fs_name = fontforge.open(fs_file).fontname
-    font.mergeFonts(fs_file, True)
-
     s_name = fontforge.open(s_file).fontname
-    font.mergeFonts(s_file, True)
+    font.mergeFonts(s_file)
     remove_feature(font, s_name, 'locl')
 
     freezen_zero(font)
     remove_feature(font, zd_name + '-', 'zero')
-    remove_feature(font, fs_name + '-', 'zero')
+    remove_feature(font, '', 'zero')
     remove_feature(font, s_name + '-', 'zero')
 
     # output_pdf(font, "０ 012 VAWA 测试：「Test」（Kern）．", 'a.pdf')
     font.generate('RedFish-Sans-%s.otf' % (weight+('Italic' if is_italic else '')))
 
-make_font('ExtraLight', False, 'Zhudou Sans ExtraLight.ttf', 'FiraGO-Thin.otf' , 'sarasa-extralight.ttc(Sarasa UI SC Xlight)')
-make_font('ExtraLight', True, 'Zhudou Sans ExtraLight.ttf', 'FiraGO-ThinItalic.otf' , 'sarasa-extralightitalic.ttc(Sarasa UI SC Xlight Italic)')
-make_font('Light', False, 'Zhudou Sans Light.ttf', 'FiraGO-Light.otf', 'sarasa-light.ttc(Sarasa UI SC Light)')
-make_font('Light', True, 'Zhudou Sans Light.ttf', 'FiraGO-LightItalic.otf', 'sarasa-lightitalic.ttc(Sarasa UI SC Light Italic)')
-make_font('Regular', False, 'Zhudou Sans Regular.ttf', 'FiraGO-Regular.otf', 'sarasa-regular.ttc(Sarasa UI SC)')
-make_font('Regular', True, 'Zhudou Sans Regular.ttf', 'FiraGO-Italic.otf', 'sarasa-italic.ttc(Sarasa UI SC Italic)')
-make_font('SemiBold', False, 'Zhudou Sans Bold.ttf', 'FiraGO-SemiBold.otf', 'sarasa-semibold.ttc(Sarasa UI SC Semibold)')
-make_font('SemiBold', True, 'Zhudou Sans Bold.ttf', 'FiraGO-SemiBoldItalic.otf', 'sarasa-semibolditalic.ttc(Sarasa UI SC Semibold Italic)')
-make_font('Bold', False, 'Zhudou Sans Bold.ttf', 'FiraGO-Bold.otf', 'sarasa-bold.ttc(Sarasa UI SC Bold)')
-make_font('Bold', True, 'Zhudou Sans Bold.ttf', 'FiraGO-BoldItalic.otf', 'sarasa-bolditalic.ttc(Sarasa UI SC Bold Italic)')
+make_font(sys.argv[1], bool(int(sys.argv[2])), sys.argv[3], sys.argv[4], sys.argv[5])
