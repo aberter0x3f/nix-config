@@ -62,8 +62,8 @@
       auto-optimise-store = true;
 
       substituters = [
-        # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        # "https://mirrors.ustc.edu.cn/nix-channels/store"
       ];
     };
   };
@@ -331,7 +331,7 @@
     ripgrep
     fd
     cachix
-    firefox
+    librewolf
     kitty
     lf
     gcc
@@ -339,6 +339,7 @@
     llvm
     xclip
     xsel
+    lesspass-cli
     clang
     p7zip
     pciutils
