@@ -35,6 +35,10 @@
   home = rec {
     homeDirectory = "/home/${config.home.username}";
     sessionPath = [ "${homeDirectory}/.local/bin" ];
+    sessionVariables = {
+      C_INCLUDE_PATH = "$HOME/.local/include:$C_INCLUDE_PATH";
+      CPLUS_INCLUDE_PATH = "$HOME/.local/include:$CPLUS_INCLUDE_PATH";
+    };
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     stateVersion = "22.11";

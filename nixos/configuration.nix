@@ -239,6 +239,7 @@
       MOZ_USE_XINPUT2 = "1";
       BAT_THEME = "base16";
     };
+    pathsToLink = [ "/share/zsh" ];
   };
 
   virtualisation.podman = {
@@ -336,45 +337,18 @@
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
-      wget
-      ripgrep
-      fd
-      gojq
-      socat
       cachix
       librewolf
-      lf
       gcc
       gdb
       llvm
-      xclip
-      xsel
-      wl-clipboard
-      lesspass-cli
       clang
-      p7zip
-      pciutils
-      tree
-      rar
-      unzip
-      zip
-      opencc
       kotatogram-desktop
       libsForQt5.fcitx5-qt
       luajit
       neovim-unwrapped
-      tealdeer
-      rnix-lsp
-      clang-tools
-      lua-language-server
-      bat
-      exa
-      fzf
-      file
-      protobuf
       config.nur.repos.linyinfeng.icalingua-plus-plus
       vscode-fhs
-      ark
       iptables
       (
         let my-python-packages = python-packages: with python-packages; [
@@ -387,7 +361,6 @@
         in python3.withPackages my-python-packages
       )
       virt-manager
-      rtmpdump
       go
       jdk
       gradle
@@ -395,8 +368,6 @@
         extensions = [ "rust-src" ];
         targets = [ "wasm32-unknown-unknown" ];
       })
-      cpt
-      cpt-fetcher
     ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
