@@ -1,4 +1,4 @@
-{ inputs, outputs, config, ... }:
+{ inputs, outputs, config, lib, ... }:
 {
   imports = [
     ../features/cli
@@ -38,9 +38,14 @@
     sessionVariables = {
       C_INCLUDE_PATH = "$HOME/.local/include:$C_INCLUDE_PATH";
       CPLUS_INCLUDE_PATH = "$HOME/.local/include:$CPLUS_INCLUDE_PATH";
+      LOCALE_ARCHIVE_2_27 = lib.mkForce "$LOCALE_ARCHIVE";
     };
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     stateVersion = "22.11";
+  };
+
+  systemd.user.sessionVariables = {
+    LOCALE_ARCHIVE_2_27 = lib.mkForce "$LOCALE_ARCHIVE";
   };
 }

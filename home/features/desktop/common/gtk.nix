@@ -4,12 +4,6 @@ let
   inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
 in
 {
-  home.pointerCursor = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 24;
-  };
-
   gtk = {
     enable = true;
     font = {
@@ -19,6 +13,11 @@ in
     theme = {
       package = gtkThemeFromScheme { scheme = config.colorscheme; };
       name = "${config.colorscheme.slug}";
+    };
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
     };
     iconTheme = {
       package = pkgs.tela-icon-theme;

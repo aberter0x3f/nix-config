@@ -3,7 +3,7 @@
   imports = [
     ./eww
     ./mako.nix
-    # ./swayidle.nix
+    ./swayidle.nix
     ./swaylock.nix
     ./wofi.nix
     # ./zathura.nix

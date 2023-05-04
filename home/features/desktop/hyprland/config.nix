@@ -11,7 +11,7 @@ in
 
   # Some default env vars.
   env = GDK_SCALE,2
-  env = XCURSOR_SIZE,32
+  env = XCURSOR_SIZE,24
   env = XCURSOR_THEME,"Bibata-Modern-Ice"
 
   # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
