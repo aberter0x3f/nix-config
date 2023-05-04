@@ -1,0 +1,31 @@
+(deflisten v_workspaces "scripts/workspaces")
+
+(defwidget workspaces []
+  (eventbox
+    (overlay
+      (box
+        :class "workspaces"
+        :space-evenly false
+        (for i in v_workspaces
+          (button
+            :onclick "hyprctl dispatch workspace ${i.num}"
+            :class "ws ws-${i.status}"
+            (label :class "ws-bg-text" :text "◆")
+          )
+        )
+      )
+      (box
+        :orientation "horizontal"
+        :class "workspaces"
+        :space-evenly false
+        (for i in v_workspaces
+          (button
+            :onclick "hyprctl dispatch workspace ${i.index}"
+            :class "ws ws-${i.status}"
+            (label :class "ws-text" :text "${i.index}")
+          )
+        )
+      )
+    )
+  )
+)

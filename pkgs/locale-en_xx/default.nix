@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, ... }:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "locale-en_xx";

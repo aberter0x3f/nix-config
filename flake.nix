@@ -3,22 +3,16 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # NUR
     nur.url = github:nix-community/NUR;
-
-    # Neovim nightly overlay
-    neovim-nightly-overlay = {
-      url = github:nix-community/neovim-nightly-overlay;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Rust overlay
     rust-overlay = {
@@ -26,45 +20,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # mach-nix
-    pypi-deps-db = {
-      url = github:DavHau/pypi-deps-db;
-      flake = false;
-    };
-    mach-nix = {
-      url = github:DavHau/mach-nix;
-      inputs.pypi-deps-db.follows = "pypi-deps-db";
-    };
+    # Nix colors
+    nix-colors.url = github:misterio77/nix-colors;
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
+    # Hyprland
+    hyprland.url = github:hyprwm/Hyprland;
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, mach-nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+
+      mkNixos = modules: nixpkgs.lib.nixosSystem {
+        inherit modules;
+        specialArgs = { inherit inputs outputs; };
+      };
+      mkHome = modules: pkgs: home-manager.lib.homeManagerConfiguration {
+        inherit modules pkgs;
+        extraSpecialArgs = { inherit inputs outputs; };
+      };
     in
     rec {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs { inherit pkgs mach-nix; }
-      );
+      packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs; }));
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
-      devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./shell.nix { inherit pkgs; }
-      );
+      devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
 
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
@@ -78,29 +62,13 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        # FIXME replace with your hostname
-        yzy1-thinkbook = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            nur.nixosModules.nur
-            # > Our main nixos configuration file <
-            ./nixos/configuration.nix
-          ];
-        };
+        yzy1-thinkbook = mkNixos [ ./nixos/configuration.nix ];
       };
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        # FIXME replace with your username@hostname
-        "yzy1-thinkbook@yzy1" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
-          ];
-        };
+        "yzy1@yzy1-thinkbook" = mkHome [ ./home/yzy1.nix ] nixpkgs.legacyPackages."x86_64-linux";
       };
     };
 }

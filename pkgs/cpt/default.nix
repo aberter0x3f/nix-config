@@ -1,14 +1,14 @@
-{ lib, fetchFromGitHub, buildGoModule, ... }:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "cpt";
-  version = "v0.16.3";
+  version = "0.16.3";
   owner = "cp-tools";
 
   src = fetchFromGitHub {
     owner = owner;
     repo = pname;
-    rev = version;
+    rev = "v${version}";
     sha256 = "sha256-PgAnd0VbYr19Ml0HSXGas7pRR26Edwyyv5ngNiH3xVE=";
   };
 

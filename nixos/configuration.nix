@@ -10,6 +10,8 @@
     # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
+    inputs.nur.nixosModules.nur
+    inputs.hyprland.nixosModules.default
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
@@ -28,7 +30,6 @@
       outputs.overlays.modifications
 
       # You can also add overlays exported from other flakes:
-      inputs.neovim-nightly-overlay.overlay
       inputs.rust-overlay.overlays.default
 
       # Or define it inline, for example:
@@ -57,7 +58,7 @@
 
     settings = {
       # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
+      experimental-features = "nix-command flakes repl-flake";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
 
@@ -96,7 +97,7 @@
     defaultLocale = "en_XX.UTF-8@POSIX";
     supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_US.UTF-8/UTF-8" "C.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8" ];
     extraLocaleSettings = {
-      LANGUAGE = "en_XX.UTF-8@POSIX:en_US:en:C:zh_CN";
+      LANGUAGE = "en_XX.UTF-8@POSIX:en_US:en:C";
       LC_CTYPE = "en_US.UTF-8";
     };
     glibcLocales = pkgs.glibcLocalesWithEnXX.override {
@@ -126,21 +127,17 @@
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
         monospace = [
-          "Iosevka Term"
-          "Symbols Nerd Font Mono"
-          "RedFish Sans"
+          "Sarasa Term SC Nerd Font"
           "Plangothic P2"
           "Plangothic P1"
         ];
         sansSerif = [
           "RedFish Sans"
-          "Noto Sans"
           "Plangothic P2"
           "Plangothic P1"
         ];
         serif = [
-          "LXGW WenKai GB Fusion"
-          "Noto Serif"
+          "RedFish Serif"
           "Plangothic P2"
           "Plangothic P1"
         ];
@@ -172,17 +169,27 @@
           </edit>
         </match>
 
+        <match target="pattern">
+          <test name="family" compare="contains">
+            <string>Noto Serif</string>
+          </test>
+          <edit name="family" mode="prepend">
+            <string>RedFish Serif</string>
+            <string>Plangothic P2</string>
+            <string>Plangothic P1</string>
+          </edit>
+        </match>
         </fontconfig>
       '';
     };
     fonts = with pkgs; [
       noto-fonts-emoji
       noto-fonts
-      iosevka-bin
-      lxgw-wenkai-gb-fusion
+      sarasa-term-sc-nerd-font
       redfish-sans
+      redfish-serif
       config.nur.repos.xddxdd.plangothic-fonts.allideo
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      lxgw-wenkai-gb-fusion
     ];
   };
 
@@ -229,6 +236,8 @@
     variables = {
       EDITOR = "nvim";
       NIX_REMOTE = "daemon";
+      MOZ_USE_XINPUT2 = "1";
+      BAT_THEME = "base16";
     };
   };
 
@@ -254,19 +263,7 @@
   };
   programs.zsh.enable = true;
   programs.dconf.enable = true;
-  programs.kdeconnect.enable = true;
-  programs.xwayland.enable = true;
   programs.adb.enable = true;
-
-  # programs.hyprland = {
-  #   enable = true;
-  #   xwayland = {
-  #     enable = true;
-  #     hidpi = true;
-  #   };
-  #   nvidiaPatches = false;
-  # };
-  # programs.waybar.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -279,15 +276,7 @@
   services.xserver.enable = true;
   services.xserver.dpi = 144;
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    elisa
-    gwenview
-    okular
-    oxygen
-  ];
+  services.xserver.displayManager.startx.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -324,73 +313,91 @@
     };
   };
 
+  # Increase open file limit for sudoers
+  security.pam = {
+    services = { swaylock = { }; };
+    loginLimits = [
+      {
+        domain = "@wheel";
+        item = "nofile";
+        type = "soft";
+        value = "524288";
+      }
+      {
+        domain = "@wheel";
+        item = "nofile";
+        type = "hard";
+        value = "1048576";
+      }
+    ];
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget
-    ripgrep
-    fd
-    cachix
-    librewolf
-    kitty
-    lf
-    gcc
-    gdb
-    llvm
-    xclip
-    xsel
-    lesspass-cli
-    clang
-    p7zip
-    pciutils
-    tree
-    rar
-    unzip
-    zip
-    opencc
-    kotatogram-desktop
-    flameshot
-    libsForQt5.fcitx5-qt
-    luajit
-    neovim-unwrapped
-    tealdeer
-    libsForQt5.bismuth
-    rnix-lsp
-    clang-tools
-    lua-language-server
-    bat
-    exa
-    fzf
-    file
-    protobuf
-    config.nur.repos.linyinfeng.icalingua-plus-plus
-    vscode-fhs
-    ark
-    iptables
-    (
-      let my-python-packages = python-packages: with python-packages; [
-        pandas
-        requests
-        pyyaml
-        python-lsp-server
-        yapf
-      ]; in python3.withPackages my-python-packages
-    )
-    virt-manager
-    wofi
-    mako
-    rtmpdump
-    go
-    jdk
-    gradle
-    atomicparsley
-    (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-src" ];
-      targets = [ "wasm32-unknown-unknown" ];
-    })
-    cpt
-    cpt-fetcher
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      wget
+      ripgrep
+      fd
+      gojq
+      socat
+      cachix
+      librewolf
+      lf
+      gcc
+      gdb
+      llvm
+      xclip
+      xsel
+      wl-clipboard
+      lesspass-cli
+      clang
+      p7zip
+      pciutils
+      tree
+      rar
+      unzip
+      zip
+      opencc
+      kotatogram-desktop
+      libsForQt5.fcitx5-qt
+      luajit
+      neovim-unwrapped
+      tealdeer
+      rnix-lsp
+      clang-tools
+      lua-language-server
+      bat
+      exa
+      fzf
+      file
+      protobuf
+      config.nur.repos.linyinfeng.icalingua-plus-plus
+      vscode-fhs
+      ark
+      iptables
+      (
+        let my-python-packages = python-packages: with python-packages; [
+          pandas
+          requests
+          pyyaml
+          python-lsp-server
+          yapf
+        ];
+        in python3.withPackages my-python-packages
+      )
+      virt-manager
+      rtmpdump
+      go
+      jdk
+      gradle
+      (rust-bin.stable.latest.default.override {
+        extensions = [ "rust-src" ];
+        targets = [ "wasm32-unknown-unknown" ];
+      })
+      cpt
+      cpt-fetcher
+    ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

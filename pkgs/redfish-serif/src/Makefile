@@ -2,18 +2,18 @@ ALL_FEATURES='abvf, abvm, abvs, aalt, akhn, nalt, halt, afrc, valt, vhal, blwf, 
 
 .PHONY: all clean
 
-all: build/redfish-bolditalic.ttf build/redfish-bold.ttf build/redfish-extralightitalic.ttf build/redfish-extralight.ttf build/redfish-italic.ttf build/redfish-lightitalic.ttf build/redfish-light.ttf build/redfish-regular.ttf build/redfish-semibolditalic.ttf build/redfish-semibold.ttf
+all: build/redfish-VF.otf
 
-redfish-%.nopalt.ttf: sarasa-%.ttc
-	fonttools subset $< --font-number=7 --layout-features=$(ALL_FEATURES) --glyphs='*' --output-file=$@
+redfish-%.nopalt.otf: NotoSerifCJKsc-%.otf
+	fonttools subset $< --layout-features=$(ALL_FEATURES) --glyphs='*' --output-file=$@
 
-redfish-%.featfreeze.ttf: redfish-%.nopalt.ttf
+redfish-%.featfreeze.otf: redfish-%.nopalt.otf
 	pyftfeatfreeze -f 'zero' $< $@
 
-build/redfish-%.ttf: redfish-%.featfreeze.ttf
+build/redfish-%.otf: redfish-%.featfreeze.otf
 	add-chws $< -o build
 	mv build/$< $@
-	python3 ./fontname.py 'Sarasa UI SC' 'RedFish Sans' $@
+	python3 ./fontname.py 'Noto Serif CJK SC' 'RedFish Serif' $@
 
 clean:
 	rm -rf build/redfish-*.ttf

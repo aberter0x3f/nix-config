@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "chws-tool"
+version = "1.4.1"
+description = ""
+authors = []
+
+[tool.poetry.scripts]
+add_chws = "chws_tool.add_chws:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+east-asian-spacing = ">=1.3.4"
+setuptools = "^67.7.2"
+
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

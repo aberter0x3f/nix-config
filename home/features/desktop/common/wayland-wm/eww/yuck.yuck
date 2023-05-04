@@ -1,0 +1,46 @@
+(include "./modules/workspaces")
+
+(deflisten v_volume "scripts/volume")
+
+(defpoll time :interval "0.5s"
+  "date +'%x %X'")
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (box :orientation "h" :space-evenly false :halign "start"
+      (label :text time))
+    (workspaces)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (label :text "${v_volume.sink_icon} ${v_volume.shik_percent} ${v_volume.source_icon} ${v_volume.source_percent}")
+    (metric
+      :label "MEM"
+      :value {EWW_RAM.used_mem_perc}
+      :onchange "")))
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwindow bar
+  :stacking "fg"
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "32px"
+    :anchor "top center")
+  :exclusive true
+  :focusable false
+(bar))

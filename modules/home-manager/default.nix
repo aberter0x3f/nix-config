@@ -3,5 +3,8 @@
 
 {
   # List your module files here
-  # my-module = import ./my-module.nix;
+  monitors = import ./monitors.nix;
+  wallpaper = import ./wallpaper.nix;
+  fonts = import ./fonts.nix;
+  eww-config = import ./eww-config.nix;
 }
