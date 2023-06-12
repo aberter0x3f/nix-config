@@ -1,0 +1,6 @@
+(deflisten v_network "scripts/network.sh")
+
+(defwidget network []
+  (box :class "network" :orientation "h" :space-evenly false :halign "start"
+  (label :class "icon" :text "${v_network.icon} ")
+  (label :class "text" :text "${v_network.essid}")))

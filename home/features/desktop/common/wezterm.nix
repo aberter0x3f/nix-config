@@ -88,7 +88,7 @@ in
         return list
       end
 
-      config.font = wezterm.font('${config.fontProfiles.monospace.family}')
+      config.font = wezterm.font_with_fallback { '${config.fontProfiles.monospace.family}', 'Plangothic P2', 'Plangothic P1' }
       config.font_size = 12.0
 
       config.color_scheme = 'my_base16'
@@ -221,9 +221,30 @@ in
         })
       end
 
+      config.mouse_bindings = {
+        -- Change the default click behavior so that it only selects
+        -- text and doesn't open hyperlinks
+        {
+          event = { Up = { streak = 1, button = 'Left' } },
+          mods = 'NONE',
+          action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+        },
+
+        -- and make CTRL-Click open hyperlinks
+        {
+          event = { Up = { streak = 1, button = 'Left' } },
+          mods = 'CTRL',
+          action = act.OpenLinkAtMouseCursor,
+        },
+        -- NOTE that binding only the 'Up' event can give unexpected behaviors.
+        -- Read more below on the gotcha of binding an 'Up' event only.
+      }
+
       config.set_environment_variables = {
         TERM = 'wezterm',
       }
+
+      config.hide_mouse_cursor_when_typing = false
 
       return config
     '';

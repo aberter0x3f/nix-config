@@ -1,5 +1,7 @@
-volicons=("LOW" "MID" "HIGH")
-mutedicon="MUTED"
+vol_icon=("󰕿" "󰖀" "󰕾")
+muted_icon="󰖁"
+mic_icon=("󰍬" "󰍬" "󰍬")
+mic_muted_icon="󰍭"
 XDG_CACHE_HOME="$HOME/.cache"
 date="$XDG_CACHE_HOME/eww/osd_vol.date"
 lock=0
@@ -65,17 +67,17 @@ event() {
   sourcemuted=$(ismuted "SOURCE")
 
   if [ -z "$sinkmuted" ]; then
-    sink_icon=$mutedicon
-  else
     lvl=$(awk -v n="$(vol "SINK")" 'BEGIN{{max=2}{if(int(n/34)<max) max=int(n/34)}{print max}}')
-    sink_icon="${volicons[$lvl]}"
+    sink_icon="${vol_icon[$lvl]}"
+  else
+    sink_icon=$muted_icon
   fi
 
   if [ -z "$sourcemuted" ]; then
-    source_icon=$mutedicon
-  else
     lvl=$(awk -v n="$(vol "SOURCE")" 'BEGIN{{max=2}{if(int(n/34)<max) max=int(n/34)}{print max}}')
-    source_icon="${volicons[$lvl]}"
+    source_icon="${mic_icon[$lvl]}"
+  else
+    source_icon=$mic_muted_icon
   fi
 }
 
@@ -111,3 +113,5 @@ else
     generate
   done
 fi
+
+

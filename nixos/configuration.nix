@@ -44,6 +44,10 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
+
+      permittedInsecurePackages = [
+        "openssl-1.1.1u"
+      ];
     };
   };
 
@@ -66,15 +70,38 @@
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
       ];
+
+      trusted-users = [ "root" "yzy1" ];
     };
+
   };
 
-  # Hostname
-  networking.hostName = "yzy1-thinkbook";
+  networking = {
+    hostName = "yzy1-thinkbook";
+    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    firewall.enable = false;
 
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    hosts = {
+      "0.0.0.0" = [
+        "overseauspider.yuanshen.com"
+        "log-upload-os.hoyoverse.com"
+        "log-upload-os.mihoyo.com"
+        "dump.gamesafe.qq.com"
 
-  networking.firewall.enable = false;
+        "log-upload.mihoyo.com"
+        "devlog-upload.mihoyo.com"
+        "uspider.yuanshen.com"
+        "sg-public-data-api.hoyoverse.com"
+        "public-data-api.mihoyo.com"
+
+        "prd-lender.cdp.internal.unity3d.com"
+        "thind-prd-knob.data.ie.unity3d.com"
+        "thind-gke-usc.prd.data.corp.unity3d.com"
+        "cdp.cloud.unity3d.com"
+        "remote-config-proxy-prd.uca.cloud.unity3d.com"
+      ];
+    };
+  };
 
   boot.tmp.cleanOnBoot = true;
   boot.loader = {
@@ -95,10 +122,10 @@
   # Select internationalisation properties.
   i18n = rec {
     defaultLocale = "en_XX.UTF-8@POSIX";
-    supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_US.UTF-8/UTF-8" "C.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8" ];
+    supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_CA.UTF-8/UTF-8" "C.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8" ];
     extraLocaleSettings = {
-      LANGUAGE = "en_XX.UTF-8@POSIX:en_US:en:C";
-      LC_CTYPE = "en_US.UTF-8";
+      LANGUAGE = "en_XX.UTF-8@POSIX:en_CA:en:C";
+      LC_CTYPE = "en_CA.UTF-8";
     };
     glibcLocales = pkgs.glibcLocalesWithEnXX.override {
       allLocales = false;
@@ -175,8 +202,6 @@
           </test>
           <edit name="family" mode="prepend">
             <string>RedFish Serif</string>
-            <string>Plangothic P2</string>
-            <string>Plangothic P1</string>
           </edit>
         </match>
         </fontconfig>
@@ -190,6 +215,7 @@
       redfish-serif
       config.nur.repos.xddxdd.plangothic-fonts.allideo
       lxgw-wenkai-gb-fusion
+      last-resort
     ];
   };
 
@@ -209,6 +235,7 @@
       };
     };
   };
+  services.blueman.enable = true;
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
@@ -301,6 +328,8 @@
 
   services.v2raya.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
+
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services.openssh = {
@@ -340,10 +369,11 @@
       cachix
       librewolf
       gcc
+      gnumake
       gdb
       llvm
       clang
-      kotatogram-desktop
+      kotatogram-desktop-iso-date
       libsForQt5.fcitx5-qt
       luajit
       neovim-unwrapped
@@ -366,8 +396,9 @@
       gradle
       (rust-bin.stable.latest.default.override {
         extensions = [ "rust-src" ];
-        targets = [ "wasm32-unknown-unknown" ];
+        targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];
       })
+      pulseaudio
     ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

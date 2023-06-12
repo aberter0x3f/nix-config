@@ -2,10 +2,10 @@
   description = "nixos-yzy1";
 
   inputs = {
-    # Nixpkgs
+    # nixpkgs
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
 
-    # Home manager
+    # home-manager
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,17 +14,20 @@
     # NUR
     nur.url = github:nix-community/NUR;
 
-    # Rust overlay
+    # rust-overlay
     rust-overlay = {
       url = github:oxalica/rust-overlay;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix colors
+    # nix-colors
     nix-colors.url = github:misterio77/nix-colors;
 
     # Hyprland
-    hyprland.url = github:hyprwm/Hyprland;
+    hyprland.url = github:hyprwm/Hyprland/v0.26.0;
+
+    # AAGL
+    aagl.url = github:ezKEa/aagl-gtk-on-nix;
   };
 
   outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:

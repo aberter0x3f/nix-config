@@ -23,9 +23,9 @@
     '';
   };
 
-  # home.packages = with pkgs; [
-  #   inputs.hyprwm-contrib.packages.${system}.grimblast
-  # ];
+  xresources.properties = {
+    "Xft.dpi" = 192;
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;

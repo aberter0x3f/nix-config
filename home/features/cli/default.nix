@@ -1,12 +1,14 @@
 { pkgs, ... }: {
   imports = [
+    ./fzf.nix
     ./git.nix
     ./gpg.nix
+    ./lazygit.nix
     ./zsh.nix
-    ./fzf.nix
   ];
 
   home.packages = with pkgs; [
+    bc
     lf
     wget
     ripgrep
@@ -28,5 +30,9 @@
     rnix-lsp
     ouch
     rar
+    acpi
+    htop-vim
+    p7zip
+    zip
   ];
 }

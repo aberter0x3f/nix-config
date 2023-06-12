@@ -1,35 +1,26 @@
-(include "./modules/workspaces")
+(include "./modules/workspaces.yuck")
+(include "./modules/network.yuck")
+(include "./modules/battery.yuck")
 
-(deflisten v_volume "scripts/volume")
+(deflisten v_volume "scripts/volume.sh")
 
-(defpoll time :interval "0.5s"
-  "date +'%x %X'")
+(defpoll v_time :interval "0.5s"
+  "date +'%H:%M'")
 
 (defwidget bar []
   (centerbox :orientation "h"
-    (box :orientation "h" :space-evenly false :halign "start"
-      (label :text time))
+    (box :class "left" :orientation "h" :space-evenly false :halign "start"
+      (label :text "${v_time}"))
     (workspaces)
-    (sidestuff)))
+    (right)))
 
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+(defwidget right []
+  (box :class "right" :orientation "h" :space-evenly false :halign "end"
+    (network)
     (label :text "${v_volume.sink_icon} ${v_volume.shik_percent} ${v_volume.source_icon} ${v_volume.source_percent}")
-    (metric
-      :label "MEM"
-      :value {EWW_RAM.used_mem_perc}
-      :onchange "")))
-
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
+    (label :text "󰍛 ${round(EWW_RAM.available_mem / 1024 / 1024, 0)} MiB")
+    (label :text "󰔄 ${EWW_TEMPS.ACPITZ_TEMP1}")
+    (battery)))
 
 (defwindow bar
   :stacking "fg"

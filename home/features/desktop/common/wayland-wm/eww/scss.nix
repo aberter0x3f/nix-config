@@ -21,10 +21,9 @@ in
   $color-base0F: #${colors.base0F};
 
   * {
-    all: unset; // Unsets everything so you can style everything from scratch
+    all: unset;
   }
 
-  // Global Styles
   .bar {
     background-color: $color-base01;
     border-bottom: 2px solid $color-base0D;
@@ -33,17 +32,18 @@ in
     font-family: 'Sarasa Term SC Nerd Font', monospace;
   }
 
-  // Styles on classes (see eww.yuck for more information)
+  .left {
+    margin-left: 1em;
+  }
 
-  .metric scale trough highlight {
-    background-color: $color-base0D;
+  .right {
+    margin-right: 1em;
   }
-  .metric scale trough {
-    background-color: $color-base05;
-    min-height: 3px;
-    min-width: 50px;
-    margin-left: 10px;
+
+  .right>* {
+    padding-left: 1em;
   }
+
   .ws {
     min-width: 2.5em;
   }

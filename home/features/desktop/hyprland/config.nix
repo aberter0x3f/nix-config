@@ -9,11 +9,6 @@ in
   # Source a file (multi-file configs)
   # source = ~/.config/hypr/myColors.conf
 
-  # Some default env vars.
-  env = GDK_SCALE,2
-  env = XCURSOR_SIZE,24
-  env = XCURSOR_THEME,"Bibata-Modern-Ice"
-
   # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
   input {
     kb_layout = us
@@ -26,6 +21,8 @@ in
     numlock_by_default = 1
 
     follow_mouse = 1
+    # mouse_refocus = 0
+    float_switch_override_focus = 0
 
     touchpad {
       disable_while_typing = 0
@@ -49,6 +46,8 @@ in
     col.inactive_border = 0xff${colorscheme.colors.base02}
     col.group_border_active = 0xff${colorscheme.colors.base0B}
     col.group_border = 0xff${colorscheme.colors.base04}
+
+    cursor_inactive_timeout = 3
 
     layout = master
   }
@@ -134,6 +133,7 @@ in
   bind = $mainMod SHIFT, Q, exit,
   bind = $mainMod SHIFT, F, togglefloating,
   bind = $mainMod, D, exec, wofi --show drun
+  bind = $mainMod SHIFT, S, exec, bash -c 'grim -g "$(slurp)" - | wl-copy'
   bind = $mainMod, M, layoutmsg, swapwithmaster master
 
   # Move focus with mainMod + HJKL
@@ -194,5 +194,11 @@ in
   exec=swaybg -i ${wallpaper} --mode fill
   exec-once = hyprctl setcursor "Bibata-Modern-Ice" 24
   exec-once = xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
-  exec-once = ~/.local/bin/desktop-startup
+  exec-once = xrdb -merge ~/.Xresources
+  exec-once = fcitx5 -d
+  exec-once = eww open bar
+
+  # env = GDK_SCALE,2
+  env = XCURSOR_SIZE,48
+  env = XCURSOR_THEME,"Bibata-Modern-Ice"
 ''

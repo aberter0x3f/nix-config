@@ -13,5 +13,6 @@
   redfish-sans = pkgs.callPackage ./redfish-sans { };
   redfish-serif = pkgs.callPackage ./redfish-serif { };
   eww-tray = pkgs.callPackage ./eww-tray { };
+  kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./some-qt5-package { };
 }

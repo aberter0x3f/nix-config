@@ -6,5 +6,5 @@ let
 in
 lib.concatStringsSep "\n"
   (lib.forEach enabledMonitors (m: ''
-    monitor=${m.name},${toString m.width}x${toString m.height}@${toString m.refreshRate},${toString m.x}x${toString m.y},${m.scale}
-  '' + lib.concatStrings (lib.forEach m.workspaces (ws: "wsbind=${ws},${m.name}\n"))))
+    monitor = ${m.name}, ${toString m.width}x${toString m.height}@${toString m.refreshRate}, ${toString m.x}x${toString m.y}, ${m.scale}
+  '' + lib.concatStrings (lib.forEach m.workspaces (ws: "workspace = ${ws}, monitor:${m.name}\n"))))

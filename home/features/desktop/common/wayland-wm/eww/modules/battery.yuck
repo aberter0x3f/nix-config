@@ -1,0 +1,6 @@
+(deflisten v_battery "scripts/battery.sh")
+
+(defwidget battery []
+  (box :class "battery" :orientation "h" :space-evenly false :halign "start"
+  (label :class "icon" :text "${v_battery.icon} ")
+  (label :class "text" :text "${v_battery.percent}%")))

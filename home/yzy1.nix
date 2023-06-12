@@ -6,9 +6,9 @@
 {
   # You can import other home-manager modules here
   imports = [
-    inputs.nix-colors.homeManagerModules.default
     ./global
     ./features/desktop/hyprland
+    ./features/games
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   home.username = "yzy1";

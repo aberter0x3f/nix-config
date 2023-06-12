@@ -13,7 +13,6 @@
     grim
     imv
     mimeo
-    pulseaudio
     slurp
     swaybg
     waypipe
