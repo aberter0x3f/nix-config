@@ -44,8 +44,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "chisui";
           repo = "zsh-nix-shell";
-          rev = "v0.6.0";
-          sha256 = "sha256-B0mdmIqefbm5H8wSG1h41c/J4shA186OyqvivmSK42Q=";
+          rev = "v0.7.0";
+          sha256 = "sha256-oQpYKBt0gmOSBgay2HgbXiDoZo5FoUKwyHSlUrOAP5E=";
         };
       }
       {
@@ -54,8 +54,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "clarketm";
           repo = "zsh-completions";
-          rev = "8ded397b50c1dfa4f266e72d6d15877ea0d6fe89";
-          sha256 = "sha256-7e6cn/foED7k2kZJ+B6RjeD477IotIbo13YdGsSmeTo=";
+          rev = "7727bf4d76c51c09d3736c43c48d1de0736cb2e0";
+          sha256 = "sha256-97k0AyF7VBf+tolE5w2WPGrNAqWjfQk6mgQBgVYpmPU=";
         };
       }
       {

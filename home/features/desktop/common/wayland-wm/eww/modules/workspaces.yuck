@@ -9,8 +9,8 @@
         (for i in v_workspaces
           (button
             :onclick "hyprctl dispatch workspace ${i.num}"
-            :class "ws ws-${i.status}"
-            (label :class "ws-bg-text" :text "◆")
+            :class "workspaces workspaces-${i.status}"
+            (label :class "workspaces-bg-text" :text "◆")
           )
         )
       )
@@ -21,8 +21,8 @@
         (for i in v_workspaces
           (button
             :onclick "hyprctl dispatch workspace ${i.index}"
-            :class "ws ws-${i.status}"
-            (label :class "ws-text" :text "${i.index}")
+            :class "workspaces workspaces-${i.status}"
+            (label :class "workspaces-text" :text "${i.index}")
           )
         )
       )

@@ -20,13 +20,9 @@ in
   $color-base0E: #${colors.base0E};
   $color-base0F: #${colors.base0F};
 
-  * {
-    all: unset;
-  }
-
   .bar {
     background-color: $color-base01;
-    border-bottom: 2px solid $color-base0D;
+    // border-bottom: 2px solid $color-base0D;
     color: $color-base05;
     font-size: 16px;
     font-family: 'Sarasa Term SC Nerd Font', monospace;
@@ -44,27 +40,28 @@ in
     padding-left: 1em;
   }
 
-  .ws {
+  .workspaces {
+    all: unset;
     min-width: 2.5em;
   }
-  .ws-bg-text {
+  .workspaces-bg-text {
     font-size: 26px;
     margin-top: -100px;
     margin-bottom: -100px;
     font-family: "RedFish Sans", sans-serif;
   }
-  .ws-text {
+  .workspaces-text {
     color: $color-base00;
   }
-  .ws-active .ws-bg-text {
+  .workspaces-active .workspaces-bg-text {
     color: $color-base0D;
     text-shadow: -1px 0 $color-base05, 0 1px $color-base05, 1px 0 $color-base05, 0 -1px $color-base05;
   }
-  .ws-inactive .ws-bg-text {
+  .workspaces-inactive .workspaces-bg-text {
     color: $color-base04;
     text-shadow: -1px 0 $color-base05, 0 1px $color-base05, 1px 0 $color-base05, 0 -1px $color-base05;
   }
-  .ws-empty .ws-bg-text {
+  .workspaces-empty .workspaces-bg-text {
     color: $color-base03;
     text-shadow: -1px 0 $color-base04, 0 1px $color-base04, 1px 0 $color-base04, 0 -1px $color-base04;
   }

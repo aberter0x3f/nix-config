@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "eww-tray";
-  version = "94309f96cbf78077fc50fb813c9e4c38e8faf072";
+  version = "5f8b38dc8b1ee7b48d10f16a0046e363e446709c";
 
   src = fetchFromGitHub {
     owner = "ralismark";
     repo = "eww";
     rev = version;
-    sha256 = "sha256-uJF9+p894xXk+19p+yhkDNnEgT6KYhQYkISgebsJXok=";
+    sha256 = "sha256-kI4snXUmeMpPZ4l3wo+8XNtRznXvAa8bhU3K+eK5xBs=";
   };
 
   cargoLock = {

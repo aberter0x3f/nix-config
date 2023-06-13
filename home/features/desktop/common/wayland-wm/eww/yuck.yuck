@@ -4,13 +4,11 @@
 
 (deflisten v_volume "scripts/volume.sh")
 
-(defpoll v_time :interval "0.5s"
-  "date +'%H:%M'")
-
 (defwidget bar []
   (centerbox :orientation "h"
-    (box :class "left" :orientation "h" :space-evenly false :halign "start"
-      (label :text "${v_time}"))
+    (box :orientation "h" :space-evenly false :halign "start"
+      ;; (systray :class "systray" :pack_direction "ltr")
+      )
     (workspaces)
     (right)))
 
@@ -20,7 +18,8 @@
     (label :text "${v_volume.sink_icon} ${v_volume.shik_percent} ${v_volume.source_icon} ${v_volume.source_percent}")
     (label :text "󰍛 ${round(EWW_RAM.available_mem / 1024 / 1024, 0)} MiB")
     (label :text "󰔄 ${EWW_TEMPS.ACPITZ_TEMP1}")
-    (battery)))
+    (battery)
+    (label :text "󰥔 ${formattime(EWW_TIME, "%H:%M")}")))
 
 (defwindow bar
   :stacking "fg"

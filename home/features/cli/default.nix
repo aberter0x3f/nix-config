@@ -34,5 +34,6 @@
     htop-vim
     p7zip
     zip
+    unzip
   ];
 }

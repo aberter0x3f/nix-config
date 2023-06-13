@@ -3,4 +3,4 @@
 (defwidget network []
   (box :class "network" :orientation "h" :space-evenly false :halign "start"
   (label :class "icon" :text "${v_network.icon} ")
-  (label :class "text" :text "${v_network.essid}")))
+  (label :class "text" :text "${v_network.connection_name}")))
