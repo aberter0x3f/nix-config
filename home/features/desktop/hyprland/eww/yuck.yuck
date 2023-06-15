@@ -7,8 +7,7 @@
 (defwidget bar []
   (centerbox :orientation "h"
     (box :orientation "h" :space-evenly false :halign "start"
-      ;; (systray :class "systray" :pack_direction "ltr")
-      )
+      (systray :class "systray" :pack_direction "ltr"))
     (workspaces)
     (right)))
 
