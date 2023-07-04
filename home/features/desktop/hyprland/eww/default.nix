@@ -8,7 +8,7 @@
   ewwConfig = {
     yuck = builtins.readFile ./yuck.yuck;
     scss = import ./scss.nix {
-      inherit (config) colorscheme;
+      inherit (config) colorscheme fontProfiles;
     };
     scripts = import ./scripts { };
     modules = import ./modules { };

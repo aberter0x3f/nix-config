@@ -22,6 +22,7 @@
     wl-clipboard
     wl-mirror
     ydotool
+    evince
   ];
 
   home.sessionVariables = {
@@ -48,23 +49,20 @@
     '';
   };
 
-  xresources.properties = {
-    "Xft.dpi" = 192;
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland = {
       enable = true;
-      hidpi = true;
+      hidpi = false;
     };
-    recommendedEnvironment = false;
+    recommendedEnvironment = true;
     extraConfig =
       (import ./monitors.nix {
         inherit lib;
         inherit (config) monitors;
       }) +
       (import ./config.nix {
+        inherit pkgs;
         inherit (config) colorscheme wallpaper home;
       });
   };

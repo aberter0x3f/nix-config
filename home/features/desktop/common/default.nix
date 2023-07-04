@@ -1,11 +1,12 @@
-{ pkgs, lib, outputs, callModule, ... }:
+{ pkgs, lib, outputs, config, ... }:
 {
   imports = [
+    ./font.nix
     ./gtk.nix
+    ./playerctl.nix
+    ./proxy.nix
     ./qt.nix
     ./wezterm.nix
-    ./font.nix
-    ./playerctl.nix
   ];
 
   xdg.mimeApps.enable = true;

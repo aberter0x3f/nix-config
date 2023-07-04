@@ -22,6 +22,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rMaJTwpjYevb2QCajXw1WqlYLgVkStBVWYGSA00kpvA=";
   };
 
+  enableParallelBuilding = true;
+
   unpackPhase = ''
     runHook preUnpack
     cp ${src} NotoSerifCJKsc-VF.otf

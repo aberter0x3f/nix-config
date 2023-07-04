@@ -1,4 +1,4 @@
-{ colorscheme, wallpaper, home }:
+{ pkgs, colorscheme, wallpaper, home }:
 
 let
   inherit (home.sessionVariables) TERMINAL;
@@ -115,12 +115,16 @@ in
     sensitivity = -0.5
   }
 
+  # xwayland {
+  #   use_nearest_neighbor = true
+  # #   force_zero_scaling = true
+  # }
+
   # Example windowrule v1
   # windowrule = float, ^(kitty)$
   # Example windowrule v2
   # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
   # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-
 
   # See https://wiki.hyprland.org/Configuring/Keywords/ for more
   $mainMod = SUPER
@@ -193,12 +197,11 @@ in
 
   exec=swaybg -i ${wallpaper} --mode fill
   exec-once = hyprctl setcursor "Bibata-Modern-Ice" 24
-  exec-once = xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
-  exec-once = xrdb -merge ~/.Xresources
+  exec-once = ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1
   exec-once = fcitx5 -d
   exec-once = eww open bar
 
   # env = GDK_SCALE,2
-  env = XCURSOR_SIZE,48
-  env = XCURSOR_THEME,"Bibata-Modern-Ice"
+  # env = XCURSOR_SIZE,48
+  # env = XCURSOR_THEME,"Bibata-Modern-Ice"
 ''

@@ -8,12 +8,12 @@ let
       description = "Family name for ${kind} font profile";
       example = "Fira Code";
     };
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = null;
-      description = "Package for ${kind} font profile";
-      example = "pkgs.fira-code";
-    };
+    # package = lib.mkOption {
+    #   type = lib.types.package;
+    #   default = null;
+    #   description = "Package for ${kind} font profile";
+    #   example = "pkgs.fira-code";
+    # };
   };
   cfg = config.fontProfiles;
 in
@@ -27,6 +27,6 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
-    home.packages = [ cfg.monospace.package cfg.sans-serif.package cfg.serif.package ];
+    # home.packages = [ cfg.monospace.package cfg.sans-serif.package cfg.serif.package ];
   };
 }

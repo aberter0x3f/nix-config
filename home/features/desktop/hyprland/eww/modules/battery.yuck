@@ -1,4 +1,4 @@
-(deflisten v_battery "scripts/battery.sh")
+(defpoll v_battery :interval "2s" "scripts/battery.sh")
 
 (defwidget battery []
   (box :class "battery" :orientation "h" :space-evenly false :halign "start"

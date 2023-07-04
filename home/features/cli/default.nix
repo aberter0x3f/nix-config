@@ -4,6 +4,7 @@
     ./git.nix
     ./gpg.nix
     ./lazygit.nix
+    ./typst.nix
     ./zsh.nix
   ];
 

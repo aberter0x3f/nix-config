@@ -18,7 +18,7 @@
 
     enableCompletion = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
 
     initExtra = ''
       autoload -U promptinit; promptinit

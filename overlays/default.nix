@@ -10,15 +10,13 @@
   modifications = final: prev: {
     glibcLocalesWithEnXX = prev.glibcLocales.overrideAttrs
       (oldAttrs: {
-        buildPhase =
-          (''
-            echo 'en_XX.UTF-8@POSIX/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED
-            for i in ../glibc-2*/localedata/locales
-            do
-              ln -s "${prev.locale-en_xx}/share/i18n/locales/en_XX@POSIX" "$i/en_XX@POSIX"
-            done
-          '' + oldAttrs.buildPhase
-          );
+        patchPhase = ''
+          echo 'en_XX.UTF-8@POSIX/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED
+          for i in ../glibc-2*/localedata/locales
+          do
+            ln -s "${prev.locale-en_xx}/share/i18n/locales/en_XX@POSIX" "$i/en_XX@POSIX"
+          done
+        '';
       });
   };
 }

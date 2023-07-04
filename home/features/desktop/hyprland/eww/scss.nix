@@ -1,4 +1,4 @@
-{ colorscheme }:
+{ colorscheme, fontProfiles }:
 
 let inherit (colorscheme) colors;
 in
@@ -25,7 +25,7 @@ in
     // border-bottom: 2px solid $color-base0D;
     color: $color-base05;
     font-size: 16px;
-    font-family: 'Sarasa Term SC Nerd Font', monospace;
+    font-family: '${fontProfiles.monospace.family}', monospace;
   }
 
   .left {
@@ -48,7 +48,7 @@ in
     font-size: 26px;
     margin-top: -100px;
     margin-bottom: -100px;
-    font-family: "RedFish Sans", sans-serif;
+    font-family: '${fontProfiles.sans-serif.family}', sans-serif;
   }
   .workspaces-text {
     color: $color-base00;

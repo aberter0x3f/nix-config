@@ -3,17 +3,16 @@
 let
   src = ./src;
   rename-script = src + "/fontname.py";
-  chws-tool = pkgs.callPackage ../chws-tool { };
   fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { };
 in
 stdenv.mkDerivation rec {
-  pname = "redfish-sans";
-  inherit (pkgs.sarasa-gothic) version;
+  pname = "kulia-mono";
+  inherit (pkgs.julia-mono) version;
 
   nativeBuildInputs = with pkgs; [
     unzip
-    chws-tool
     fonttools-opentype-feature-freezer
+    nerd-font-patcher
     python3Packages.fonttools
   ];
 
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   patchPhase = ''
-    ln -s ${pkgs.sarasa-gothic}/share/fonts/truetype/*.ttc .
+    ln -s ${pkgs.julia-mono}/share/fonts/truetype/*.ttf .
     ln -s ${rename-script} .
   '';
 

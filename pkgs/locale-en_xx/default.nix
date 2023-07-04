@@ -4,10 +4,7 @@ stdenvNoCC.mkDerivation rec {
   pname = "locale-en_xx";
   version = "2017";
 
-  src = fetchurl {
-    url = "https://xyne.dev/projects/locale-en_xx/src/locale-en_xx-${version}.tar.xz";
-    hash = "sha256-tHnpczSat4jPuWe6G0Q12qouumXjlUMNb6rBKQvfIog=";
-  };
+  src = ./locale-en_xx-2017.tar.xz;
 
   patches = [
     ./force-24h.patch

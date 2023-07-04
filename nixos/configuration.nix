@@ -146,6 +146,7 @@
 
   fonts = {
     enableDefaultFonts = true;
+    fontDir.enable = true;
     fontconfig = {
       enable = true;
       antialias = true;
@@ -154,17 +155,20 @@
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
         monospace = [
-          "Sarasa Term SC Nerd Font"
+          "KuliaMono Nerd Font"
+          "Redfish Sans"
           "Plangothic P2"
           "Plangothic P1"
         ];
         sansSerif = [
           "RedFish Sans"
+          "Noto Sans"
           "Plangothic P2"
           "Plangothic P1"
         ];
         serif = [
           "RedFish Serif"
+          "Noto Serif"
           "Plangothic P2"
           "Plangothic P1"
         ];
@@ -174,48 +178,105 @@
         <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
         <fontconfig>
 
+        <alias>
+          <family>-apple-system</family>
+          <prefer>
+            <family>sans-serif</family>
+          </prefer>
+        </alias>
+
+        <alias>
+          <family>BlinkMacSystemFont</family>
+          <prefer>
+            <family>sans-serif</family>
+          </prefer>
+        </alias>
+
+        <alias>
+          <family>system-ui</family>
+          <prefer>
+            <family>sans-serif</family>
+          </prefer>
+        </alias>
+
+        <alias>
+          <family>Microsoft YaHei</family>
+          <prefer>
+            <family>Redfish Sans</family>
+          </prefer>
+        </alias>
+
+        <alias binding="strong">
+          <family>Noto Sans</family>
+          <prefer>
+            <family>Redfish Sans</family>
+          </prefer>
+        </alias>
+
+        <alias>
+          <family>Apple Color Emoji</family>
+          <prefer>
+            <family>emoji</family>
+          </prefer>
+        </alias>
+
+        <match>
+          <test name="family" compare="eq">
+            <string>Twemoji Mozilla</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>firefox</string>
+          </test>
+          <edit name="family" mode="prepend">
+            <string>emoji</string>
+          </edit>
+        </match>
+
         <match target="pattern">
-          <test name="family" compare="contains">
+          <test qual="any" name="family" compare="contains">
             <string>Source Han Sans</string>
           </test>
-          <edit name="family" mode="prepend">
-            <string>RedFish Sans</string>
-            <string>Plangothic P2</string>
-            <string>Plangothic P1</string>
-          </edit>
-        </match>
-
-        <match target="pattern">
-          <test name="family" compare="contains">
+          <test qual="any" name="family" compare="contains">
             <string>Noto Sans</string>
           </test>
-          <edit name="family" mode="prepend">
+          <edit name="family" mode="prepend" binding="strong">
             <string>RedFish Sans</string>
+            <string>Noto Sans</string>
+          </edit>
+          <edit name="family" mode="append">
             <string>Plangothic P2</string>
             <string>Plangothic P1</string>
           </edit>
         </match>
 
         <match target="pattern">
-          <test name="family" compare="contains">
+          <test qual="any" name="family" compare="contains">
+            <string>Source Han Serif</string>
+          </test>
+          <test qual="any" name="family" compare="contains">
             <string>Noto Serif</string>
           </test>
-          <edit name="family" mode="prepend">
+          <edit name="family" mode="prepend" binding="strong">
             <string>RedFish Serif</string>
+            <string>Noto Serif</string>
+          </edit>
+          <edit name="family" mode="append">
+            <string>Plangothic P2</string>
+            <string>Plangothic P1</string>
           </edit>
         </match>
+
         </fontconfig>
       '';
     };
     fonts = with pkgs; [
       noto-fonts-emoji
       noto-fonts
-      sarasa-term-sc-nerd-font
+      kulia-mono
       redfish-sans
       redfish-serif
       config.nur.repos.xddxdd.plangothic-fonts.allideo
       lxgw-wenkai-gb-fusion
-      last-resort
     ];
   };
 
@@ -301,14 +362,16 @@
   # List services that you want to enable:
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.dpi = 144;
+  services.xserver = {
+    enable = true;
+    dpi = 144;
 
-  services.xserver.displayManager.startx.enable = true;
+    displayManager.startx.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "ctrl:nocaps";
+    # Configure keymap in X11
+    layout = "us";
+    xkbOptions = "ctrl:nocaps";
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -373,12 +436,13 @@
       gdb
       llvm
       clang
-      kotatogram-desktop-iso-date
       libsForQt5.fcitx5-qt
       luajit
       neovim-unwrapped
-      config.nur.repos.linyinfeng.icalingua-plus-plus
+      tree-sitter
       vscode-fhs
+      kotatogram-desktop-iso-date
+      (config.nur.repos.linyinfeng.icalingua-plus-plus.override { electron = pkgs.electron_24; })
       iptables
       (
         let my-python-packages = python-packages: with python-packages; [

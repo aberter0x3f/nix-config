@@ -24,19 +24,16 @@ get_battery_charging_status() {
   fi
 }
 
-while true; do
-  if [ $(get_battery_number) -eq 0 ]; then
-    percent=-1
-    icon=$no_battery_icon
+if [ $(get_battery_number) -eq 0 ]; then
+  percent=-1
+  icon=$no_battery_icon
+else
+  percent=$(get_battery_combined_percent)
+  lvl=$(awk -v n="$percent" 'BEGIN{{max=10}{if(int(n/10)<max) max=int(n/10)}{print max}}')
+  if [ $(get_battery_charging_status) = "charging" ]; then
+    icon="${charging_icons[$lvl]}"
   else
-    percent=$(get_battery_combined_percent)
-    lvl=$(awk -v n="$percent" 'BEGIN{{max=10}{if(int(n/10)<max) max=int(n/10)}{print max}}')
-    if [ $(get_battery_charging_status) = "charging" ]; then
-      icon="${charging_icons[$lvl]}"
-    else
-      icon="${discharging_icons[$lvl]}"
-    fi
+    icon="${discharging_icons[$lvl]}"
   fi
-  echo '{"icon": "'"$icon"'", "percent": '"$percent"'}'
-  sleep 3
-done
+fi
+echo '{"icon": "'"$icon"'", "percent": '"$percent"'}'

@@ -11,6 +11,9 @@ in
         ./wofi-run-shell.patch
       ];
     });
+    settings = {
+      sort_order = "alphabetical";
+    };
     style = ''
       * {
         font-family: "${config.fontProfiles.monospace.family}";
