@@ -115,10 +115,10 @@ in
     sensitivity = -0.5
   }
 
-  # xwayland {
-  #   use_nearest_neighbor = true
-  # #   force_zero_scaling = true
-  # }
+  xwayland {
+    # use_nearest_neighbor = false
+    force_zero_scaling = true
+  }
 
   # Example windowrule v1
   # windowrule = float, ^(kitty)$
