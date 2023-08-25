@@ -2,9 +2,9 @@ ALL_FEATURES='abvf, abvm, abvs, aalt, akhn, nalt, halt, afrc, valt, vhal, blwf, 
 
 .PHONY: all clean
 
-all: build/redfish-VF.otf
+all: build/redfish-ExtraLight.otf build/redfish-Medium.otf build/redfish-Bold.otf build/redfish-Light.otf build/redfish-Regular.otf build/redfish-Black.otf build/redfish-SemiBold.otf
 
-redfish-%.nopalt.otf: NotoSerifCJKsc-%.otf
+redfish-%.nopalt.otf: OTF/SimplifiedChinese/NotoSerifCJKsc-%.otf
 	fonttools subset $< --layout-features=$(ALL_FEATURES) --glyphs='*' --output-file=$@
 
 redfish-%.featfreeze.otf: redfish-%.nopalt.otf

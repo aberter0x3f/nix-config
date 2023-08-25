@@ -107,7 +107,7 @@ in
           { key = 'Tab', mods = 'NONE', action = act.CopyMode 'MoveForwardWord' },
           { key = 'Tab', mods = 'SHIFT', action = act.CopyMode 'MoveBackwardWord' },
           { key = 'Enter', mods = 'NONE', action = act.CopyMode 'MoveToStartOfNextLine' },
-          { key = 'Escape', mods = 'NONE', action = act.CopyMode{ SetSelectionMode = 'Cell' } },
+          { key = 'Escape', mods = 'NONE', action = act.CopyMode 'Close' },
           { key = 'Space', mods = 'NONE', action = act.CopyMode{ SetSelectionMode = 'Cell' } },
           { key = '$', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent' },
           { key = '$', mods = 'SHIFT', action = act.CopyMode 'MoveToEndOfLineContent' },
@@ -227,7 +227,19 @@ in
         {
           event = { Up = { streak = 1, button = 'Left' } },
           mods = 'NONE',
-          action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+          action = wezterm.action{ ExtendSelectionToMouseCursor = "Cell" },
+        },
+
+        {
+          event = { Up = { streak = 2, button = 'Left' } },
+          mods = 'NONE',
+          action = "Nop",
+        },
+
+        {
+          event = { Up = { streak = 3, button = 'Left' } },
+          mods = 'NONE',
+          action = "Nop",
         },
 
         -- and make CTRL-Click open hyperlinks

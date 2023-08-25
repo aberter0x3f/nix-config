@@ -1,9 +1,10 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [
     ./fzf.nix
     ./git.nix
     ./gpg.nix
     ./lazygit.nix
+    ./ripgrep.nix
     ./typst.nix
     ./zsh.nix
   ];
@@ -12,7 +13,6 @@
     bc
     lf
     wget
-    ripgrep
     fd
     gojq
     socat
@@ -23,12 +23,15 @@
     tealdeer
     clang-tools
     file
+    rust-analyzer
+    rnix-lsp
     lua-language-server
+    vscode-langservers-extracted
+    inputs.codeium.packages.${system}.codeium-lsp
     bat
     exa
     cpt
     cpt-fetcher
-    rnix-lsp
     ouch
     rar
     acpi

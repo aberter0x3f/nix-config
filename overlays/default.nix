@@ -18,5 +18,15 @@
           done
         '';
       });
+    amdvlk = prev.amdvlk.overrideAttrs
+      (oldAttrs: rec {
+        version = "2023.Q3.1";
+        src = prev.fetchRepoProject {
+          name = "${oldAttrs.pname}-src";
+          manifest = "https://github.com/GPUOpen-Drivers/AMDVLK.git";
+          rev = "refs/tags/v-${version}";
+          sha256 = "W+igZbdQG1L62oGJa2Rz0n8YkTsZFqSm7w8VFfPu8k0=";
+        };
+      });
   };
 }

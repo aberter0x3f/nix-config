@@ -56,11 +56,11 @@ in
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
     rounding = 10
-    blur = yes
-    blur_size = 3
-    blur_passes = 1
-    blur_new_optimizations = on
-
+    blur {
+      enabled = true
+      size = 3
+      passes = 1
+    }
     drop_shadow = yes
     shadow_range = 4
     shadow_render_power = 3
@@ -118,6 +118,10 @@ in
   xwayland {
     # use_nearest_neighbor = false
     force_zero_scaling = true
+  }
+
+  misc {
+    disable_hyprland_logo = true
   }
 
   # Example windowrule v1
@@ -198,6 +202,7 @@ in
   exec=swaybg -i ${wallpaper} --mode fill
   exec-once = hyprctl setcursor "Bibata-Modern-Ice" 24
   exec-once = ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1
+  exec-once = wl-paste -p --watch wl-copy -pc
   exec-once = fcitx5 -d
   exec-once = eww open bar
 

@@ -136,16 +136,12 @@
       fcitx5 = {
         addons = with pkgs; [
           fcitx5-rime
-          fcitx5-gtk
-          fcitx5-lua
-          fcitx5-configtool
         ];
       };
     };
   };
 
   fonts = {
-    enableDefaultFonts = true;
     fontDir.enable = true;
     fontconfig = {
       enable = true;
@@ -269,7 +265,8 @@
         </fontconfig>
       '';
     };
-    fonts = with pkgs; [
+    enableDefaultPackages = true;
+    packages = with pkgs; [
       noto-fonts-emoji
       noto-fonts
       kulia-mono
@@ -436,7 +433,6 @@
       gdb
       llvm
       clang
-      libsForQt5.fcitx5-qt
       luajit
       neovim-unwrapped
       tree-sitter
@@ -458,7 +454,7 @@
       go
       jdk
       gradle
-      (rust-bin.stable.latest.default.override {
+      (rust-bin.nightly.latest.default.override {
         extensions = [ "rust-src" ];
         targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];
       })
@@ -466,5 +462,5 @@
     ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 }

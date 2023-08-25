@@ -10,7 +10,6 @@ stdenv.mkDerivation rec {
   inherit (pkgs.julia-mono) version;
 
   nativeBuildInputs = with pkgs; [
-    unzip
     fonttools-opentype-feature-freezer
     nerd-font-patcher
     python3Packages.fonttools

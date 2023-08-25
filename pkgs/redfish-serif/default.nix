@@ -18,15 +18,15 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "https://github.com/notofonts/noto-cjk/raw/Serif${version}/Serif/Variable/OTF/NotoSerifCJKsc-VF.otf";
-    sha256 = "sha256-rMaJTwpjYevb2QCajXw1WqlYLgVkStBVWYGSA00kpvA=";
+    url = "https://github.com/notofonts/noto-cjk/releases/download/Serif${version}/09_NotoSerifCJKsc.zip";
+    sha256 = "sha256-C0G+wlhoh2/gPnGAiv27wixAH5kdQLDQxtena19QSDY=";
   };
 
   enableParallelBuilding = true;
 
   unpackPhase = ''
     runHook preUnpack
-    cp ${src} NotoSerifCJKsc-VF.otf
+    unzip $src
     runHook postUnpack
   '';
 

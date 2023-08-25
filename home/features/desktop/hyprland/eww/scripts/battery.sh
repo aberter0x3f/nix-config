@@ -9,7 +9,7 @@ get_battery_number() {
 }
 
 get_battery_combined_percent() {
-  total_charge=$(expr $(acpi -b | awk '{print $NF}' | grep -Eo "[0-9]+" | paste -sd+ | bc))
+  total_charge=$(expr $(acpi -b | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+" | paste -sd+ | bc))
   battery_number=$(get_battery_number)
   percent=$(expr $total_charge / $battery_number)
   echo $percent

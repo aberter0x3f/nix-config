@@ -24,7 +24,7 @@
     nix-colors.url = github:misterio77/nix-colors;
 
     # Hyprland
-    hyprland.url = github:hyprwm/Hyprland;
+    hyprland.url = github:hyprwm/Hyprland/v0.28.0;
 
     # AAGL
     aagl.url = github:ezKEa/aagl-gtk-on-nix;
@@ -32,6 +32,12 @@
     # Typst
     typst = {
       url = github:typst/typst;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Codeium
+    codeium = {
+      url = github:jcdickinson/codeium.nvim;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

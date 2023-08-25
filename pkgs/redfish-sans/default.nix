@@ -11,7 +11,6 @@ stdenv.mkDerivation rec {
   inherit (pkgs.sarasa-gothic) version;
 
   nativeBuildInputs = with pkgs; [
-    unzip
     chws-tool
     fonttools-opentype-feature-freezer
     python3Packages.fonttools
