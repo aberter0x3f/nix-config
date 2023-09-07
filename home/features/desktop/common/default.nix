@@ -1,4 +1,5 @@
 { pkgs, lib, outputs, config, ... }:
+
 {
   imports = [
     ./font.nix
@@ -7,6 +8,9 @@
     ./proxy.nix
     ./qt.nix
     ./wezterm.nix
+  ];
+
+  home.packages = with pkgs; [
   ];
 
   xdg.mimeApps.enable = true;

@@ -23,6 +23,7 @@
     wl-mirror
     ydotool
     evince
+    bubblemail
   ];
 
   home.sessionVariables = {

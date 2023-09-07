@@ -202,8 +202,8 @@ in
   exec=swaybg -i ${wallpaper} --mode fill
   exec-once = hyprctl setcursor "Bibata-Modern-Ice" 24
   exec-once = ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1
-  exec-once = wl-paste -p --watch wl-copy -pc
   exec-once = fcitx5 -d
+  exec-once = bubblemaild
   exec-once = eww open bar
 
   # env = GDK_SCALE,2

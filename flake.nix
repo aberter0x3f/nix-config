@@ -29,11 +29,11 @@
     # AAGL
     aagl.url = github:ezKEa/aagl-gtk-on-nix;
 
-    # Typst
-    typst = {
-      url = github:typst/typst;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # # Typst
+    # typst = {
+    #   url = github:typst/typst;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Codeium
     codeium = {

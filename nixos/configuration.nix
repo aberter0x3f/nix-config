@@ -11,7 +11,6 @@
 
     # Or modules from other flakes (such as nixos-hardware):
     inputs.nur.nixosModules.nur
-    inputs.hyprland.nixosModules.default
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
@@ -434,6 +433,10 @@
       llvm
       clang
       luajit
+      nodejs
+      go
+      jdk
+      gradle
       neovim-unwrapped
       tree-sitter
       vscode-fhs
@@ -451,9 +454,6 @@
         in python3.withPackages my-python-packages
       )
       virt-manager
-      go
-      jdk
-      gradle
       (rust-bin.nightly.latest.default.override {
         extensions = [ "rust-src" ];
         targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];

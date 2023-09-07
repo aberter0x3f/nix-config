@@ -11,7 +11,6 @@
   kulia-mono = pkgs.callPackage ./kulia-mono { };
   locale-en_xx = pkgs.callPackage ./locale-en_xx { };
   lxgw-wenkai-gb-fusion = pkgs.callPackage ./lxgw-wenkai-gb-fusion { };
-  naiveproxy = pkgs.callPackage ./naiveproxy { };
   nekoray = pkgs.libsForQt5.callPackage ./nekoray { };
   redfish-sans = pkgs.callPackage ./redfish-sans { };
   redfish-serif = pkgs.callPackage ./redfish-serif { };

@@ -32,19 +32,19 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "nekoray";
-  version = "3.9";
+  version = "3.17";
 
   src = fetchFromGitHub ({
     owner = "MatsuriDayo";
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    sha256 = "sha256-qbnrqS/EEnvdv6xwjDE6wLm1QpzGZPs65cPt+z+cgWQ=";
+    sha256 = "sha256-RHIeJpFdkFw/n7PPUfW19q/UBef4+z7LxH+X/SreOSw=";
   });
 
   src-bin = fetchurl ({
-    url = "https://github.com/MatsuriDayo/nekoray/releases/download/${version}/nekoray-${version}-2023-06-27-linux64.zip";
-    hash = "sha256-QzcCVSm+SIsqjzugwLFnDcOaboC+XpXRCSq+Svv4SkI=";
+    url = "https://github.com/MatsuriDayo/nekoray/releases/download/${version}/nekoray-${version}-2023-08-17-linux64.zip";
+    hash = "sha256-Frdu8oAWHRngFHE/2uVDu++J/OSSJIysgHVQ6fjkyNU=";
   });
 
   enableParallelBuilding = true;
