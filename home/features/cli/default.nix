@@ -29,7 +29,7 @@
     vscode-langservers-extracted
     inputs.codeium.packages.${system}.codeium-lsp
     bat
-    exa
+    eza
     cpt
     cpt-fetcher
     ouch
@@ -39,5 +39,7 @@
     p7zip
     zip
     unzip
+    killall
+    dos2unix
   ];
 }

@@ -54,7 +54,6 @@
     enable = true;
     xwayland = {
       enable = true;
-      hidpi = false;
     };
     recommendedEnvironment = true;
     extraConfig =

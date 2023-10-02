@@ -1,10 +1,10 @@
 { pkgs, inputs, ... }: {
   nixpkgs.overlays = [
-    # inputs.typst.overlays.default
+    inputs.typst.overlays.default
   ];
 
   home.packages = with pkgs; [
-    typst
+    typst-dev
     typst-lsp
   ];
 

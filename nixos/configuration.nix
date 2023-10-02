@@ -45,7 +45,8 @@
       allowUnfree = true;
 
       permittedInsecurePackages = [
-        "openssl-1.1.1u"
+        "python3.10-requests-2.29.0"
+        "python3.10-cryptography-40.0.2"
       ];
     };
   };
@@ -300,6 +301,8 @@
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
       ];
+      subUidRanges = [{ count = 65536; startUid = 524288; }];
+      subGidRanges = [{ count = 65536; startGid = 524288; }];
       extraGroups = [
         "wheel"
         "audio"
@@ -421,6 +424,11 @@
     ];
   };
 
+  systemd.services."user@" = {
+    overrideStrategy = "asDropin";
+    serviceConfig.Delegate = "cpu cpuset io memory pids";
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs;
@@ -442,6 +450,7 @@
       vscode-fhs
       kotatogram-desktop-iso-date
       (config.nur.repos.linyinfeng.icalingua-plus-plus.override { electron = pkgs.electron_24; })
+      qq
       iptables
       (
         let my-python-packages = python-packages: with python-packages; [

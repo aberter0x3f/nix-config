@@ -7,6 +7,7 @@
   cpt = pkgs.callPackage ./cpt { };
   eww-tray = pkgs.callPackage ./eww-tray { };
   fonttools-opentype-feature-freezer = pkgs.callPackage ./fonttools-opentype-feature-freezer { };
+  hysteria-1 = pkgs.callPackage ./hysteria-1 { };
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
   kulia-mono = pkgs.callPackage ./kulia-mono { };
   locale-en_xx = pkgs.callPackage ./locale-en_xx { };
