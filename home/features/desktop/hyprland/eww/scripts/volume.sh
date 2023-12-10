@@ -108,7 +108,7 @@ else
 
   osd_handler &
   # event loop
-  pactl subscribe | rg --line-buffered "on sink" | while read -r _; do
+  pactl subscribe | rg --line-buffered "'change'" | while read -r _; do
     event
     generate
   done

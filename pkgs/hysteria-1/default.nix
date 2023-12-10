@@ -1,8 +1,8 @@
 { lib
 , fetchFromGitHub
-, buildGoModule
+, buildGo120Module
 }:
-buildGoModule rec {
+buildGo120Module rec {
   pname = "hysteria-1";
   version = "1.3.5";
 

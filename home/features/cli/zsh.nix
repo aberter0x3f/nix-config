@@ -54,8 +54,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "clarketm";
           repo = "zsh-completions";
-          rev = "7727bf4d76c51c09d3736c43c48d1de0736cb2e0";
-          sha256 = "sha256-97k0AyF7VBf+tolE5w2WPGrNAqWjfQk6mgQBgVYpmPU=";
+          rev = "9eb27c3f45bb4d8af66d928fb5a51e4ae0019714";
+          sha256 = "sha256-NfHo8Nc8DZpDNO25lVyZ2LLVv+sJPdyWt1Feg6jcNe4=";
         };
       }
       {
@@ -64,8 +64,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "sindresorhus";
           repo = "pure";
-          rev = "v1.21.0";
-          sha256 = "sha256-YfasTKCABvMtncrfoWR1Su9QxzCqPED18/BTXaJHttg=";
+          rev = "v1.22.0";
+          sha256 = "sha256-TR4CyBZ+KoZRs9XDmWE5lJuUXXU1J8E2Z63nt+FS+5w=";
         };
       }
     ];

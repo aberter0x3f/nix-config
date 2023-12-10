@@ -64,11 +64,13 @@
     driSupport32Bit = true;
     extraPackages = with pkgs; [
       amdvlk
-      rocm-opencl-icd
-      rocm-opencl-runtime
+      # rocmPackages.clr
+      # rocmPackages.clr.icd
     ];
     extraPackages32 = with pkgs; [
       driversi686Linux.amdvlk
     ];
   };
+
+  hardware.uinput.enable = true;
 }

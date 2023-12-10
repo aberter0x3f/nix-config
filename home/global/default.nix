@@ -37,7 +37,7 @@
 
   home = rec {
     homeDirectory = "/home/${config.home.username}";
-    sessionPath = [ "${homeDirectory}/.local/bin" ];
+    sessionPath = [ "${homeDirectory}/.local/bin" "${homeDirectory}/.cargo/bin" ];
     sessionVariables = {
       C_INCLUDE_PATH = "$HOME/.local/include:$C_INCLUDE_PATH";
       CPLUS_INCLUDE_PATH = "$HOME/.local/include:$CPLUS_INCLUDE_PATH";

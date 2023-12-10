@@ -1,7 +1,7 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example' or (legacy) 'nix-build -A example'
 
-{ pkgs ? (import ../nixpkgs.nix) { } }: {
+{ pkgs }: {
   chws-tool = pkgs.callPackage ./chws-tool { };
   cpt-fetcher = pkgs.callPackage ./cpt-fetcher { };
   cpt = pkgs.callPackage ./cpt { };

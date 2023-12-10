@@ -8,6 +8,7 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { pkgs = prev; };
     glibcLocalesWithEnXX = prev.glibcLocales.overrideAttrs
       (oldAttrs: {
         patchPhase = ''
@@ -20,12 +21,12 @@
       });
     # amdvlk = prev.amdvlk.overrideAttrs
     #   (oldAttrs: rec {
-    #     version = "2023.Q3.1";
+    #     version = "2023.Q3.3";
     #     src = prev.fetchRepoProject {
     #       name = "${oldAttrs.pname}-src";
     #       manifest = "https://github.com/GPUOpen-Drivers/AMDVLK.git";
     #       rev = "refs/tags/v-${version}";
-    #       sha256 = "W+igZbdQG1L62oGJa2Rz0n8YkTsZFqSm7w8VFfPu8k0=";
+    #       sha256 = "HHnMiU6mzhUSicXev53PP8y9ealtDMavJLp2F/JAWhI=";
     #     };
     #   });
   };

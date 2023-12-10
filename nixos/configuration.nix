@@ -47,6 +47,8 @@
       permittedInsecurePackages = [
         "python3.10-requests-2.29.0"
         "python3.10-cryptography-40.0.2"
+        "python3.11-requests-2.29.0"
+        "python3.11-cryptography-40.0.2"
       ];
     };
   };
@@ -67,8 +69,7 @@
       auto-optimise-store = true;
 
       substituters = [
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        # "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.cernet.edu.cn/nix-channels/store"
       ];
 
       trusted-users = [ "root" "yzy1" ];
@@ -89,6 +90,7 @@
         "dump.gamesafe.qq.com"
 
         "log-upload.mihoyo.com"
+        "ys-log-upload-os.hoyoverse.com"
         "devlog-upload.mihoyo.com"
         "uspider.yuanshen.com"
         "sg-public-data-api.hoyoverse.com"
@@ -356,6 +358,7 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    config.common.default = "*";
   };
 
   # List services that you want to enable:
@@ -388,7 +391,7 @@
   services.xserver.libinput.enable = true;
   services.xserver.libinput.touchpad.tapping = true;
 
-  services.v2raya.enable = true;
+  # services.v2raya.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 
@@ -437,6 +440,8 @@
       librewolf
       gcc
       gnumake
+      cmake
+      pkgconf
       gdb
       llvm
       clang
@@ -449,9 +454,10 @@
       tree-sitter
       vscode-fhs
       kotatogram-desktop-iso-date
-      (config.nur.repos.linyinfeng.icalingua-plus-plus.override { electron = pkgs.electron_24; })
+      # config.nur.repos.linyinfeng.icalingua-plus-plus
       qq
       iptables
+      kitty
       (
         let my-python-packages = python-packages: with python-packages; [
           pandas

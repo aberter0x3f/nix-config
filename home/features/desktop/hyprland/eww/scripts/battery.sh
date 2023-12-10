@@ -4,19 +4,19 @@ no_battery_icon="󱉝"
 
 # get amount of batteries in the device
 get_battery_number() {
-  battery_number=$(acpi -b | wc -l)
+  battery_number=$(acpi -b | grep -v "rate information unavailable" | wc -l)
   echo $battery_number
 }
 
 get_battery_combined_percent() {
-  total_charge=$(expr $(acpi -b | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+" | paste -sd+ | bc))
+  total_charge=$(expr $(acpi -b | grep -v "rate information unavailable" | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+" | paste -sd+ | bc))
   battery_number=$(get_battery_number)
   percent=$(expr $total_charge / $battery_number)
   echo $percent
 }
 
 get_battery_charging_status() {
-  if $(acpi -b | grep --quiet Discharging); then
+  if $(acpi -b | grep -v "rate information unavailable" | grep --quiet Discharging); then
     echo "discharging"
   else
     # acpi can give Unknown or Charging if charging, https://unix.stackexchange.com/questions/203741/lenovo-t440s-battery-status-unknown-but-charging

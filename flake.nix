@@ -4,6 +4,9 @@
   inputs = {
     # nixpkgs
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    # nixpkgs.url = github:NixOS/nixpkgs/4a97d6181c06655ee8952cd2f43b75e08c77df0d; ok
+    # nixpkgs.url = github:NixOS/nixpkgs/45e138e55a068035c2ff4608c2a03a42ac6c44b7; not ok
+    # nixpkgs.url = github:NixOS/nixpkgs/8dfad603247387df1df4826b8bea58efc5d012d8;
 
     # home-manager
     home-manager = {
@@ -24,10 +27,17 @@
     nix-colors.url = github:misterio77/nix-colors;
 
     # Hyprland
-    hyprland.url = github:hyprwm/Hyprland/v0.29.1;
+    hyprland = {
+      # url = github:hyprwm/Hyprland/v0.32.3;
+      url = github:yzy-1/Hyprland;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # AAGL
-    aagl.url = github:ezKEa/aagl-gtk-on-nix;
+    aagl = {
+      url = github:ezKEa/aagl-gtk-on-nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Typst
     typst = {
@@ -40,9 +50,15 @@
       url = github:jcdickinson/codeium.nvim;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # poetry2nix
+    poetry2nix = {
+      url = github:nix-community/poetry2nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, poetry2nix, ... }@inputs:
     let
       inherit (self) outputs;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
@@ -61,9 +77,9 @@
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs; }));
-      # Devshell for bootstrapping
-      # Acessible through 'nix develop' or 'nix-shell' (legacy)
-      devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
+      # Formatter for your nix files, available through 'nix fmt'
+      # Other options beside 'alejandra' include 'nixpkgs-fmt'
+      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
 
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
