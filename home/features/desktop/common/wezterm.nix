@@ -88,7 +88,7 @@ in
         return list
       end
 
-      config.font = wezterm.font_with_fallback { '${config.fontProfiles.monospace.family}', '${config.fontProfiles.sans-serif.family}', 'Plangothic P2', 'Plangothic P1' }
+      config.font = wezterm.font_with_fallback { '${config.fontProfiles.monospace.family}', 'Noto Sans Mono', '${config.fontProfiles.sans-serif.family}', 'Plangothic P2', 'Plangothic P1' }
       config.font_size = 11.0
 
       config.color_scheme = 'my_base16'

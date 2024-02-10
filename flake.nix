@@ -4,9 +4,6 @@
   inputs = {
     # nixpkgs
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
-    # nixpkgs.url = github:NixOS/nixpkgs/4a97d6181c06655ee8952cd2f43b75e08c77df0d; ok
-    # nixpkgs.url = github:NixOS/nixpkgs/45e138e55a068035c2ff4608c2a03a42ac6c44b7; not ok
-    # nixpkgs.url = github:NixOS/nixpkgs/8dfad603247387df1df4826b8bea58efc5d012d8;
 
     # home-manager
     home-manager = {
@@ -39,12 +36,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Typst
-    typst = {
-      url = github:typst/typst;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Codeium
     codeium = {
       url = github:jcdickinson/codeium.nvim;
@@ -56,9 +47,15 @@
       url = github:nix-community/poetry2nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nix-index-database
+    nix-index-database = {
+      url = github:Mic92/nix-index-database;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, poetry2nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, poetry2nix, nix-index-database, ... }@inputs:
     let
       inherit (self) outputs;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
@@ -76,7 +73,7 @@
     rec {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs; }));
+      packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs inputs; }));
       # Formatter for your nix files, available through 'nix fmt'
       # Other options beside 'alejandra' include 'nixpkgs-fmt'
       formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);

@@ -1,6 +1,6 @@
 { lib
 , pkgs
-, poetry2nix
+, inputs
 , python3
 , fetchFromGitHub
 , projectDir ? ./.
@@ -8,6 +8,9 @@
 , poetrylock ? projectDir + "/poetry.lock"
 }:
 
+let
+  poetry2nix = (inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; });
+in
 poetry2nix.mkPoetryApplication rec {
   inherit projectDir pyproject poetrylock;
   python = python3;

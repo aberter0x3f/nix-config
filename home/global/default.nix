@@ -3,6 +3,7 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     inputs.nur.hmModules.nur
+    inputs.nix-index-database.hmModules.nix-index
 
     ../features/cli
   ];
@@ -39,8 +40,8 @@
     homeDirectory = "/home/${config.home.username}";
     sessionPath = [ "${homeDirectory}/.local/bin" "${homeDirectory}/.cargo/bin" ];
     sessionVariables = {
-      C_INCLUDE_PATH = "$HOME/.local/include:$C_INCLUDE_PATH";
-      CPLUS_INCLUDE_PATH = "$HOME/.local/include:$CPLUS_INCLUDE_PATH";
+      C_INCLUDE_PATH = "$HOME/.local/include";
+      CPLUS_INCLUDE_PATH = "$HOME/.local/include";
       LOCALE_ARCHIVE_2_27 = lib.mkForce "$LOCALE_ARCHIVE";
     };
 

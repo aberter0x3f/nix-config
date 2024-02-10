@@ -1,14 +1,14 @@
-{ lib, stdenv, fetchurl, pkgs }:
+{ lib, stdenv, inputs, fetchurl, pkgs }:
 
 let
   rename-script = ./src/fontname.py;
   makefile = ./src/Makefile;
-  chws-tool = pkgs.callPackage ../chws-tool { };
-  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { };
+  chws-tool = pkgs.callPackage ../chws-tool { inherit inputs; };
+  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { inherit inputs; };
 in
 stdenv.mkDerivation rec {
   pname = "redfish-serif";
-  version = "2.001";
+  version = "2.002";
 
   nativeBuildInputs = with pkgs; [
     unzip
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/notofonts/noto-cjk/releases/download/Serif${version}/09_NotoSerifCJKsc.zip";
-    sha256 = "sha256-C0G+wlhoh2/gPnGAiv27wixAH5kdQLDQxtena19QSDY=";
+    sha256 = "sha256-7u3nL1uIZVo2MPGGYRVQKFeK/IiqnmflXbRai1vkZ4k=";
   };
 
   enableParallelBuilding = true;

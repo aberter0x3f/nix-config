@@ -1,9 +1,9 @@
-{ lib, stdenv, fetchurl, pkgs }:
+{ lib, stdenv, fetchurl, pkgs, inputs }:
 
 let
   src = ./src;
   rename-script = src + "/fontname.py";
-  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { };
+  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { inherit inputs; };
 in
 stdenv.mkDerivation rec {
   pname = "kulia-mono";

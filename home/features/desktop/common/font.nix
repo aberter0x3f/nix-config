@@ -2,7 +2,7 @@
   fontProfiles = {
     enable = true;
     monospace = {
-      family = "KuliaMono Nerd Font";
+      family = "CommitMono Nerd Font Medium";
       # package = pkgs.kulia-mono;
     };
     sans-serif = {

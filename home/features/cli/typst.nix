@@ -1,11 +1,7 @@
 { pkgs, inputs, ... }: {
-  nixpkgs.overlays = [
-    inputs.typst.overlays.default
-  ];
-
   home.packages = with pkgs; [
-    typst-dev
-    typst-lsp
+    typst
+    # typst-lsp
   ];
 
   home.sessionVariables = {

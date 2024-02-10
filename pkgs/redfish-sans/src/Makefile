@@ -2,9 +2,9 @@ ALL_FEATURES='abvf, abvm, abvs, aalt, akhn, nalt, halt, afrc, valt, vhal, blwf, 
 
 .PHONY: all clean
 
-all: build/redfish-bolditalic.ttf build/redfish-bold.ttf build/redfish-extralightitalic.ttf build/redfish-extralight.ttf build/redfish-italic.ttf build/redfish-lightitalic.ttf build/redfish-light.ttf build/redfish-regular.ttf build/redfish-semibolditalic.ttf build/redfish-semibold.ttf
+all: build/redfish-BoldItalic.ttf build/redfish-Bold.ttf build/redfish-ExtraLightItalic.ttf build/redfish-ExtraLight.ttf build/redfish-Italic.ttf build/redfish-LightItalic.ttf build/redfish-Light.ttf build/redfish-Regular.ttf build/redfish-SemiBoldItalic.ttf build/redfish-SemiBold.ttf
 
-redfish-%.nopalt.ttf: sarasa-%.ttc
+redfish-%.nopalt.ttf: Sarasa-%.ttc
 	fonttools subset $< --font-number=7 --layout-features=$(ALL_FEATURES) --glyphs='*' --output-file=$@
 
 redfish-%.featfreeze.ttf: redfish-%.nopalt.ttf

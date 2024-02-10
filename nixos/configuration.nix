@@ -153,7 +153,8 @@
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
         monospace = [
-          "KuliaMono Nerd Font"
+          "CommitMono Nerd Font"
+          "Noto Sans Mono"
           "Redfish Sans"
           "Plangothic P2"
           "Plangothic P1"
@@ -197,85 +198,165 @@
           </prefer>
         </alias>
 
-        <alias>
-          <family>Microsoft YaHei</family>
-          <prefer>
-            <family>Redfish Sans</family>
-          </prefer>
-        </alias>
-
-        <alias binding="strong">
-          <family>Noto Sans</family>
-          <prefer>
-            <family>Redfish Sans</family>
-          </prefer>
-        </alias>
-
-        <alias>
-          <family>Apple Color Emoji</family>
-          <prefer>
-            <family>emoji</family>
-          </prefer>
-        </alias>
-
         <match>
           <test name="family" compare="eq">
             <string>Twemoji Mozilla</string>
           </test>
-          <test name="prgname" compare="eq">
-            <string>firefox</string>
-          </test>
-          <edit name="family" mode="prepend">
+          <edit name="family" mode="prepend" binding="strong">
             <string>emoji</string>
           </edit>
         </match>
 
+        <match>
+          <test name="family" compare="eq">
+            <string>Apple Color Emoji</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>emoji</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="contains">
+            <string>Courier</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>firefox</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="contains">
+            <string>Courier</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>librewolf</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="eq">
+            <string>Fira Code</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>firefox</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="eq">
+            <string>Fira Code</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>librewolf</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
         <match target="pattern">
+          <test qual="any" name="family" compare="contains">
+            <string>Source Code</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test qual="any" name="family" compare="eq">
+            <string>Noto Sans Mono</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test qual="any" name="family" compare="eq">
+            <string>Noto Mono</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match target="pattern">
+          <test qual="any" name="family" compare="eq">
+            <string>Consolas</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test qual="any" name="family" compare="contains">
+            <string>Microsoft YaHei</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>sans-serif</string>
+          </edit>
+        </match>
+
+        <match>
           <test qual="any" name="family" compare="contains">
             <string>Source Han Sans</string>
           </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>sans-serif</string>
+          </edit>
+        </match>
+
+        <match>
           <test qual="any" name="family" compare="contains">
             <string>Noto Sans</string>
           </test>
           <edit name="family" mode="prepend" binding="strong">
-            <string>RedFish Sans</string>
-            <string>Noto Sans</string>
+            <string>sans-serif</string>
           </edit>
-          <edit name="family" mode="append">
-            <string>Plangothic P2</string>
-            <string>Plangothic P1</string>
+        </match>
+
+        <match>
+          <test qual="any" name="family" compare="contains">
+            <string>Source Han Serif</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>serif</string>
           </edit>
         </match>
 
         <match target="pattern">
           <test qual="any" name="family" compare="contains">
-            <string>Source Han Serif</string>
-          </test>
-          <test qual="any" name="family" compare="contains">
             <string>Noto Serif</string>
           </test>
           <edit name="family" mode="prepend" binding="strong">
-            <string>RedFish Serif</string>
-            <string>Noto Serif</string>
-          </edit>
-          <edit name="family" mode="append">
-            <string>Plangothic P2</string>
-            <string>Plangothic P1</string>
+            <string>serif</string>
           </edit>
         </match>
-
         </fontconfig>
       '';
     };
-    enableDefaultPackages = true;
+    enableDefaultPackages = false;
     packages = with pkgs; [
-      noto-fonts-emoji
       noto-fonts
-      kulia-mono
+      noto-fonts-color-emoji
       redfish-sans
       redfish-serif
+      # kulia-mono
+      commit-mono
       config.nur.repos.xddxdd.plangothic-fonts.allideo
-      lxgw-wenkai-gb-fusion
+      libertinus
     ];
   };
 
@@ -336,7 +417,11 @@
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.ovmf.enable = true;
+  };
+  programs.virt-manager.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -371,8 +456,10 @@
     displayManager.startx.enable = true;
 
     # Configure keymap in X11
-    layout = "us";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      layout = "us";
+      options = "ctrl:nocaps";
+    };
   };
 
   # Enable CUPS to print documents.
@@ -464,11 +551,13 @@
           requests
           pyyaml
           python-lsp-server
-          yapf
+          python-lsp-black
+          flake8
+          black
         ];
         in python3.withPackages my-python-packages
       )
-      virt-manager
+      virtiofsd
       (rust-bin.nightly.latest.default.override {
         extensions = [ "rust-src" ];
         targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];

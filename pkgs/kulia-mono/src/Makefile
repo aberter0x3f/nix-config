@@ -5,7 +5,7 @@ ALL_FEATURES='abvf, abvm, abvs, aalt, akhn, nalt, halt, afrc, valt, vhal, blwf, 
 all: build/KuliaMonoNerdFont-BlackItalic.ttf build/KuliaMonoNerdFont-Black.ttf build/KuliaMonoNerdFont-BoldItalic.ttf build/KuliaMonoNerdFont-BoldLatin.ttf build/KuliaMonoNerdFont-Bold.ttf build/KuliaMonoNerdFont-ExtraBoldItalic.ttf build/KuliaMonoNerdFont-ExtraBold.ttf build/KuliaMonoNerdFont-LightItalic.ttf build/KuliaMonoNerdFont-Light.ttf build/KuliaMonoNerdFont-MediumItalic.ttf build/KuliaMonoNerdFont-Medium.ttf build/KuliaMonoNerdFont-RegularItalic.ttf build/KuliaMonoNerdFont-RegularLatin.ttf build/KuliaMonoNerdFont-Regular.ttf build/KuliaMonoNerdFont-SemiBoldItalic.ttf build/KuliaMonoNerdFont-SemiBold.ttf
 
 JuliaMono-%.nopalt.ttf: JuliaMono-%.ttf
-	fonttools subset $< --layout-features=$(ALL_FEATURES) --unicodes='0-2fff,3040-feff,fff0-fffff' --output-file=$@
+	fonttools subset $< --layout-features=$(ALL_FEATURES) --unicodes='0-2e7f,a000-feff,fff0-1fbff' --output-file=$@
 
 JuliaMono-%.featfreeze.ttf: JuliaMono-%.nopalt.ttf
 	pyftfeatfreeze -f 'zero,ss01,ss08,ss13' $< $@
