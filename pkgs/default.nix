@@ -11,11 +11,8 @@
   fonttools-opentype-feature-freezer = pkgs.callPackage ./fonttools-opentype-feature-freezer { inherit inputs; };
   hyde = pkgs.callPackage ./hyde { };
   hysteria-1 = pkgs.callPackage ./hysteria-1 { };
-  # kotatogram-desktop-patched = pkgs.libsForQt5.callPackage ./kotatogram-desktop-patched { };
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
-  kulia-mono = pkgs.callPackage ./kulia-mono { inherit inputs; };
   locale-en_xx = pkgs.callPackage ./locale-en_xx { };
-  lxgw-wenkai-gb-fusion = pkgs.callPackage ./lxgw-wenkai-gb-fusion { };
   nekoray = pkgs.libsForQt5.callPackage ./nekoray { };
   redfish-sans = pkgs.callPackage ./redfish-sans { inherit inputs; };
   redfish-serif = pkgs.callPackage ./redfish-serif { inherit inputs; };

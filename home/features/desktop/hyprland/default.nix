@@ -54,7 +54,7 @@
     xwayland = {
       enable = true;
     };
-    recommendedEnvironment = true;
+    # recommendedEnvironment = true;
     extraConfig =
       (import ./monitors.nix {
         inherit lib;

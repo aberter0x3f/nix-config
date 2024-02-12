@@ -1,6 +1,7 @@
 { colorscheme, fontProfiles }:
 
-let inherit (colorscheme) colors;
+let
+  colors = colorscheme.palette;
 in
 ''
   $color-base00: #${colors.base00};

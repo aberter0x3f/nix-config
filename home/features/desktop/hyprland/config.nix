@@ -42,16 +42,16 @@ in
     gaps_in = 5
     gaps_out = 5
     border_size = 2
-    col.active_border = 0xff${colorscheme.colors.base0D}
-    col.inactive_border = 0xff${colorscheme.colors.base02}
+    col.active_border = 0xff${colorscheme.palette.base0D}
+    col.inactive_border = 0xff${colorscheme.palette.base02}
     cursor_inactive_timeout = 3
 
     layout = master
   }
 
   group {
-    col.border_active = 0xff${colorscheme.colors.base0B}
-    col.border_inactive = 0xff${colorscheme.colors.base04}
+    col.border_active = 0xff${colorscheme.palette.base0B}
+    col.border_inactive = 0xff${colorscheme.palette.base04}
   }
 
   decoration {
