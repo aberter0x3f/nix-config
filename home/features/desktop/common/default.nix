@@ -11,6 +11,15 @@
   ];
 
   home.packages = with pkgs; [
+    # Web broswer
+    librewolf
+    # Terminal
+    kitty
+    # IM
+    kotatogram-desktop-iso-date
+    qq
+    # GUI editor
+    vscode-fhs
   ];
 
   xdg.mimeApps.enable = true;

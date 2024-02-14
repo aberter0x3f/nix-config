@@ -478,9 +478,88 @@
   services.xserver.libinput.enable = true;
   services.xserver.libinput.touchpad.tapping = true;
 
-  # services.v2raya.enable = true;
-
   services.gnome.gnome-keyring.enable = true;
+
+  services.dae = {
+    enable = true;
+    assets = with pkgs; [ v2ray-geoip v2ray-domain-list-community ];
+    config = ''
+      global {
+        # 绑定到 LAN 和/或 WAN 接口。将下述接口替换成你自己的接口名。
+        lan_interface: virbr0
+        wan_interface: auto # 使用 "auto" 自动侦测 WAN 接口。
+
+        log_level: info
+        allow_insecure: false
+        auto_config_kernel_parameter: true
+      }
+
+      # 默认使用 alidns，如果疑似污染使用 googledns 重查。
+      dns {
+        upstream {
+          googledns: 'tcp+udp://dns.google.com:53'
+          alidns: 'udp://dns.alidns.com:53'
+        }
+        routing {
+          # 根据 DNS 查询，决定使用哪个 DNS 上游。
+          # 按由上到下的顺序匹配。
+          request {
+            # fallback 意为 default。
+            fallback: alidns
+          }
+          # 根据 DNS 查询的回复，决定接受或使用其他 upstream 重新查询。
+          # 按由上到下的顺序匹配。
+          response {
+            # 可信的 upstream。总是接受它的回复。
+            upstream(googledns) -> accept
+            # 疑似被污染结果，向 'googledns' 重查。
+            ip(geoip:private) && !qname(geosite:cn) -> googledns
+            # fallback 意为 default。
+            fallback: accept
+          }
+        }
+      }
+
+      node {
+        local_socks: 'socks5://localhost:1080'
+      }
+
+      group {
+        proxy {
+          policy: fixed(0)
+        }
+      }
+
+      # 更多的 Routing 样例见 https://github.com/daeuniverse/dae/blob/main/docs/en/configuration/routing.md
+      routing {
+        pname(NetworkManager) -> direct
+        pname(naiveproxy) -> must_direct
+        pname(hysteria) -> must_direct
+        pname(hysteria-1) -> must_direct
+        pname(sing-box) -> must_direct
+        dip(224.0.0.0/3, 'ff00::/8') -> direct
+
+        dip(172.3.10.0/24) -> direct
+
+        domain(suffix: hoyoverse.com) -> proxy
+        domain(suffix: gamersky.com) -> proxy
+        domain(suffix: yuanshen.com) -> proxy
+
+        domain(geosite:category-ads-all) -> block
+        domain(suffix: appcenter.ms) -> block
+        domain(suffix: app-measurement.com) -> block
+        domain(suffix: firebase.io) -> block
+        domain(suffix: crashlytics.com) -> block
+        domain(suffix: google-analytics.com) -> block
+
+        dip(geoip:private) -> direct
+        dip(geoip:cn) -> direct
+        domain(geosite:cn) -> direct
+
+        fallback: proxy
+      }
+    '';
+  };
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
@@ -524,7 +603,10 @@
   environment.systemPackages = with pkgs;
     [
       cachix
-      librewolf
+      pulseaudio
+      virtiofsd
+      iptables
+      # C & C++
       gcc
       gnumake
       cmake
@@ -532,19 +614,17 @@
       gdb
       llvm
       clang
+      # Lua
       luajit
+      # Node.js
       nodejs
+      corepack
+      # Go
       go
+      # Java
       jdk
       gradle
-      neovim-unwrapped
-      tree-sitter
-      vscode-fhs
-      kotatogram-desktop-iso-date
-      # config.nur.repos.linyinfeng.icalingua-plus-plus
-      qq
-      iptables
-      kitty
+      # Python
       (
         let my-python-packages = python-packages: with python-packages; [
           pandas
@@ -557,12 +637,14 @@
         ];
         in python3.withPackages my-python-packages
       )
-      virtiofsd
+      # Rust
       (rust-bin.nightly.latest.default.override {
         extensions = [ "rust-src" ];
         targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];
       })
-      pulseaudio
+      # Editor
+      neovim-unwrapped
+      tree-sitter
     ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

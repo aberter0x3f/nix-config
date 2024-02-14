@@ -3,5 +3,6 @@
     nekoray
     hysteria-1
     hysteria
+    sing-box
   ];
 }
