@@ -7,7 +7,8 @@
   # You can import other home-manager modules here
   imports = [
     ./global
-    ./features/desktop/hyprland
+    # ./features/desktop/hyprland
+    ./features/desktop/plasma
     ./features/games
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 

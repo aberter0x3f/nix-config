@@ -4,7 +4,7 @@ let
   mkFontOption = kind: {
     family = lib.mkOption {
       type = lib.types.str;
-      default = null;
+      default = "${kind}";
       description = "Family name for ${kind} font profile";
       example = "Fira Code";
     };

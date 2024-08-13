@@ -111,12 +111,6 @@ in
     workspace_swipe = off
   }
 
-  # Example per-device config
-  # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
-  device:epic mouse V1 {
-    sensitivity = -0.5
-  }
-
   xwayland {
     # use_nearest_neighbor = false
     force_zero_scaling = true

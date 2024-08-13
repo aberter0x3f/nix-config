@@ -45,10 +45,6 @@
       allowUnfree = true;
 
       permittedInsecurePackages = [
-        "python3.10-requests-2.29.0"
-        "python3.10-cryptography-40.0.2"
-        "python3.11-requests-2.29.0"
-        "python3.11-cryptography-40.0.2"
       ];
     };
   };
@@ -124,17 +120,21 @@
   # Select internationalisation properties.
   i18n = rec {
     defaultLocale = "en_XX.UTF-8@POSIX";
-    supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_CA.UTF-8/UTF-8" "C.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8" ];
+    supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_SE.UTF-8/UTF-8" "en_CA.UTF-8/UTF-8" "C.UTF-8/UTF-8" ];
     extraLocaleSettings = {
       LANGUAGE = "en_XX.UTF-8@POSIX:en_CA:en:C";
       LC_CTYPE = "en_CA.UTF-8";
+      LC_PAPER = "C";
+      LC_MEASUREMENT = "C";
+      LC_NUMERIC = "C";
     };
-    glibcLocales = pkgs.glibcLocalesWithEnXX.override {
+    glibcLocales = pkgs.glibcLocalesCustom.override {
       allLocales = false;
       locales = supportedLocales;
     };
     inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5 = {
         addons = with pkgs; [
           fcitx5-rime
@@ -365,8 +365,6 @@
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  # Enable sound.
-  sound.enable = true;
   hardware.bluetooth = {
     enable = true;
     settings = {
@@ -376,7 +374,7 @@
       };
     };
   };
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
@@ -462,6 +460,25 @@
     };
   };
 
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+
+  services.displayManager.defaultSession = "plasma";
+
+  services.desktopManager.plasma6.enable = true;
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    oxygen
+    oxygen-icons
+    discover
+    konsole
+    kate
+    gwenview
+    elisa
+  ];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -475,8 +492,8 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.tapping = true;
+  services.libinput.enable = true;
+  services.libinput.touchpad.tapping = true;
 
   services.gnome.gnome-keyring.enable = true;
 
@@ -537,10 +554,12 @@
         pname(hysteria) -> must_direct
         pname(hysteria-1) -> must_direct
         pname(sing-box) -> must_direct
+        pname(mieru) -> must_direct
         dip(224.0.0.0/3, 'ff00::/8') -> direct
 
         dip(172.3.10.0/24) -> direct
 
+        domain(geosite:microsoft) -> proxy
         domain(suffix: hoyoverse.com) -> proxy
         domain(suffix: gamersky.com) -> proxy
         domain(suffix: yuanshen.com) -> proxy
@@ -606,14 +625,16 @@
       pulseaudio
       virtiofsd
       iptables
+      pm2
       # C & C++
       gcc
       gnumake
       cmake
       pkgconf
       gdb
-      llvm
       clang
+      clang-tools
+      llvm
       # Lua
       luajit
       # Node.js

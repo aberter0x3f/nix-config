@@ -5,9 +5,10 @@
 
     shellAliases = {
       e = "$EDITOR";
-      ls = "ls --color=auto";
-      ll = "ls -lhF";
-      la = "ls -alhF";
+      ls = "eza --sort=Name --time-style=iso --group-directories-first";
+      ll = "eza -lF --sort=Name --time-style=iso --group-directories-first";
+      la = "eza -alF --sort=Name --time-style=iso --group-directories-first";
+      rm = "rm -i";
     };
 
     history = {
@@ -17,7 +18,7 @@
     defaultKeymap = "emacs";
 
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     initExtra = ''

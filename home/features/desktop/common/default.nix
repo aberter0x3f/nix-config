@@ -3,10 +3,7 @@
 {
   imports = [
     ./font.nix
-    ./gtk.nix
-    ./playerctl.nix
     ./proxy.nix
-    ./qt.nix
     ./wezterm.nix
   ];
 
@@ -20,6 +17,8 @@
     qq
     # GUI editor
     vscode-fhs
+    # DAW
+    lmms-nightly
   ];
 
   xdg.mimeApps.enable = true;

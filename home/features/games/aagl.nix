@@ -2,6 +2,6 @@
 
 {
   home.packages = [
-    inputs.aagl.packages.${pkgs.system}.anime-game-launcher
+    inputs.aagl.packages.${pkgs.system}.the-honkers-railway-launcher
   ];
 }

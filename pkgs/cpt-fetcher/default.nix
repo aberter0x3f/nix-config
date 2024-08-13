@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Gt7Co0N2QUVd+8YauJx6iBD5EKG4OSDSk5qTCaWlqhQ=";
   };
 
-  cargoSha256 = "sha256-xMR95njYz10pmvwa+Vy/70Z1UrBTuAwUiAY+dXrDoYY=";
+  cargoHash = "sha256-xMR95njYz10pmvwa+Vy/70Z1UrBTuAwUiAY+dXrDoYY=";
 
   meta = with lib; {
     description = "A bridge between Competitive Companion and cpt.";

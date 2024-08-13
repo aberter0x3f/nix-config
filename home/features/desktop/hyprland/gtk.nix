@@ -11,8 +11,10 @@ in
       size = 11;
     };
     theme = {
-      package = gtkThemeFromScheme { scheme = config.colorscheme; };
-      name = "${config.colorscheme.slug}";
+      package = pkgs.gnome.gnome-themes-extra;
+      name = "Adwaita";
+    #   package = gtkThemeFromScheme { scheme = config.colorscheme; };
+    #   name = "${config.colorscheme.slug}";
     };
     cursorTheme = {
       package = pkgs.bibata-cursors;
@@ -32,4 +34,8 @@ in
       "Net/IconThemeName" = "${config.gtk.iconTheme.name}";
     };
   };
+
+  # home.packages = with pkgs; [
+  #   gnome.gnome-themes-extra
+  # ];
 }

@@ -2,7 +2,9 @@
   imports = [
     ../common
     ./eww
+    ./gtk.nix
     ./mako.nix
+    ./qt.nix
     ./swaylock.nix
     ./wofi.nix
     # ./zathura.nix

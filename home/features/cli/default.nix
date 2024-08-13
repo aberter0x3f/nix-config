@@ -1,5 +1,6 @@
 { inputs, pkgs, ... }: {
   imports = [
+    ./fd.nix
     ./fzf.nix
     ./git.nix
     ./gpg.nix
@@ -13,18 +14,16 @@
     bc
     lf
     wget
-    fd
     gojq
     socat
+    comma
     lesspass-cli
     pciutils
-    tree
     opencc
     tealdeer
-    clang-tools
     file
     rust-analyzer
-    rnix-lsp
+    # rnix-lsp
     lua-language-server
     vscode-langservers-extracted
     inputs.codeium.packages.${system}.codeium-lsp

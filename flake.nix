@@ -25,14 +25,8 @@
 
     # Hyprland
     hyprland = {
-      url = github:hyprwm/Hyprland/v0.35.0;
+      url = github:hyprwm/Hyprland/v0.38.0;
       # url = github:yzy-1/Hyprland;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # AAGL
-    aagl = {
-      url = github:ezKEa/aagl-gtk-on-nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -53,6 +47,9 @@
       url = github:Mic92/nix-index-database;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # AAGL
+    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
   };
 
   outputs = { self, nixpkgs, home-manager, nur, poetry2nix, nix-index-database, ... }@inputs:

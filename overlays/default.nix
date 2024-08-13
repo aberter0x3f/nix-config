@@ -8,13 +8,15 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    glibcLocalesWithEnXX = prev.glibcLocales.overrideAttrs
+    glibcLocalesCustom = prev.glibcLocales.overrideAttrs
       (oldAttrs: {
         patchPhase = ''
+          echo 'en_SE.UTF-8/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED
           echo 'en_XX.UTF-8@POSIX/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED
           for i in ../glibc-2*/localedata/locales
           do
             ln -s "${prev.locale-en_xx}/share/i18n/locales/en_XX@POSIX" "$i/en_XX@POSIX"
+            ln -s "${prev.locale-en_xx}/share/i18n/locales/en_XX@POSIX" "$i/en_SE"
           done
         '';
       });

@@ -58,18 +58,11 @@
 
   hardware.firmware = [ ];
 
-  hardware.opengl = {
+  hardware.amdgpu.amdvlk.enable = true;
+
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      amdvlk
-      # rocmPackages.clr
-      # rocmPackages.clr.icd
-    ];
-    extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
-    ];
+    enable32Bit = true;
   };
 
   hardware.uinput.enable = true;
