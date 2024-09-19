@@ -76,7 +76,14 @@
   networking = {
     hostName = "yzy1-thinkbook";
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      trustedInterfaces = [
+        "virbr0"
+      ];
+      allowedTCPPorts = [ 25565 ];
+      allowedUDPPorts = [ 25565 ];
+    };
 
     hosts = {
       "0.0.0.0" = [
@@ -91,6 +98,7 @@
         "uspider.yuanshen.com"
         "sg-public-data-api.hoyoverse.com"
         "public-data-api.mihoyo.com"
+        "hkrpg-log-upload-os.hoyoverse.com"
 
         "prd-lender.cdp.internal.unity3d.com"
         "thind-prd-knob.data.ie.unity3d.com"
@@ -221,6 +229,18 @@
             <string>Courier</string>
           </test>
           <test name="prgname" compare="eq">
+            <string>brave</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="contains">
+            <string>Courier</string>
+          </test>
+          <test name="prgname" compare="eq">
             <string>firefox</string>
           </test>
           <edit name="family" mode="prepend" binding="strong">
@@ -234,6 +254,18 @@
           </test>
           <test name="prgname" compare="eq">
             <string>librewolf</string>
+          </test>
+          <edit name="family" mode="prepend" binding="strong">
+            <string>monospace</string>
+          </edit>
+        </match>
+
+        <match>
+          <test name="family" compare="eq">
+            <string>Fira Code</string>
+          </test>
+          <test name="prgname" compare="eq">
+            <string>brave</string>
           </test>
           <edit name="family" mode="prepend" binding="strong">
             <string>monospace</string>
@@ -612,6 +644,16 @@
     ];
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+    environmentVariables = {
+      HCC_AMDGPU_TARGET = "gfx1035";
+      OLLAMA_ORIGINS = "*";
+    };
+    rocmOverrideGfx = "10.3.5";
+  };
+
   systemd.services."user@" = {
     overrideStrategy = "asDropin";
     serviceConfig.Delegate = "cpu cpuset io memory pids";
@@ -659,7 +701,7 @@
         in python3.withPackages my-python-packages
       )
       # Rust
-      (rust-bin.nightly.latest.default.override {
+      (rust-bin.stable.latest.default.override {
         extensions = [ "rust-src" ];
         targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];
       })

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 let
   colors = config.colorscheme.palette;
@@ -7,6 +7,7 @@ in
   home.sessionVariables = { TERMINAL = "wezterm"; };
   programs.wezterm = {
     enable = true;
+    package = inputs.wezterm.packages.${pkgs.system}.default;
     colorSchemes = {
       my_base16 = {
         ansi = [

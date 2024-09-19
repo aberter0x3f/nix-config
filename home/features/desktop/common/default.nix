@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     # Web broswer
     librewolf
+    brave
     # Terminal
     kitty
     # IM
@@ -18,7 +19,7 @@
     # GUI editor
     vscode-fhs
     # DAW
-    lmms-nightly
+    # lmms-nightly
   ];
 
   xdg.mimeApps.enable = true;
