@@ -1,5 +1,4 @@
 { colorscheme, fontProfiles }:
-
 let
   colors = colorscheme.palette;
 in

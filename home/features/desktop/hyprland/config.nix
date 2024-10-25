@@ -1,5 +1,9 @@
-{ pkgs, colorscheme, wallpaper, home }:
-
+{
+  pkgs,
+  colorscheme,
+  wallpaper,
+  home,
+}:
 let
   inherit (home.sessionVariables) TERMINAL;
 in

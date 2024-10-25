@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
-
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "cpt-fetcher";
   version = "5414f55d8c406b2b632d4fd6b673b39f9ba2fb05";

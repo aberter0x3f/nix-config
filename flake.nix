@@ -3,48 +3,48 @@
 
   inputs = {
     # nixpkgs
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # home-manager
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # NUR
-    nur.url = github:nix-community/NUR;
+    nur.url = "github:nix-community/NUR";
 
     # rust-overlay
     rust-overlay = {
-      url = github:oxalica/rust-overlay;
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-colors
-    nix-colors.url = github:misterio77/nix-colors;
+    # # nix-colors
+    # nix-colors.url = "github:misterio77/nix-colors";
 
     # Hyprland
-    hyprland = {
-      url = github:hyprwm/Hyprland/v0.38.0;
-      # url = github:yzy-1/Hyprland;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland = {
+    #   url = github:hyprwm/Hyprland/v0.38.0;
+    #   # url = github:yzy-1/Hyprland;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Codeium
     codeium = {
-      url = github:jcdickinson/codeium.nvim;
+      url = "github:jcdickinson/codeium.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # poetry2nix
     poetry2nix = {
-      url = github:nix-community/poetry2nix;
+      url = "github:nix-community/poetry2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # nix-index-database
     nix-index-database = {
-      url = github:Mic92/nix-index-database;
+      url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -52,34 +52,65 @@
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    # AAGL
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+    # # AAGL
+    # aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+
+    # niri
+    niri.url = "github:sodiboo/niri-flake";
+    # niri.url = "github:yzy-1/niri-flake";
+
+    # stylix
+    stylix.url = "github:danth/stylix";
+
+    # anyrun
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, poetry2nix, nix-index-database, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      forEachSystem = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
 
-      mkNixos = modules: nixpkgs.lib.nixosSystem {
-        inherit modules;
-        specialArgs = { inherit inputs outputs; };
-      };
-      mkHome = modules: pkgs: home-manager.lib.homeManagerConfiguration {
-        inherit modules pkgs;
-        extraSpecialArgs = { inherit inputs outputs; };
-      };
+      mkNixos =
+        modules:
+        nixpkgs.lib.nixosSystem {
+          inherit modules;
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+      mkHome =
+        modules: pkgs:
+        home-manager.lib.homeManagerConfiguration {
+          inherit modules pkgs;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+        };
     in
-    rec {
+    {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs inputs; }));
       # Formatter for your nix files, available through 'nix fmt'
       # Other options beside 'alejandra' include 'nixpkgs-fmt'
-      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
+      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };

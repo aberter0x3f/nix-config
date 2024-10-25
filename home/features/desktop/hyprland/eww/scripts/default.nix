@@ -1,5 +1,4 @@
-{}:
-
+{ }:
 {
   "battery.sh" = builtins.readFile ./battery.sh;
   "network.sh" = builtins.readFile ./network.sh;

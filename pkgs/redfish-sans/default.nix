@@ -1,10 +1,17 @@
-{ lib, stdenv, fetchurl, pkgs, inputs }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkgs,
+  inputs,
+}:
 let
   src = ./src;
   rename-script = src + "/fontname.py";
   chws-tool = pkgs.callPackage ../chws-tool { inherit inputs; };
-  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer { inherit inputs; };
+  fonttools-opentype-feature-freezer = pkgs.callPackage ../fonttools-opentype-feature-freezer {
+    inherit inputs;
+  };
 in
 stdenv.mkDerivation rec {
   pname = "redfish-sans";

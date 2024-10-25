@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGo120Module
+{
+  lib,
+  fetchFromGitHub,
+  buildGo120Module,
 }:
 buildGo120Module rec {
   pname = "hysteria-1";

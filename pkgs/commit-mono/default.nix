@@ -1,5 +1,8 @@
-{ lib, stdenv, fetchurl, pkgs, symlinkJoin }:
-
+{
+  stdenv,
+  fetchurl,
+  pkgs,
+}:
 let
   src = ./src;
   gitHash = "ecd81cdbd7f7eb2acaaa2f2f7e1a585676f9beff";

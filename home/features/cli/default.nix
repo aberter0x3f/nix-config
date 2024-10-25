@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [
     ./fd.nix
     ./fzf.nix
@@ -23,8 +24,9 @@
     tealdeer
     file
     rust-analyzer
-    # rnix-lsp
+    nixd
     lua-language-server
+    nixfmt-rfc-style
     vscode-langservers-extracted
     inputs.codeium.packages.${system}.codeium-lsp
     bat

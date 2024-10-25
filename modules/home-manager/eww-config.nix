@@ -1,10 +1,15 @@
-{ lib, config, pkgs, ... }:
-
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) types mkOption;
   cfg = config.ewwConfig;
 
-  writeShellScriptDir = path: text:
+  writeShellScriptDir =
+    path: text:
     pkgs.writeTextFile {
       name = builtins.baseNameOf path;
       destination = "/${path}";
@@ -46,13 +51,16 @@ in
     programs.eww.configDir = pkgs.symlinkJoin {
       name = "eww-config";
       paths =
-        [ (pkgs.writeTextDir "/eww.yuck" cfg.yuck) (pkgs.writeTextDir "/eww.scss" cfg.scss) ] ++
-        (lib.attrsets.mapAttrsToList
-          (name: text: (pkgs.writeTextDir "modules/${name}" text))
-          cfg.modules) ++
-        (lib.attrsets.mapAttrsToList
-          (name: text: (writeShellScriptDir "scripts/${name}" text))
-          cfg.scripts);
+        [
+          (pkgs.writeTextDir "/eww.yuck" cfg.yuck)
+          (pkgs.writeTextDir "/eww.scss" cfg.scss)
+        ]
+        ++ (lib.attrsets.mapAttrsToList (
+          name: text: (pkgs.writeTextDir "modules/${name}" text)
+        ) cfg.modules)
+        ++ (lib.attrsets.mapAttrsToList (
+          name: text: (writeShellScriptDir "scripts/${name}" text)
+        ) cfg.scripts);
     };
   };
 }

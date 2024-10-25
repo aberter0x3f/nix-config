@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
-
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "cpt";
   version = "0.16.3";

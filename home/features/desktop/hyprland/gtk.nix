@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
 in
@@ -13,8 +17,8 @@ in
     theme = {
       package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita";
-    #   package = gtkThemeFromScheme { scheme = config.colorscheme; };
-    #   name = "${config.colorscheme.slug}";
+      #   package = gtkThemeFromScheme { scheme = config.colorscheme; };
+      #   name = "${config.colorscheme.slug}";
     };
     cursorTheme = {
       package = pkgs.bibata-cursors;

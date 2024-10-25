@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../common
     ./ime.nix
@@ -7,7 +14,8 @@
   home.packages = with pkgs; [
     wl-clipboard
     ydotool
-    bubblemail
+    # bubblemail
+    thunderbird
     libdbusmenu
     kwin-effect-hide-cursor
   ];

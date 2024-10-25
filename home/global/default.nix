@@ -1,7 +1,12 @@
-{ inputs, outputs, config, lib, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [
-    inputs.nix-colors.homeManagerModules.default
     inputs.nur.hmModules.nur
     inputs.nix-index-database.hmModules.nix-index
 
@@ -17,6 +22,7 @@
 
       # You can also add overlays exported from other flakes:
       inputs.rust-overlay.overlays.default
+      inputs.niri.overlays.niri
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -28,7 +34,7 @@
     # Configure your nixpkgs instance
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
@@ -38,7 +44,10 @@
 
   home = rec {
     homeDirectory = "/home/${config.home.username}";
-    sessionPath = [ "${homeDirectory}/.local/bin" "${homeDirectory}/.cargo/bin" ];
+    sessionPath = [
+      "${homeDirectory}/.local/bin"
+      "${homeDirectory}/.cargo/bin"
+    ];
     sessionVariables = {
       C_INCLUDE_PATH = "$HOME/.local/include";
       CPLUS_INCLUDE_PATH = "$HOME/.local/include";

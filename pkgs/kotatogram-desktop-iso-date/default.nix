@@ -1,5 +1,10 @@
-{ stdenv, lib, makeWrapper, libsForQt5, kotatogram-desktop }:
-
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  libsForQt5,
+  kotatogram-desktop,
+}:
 # let
 #   kotatogram-desktop = libsForQt5.callPackage ../kotatogram-desktop-patched { };
 # in

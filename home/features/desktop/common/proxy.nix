@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     # nekoray
     # hysteria-1

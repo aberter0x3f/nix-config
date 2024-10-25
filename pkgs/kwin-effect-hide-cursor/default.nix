@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, cmake
-, extra-cmake-modules
-, kwin
-, wrapQtAppsHook
-, fetchFromGitHub
-, qttools
+{
+  lib,
+  stdenv,
+  cmake,
+  extra-cmake-modules,
+  kwin,
+  wrapQtAppsHook,
+  fetchFromGitHub,
+  qttools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kwin-effect-hide-cursor";
   version = "0.1.0";

@@ -1,5 +1,8 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
-
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "locale-en_se";
   version = "0.2.0";

@@ -1,25 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, cmake
-, ninja
-, go
-, zxing-cpp
-, protobuf
-, yaml-cpp
-, qtbase
-, qtsvg
-, qttools
-, qtx11extras
-, wrapQtAppsHook
-, unzip
-, makeDesktopItem
-, v2ray-geoip
-, v2ray-domain-list-community
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  ninja,
+  go,
+  zxing-cpp,
+  protobuf,
+  yaml-cpp,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtx11extras,
+  wrapQtAppsHook,
+  unzip,
+  makeDesktopItem,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  ...
 }:
-
 let
   desktopItem = makeDesktopItem {
     name = "nekoray";
@@ -35,24 +35,38 @@ stdenv.mkDerivation rec {
   version = "3.26";
   release-date = "2023-12-09";
 
-  src = fetchFromGitHub ({
+  src = fetchFromGitHub {
     owner = "MatsuriDayo";
     repo = pname;
     rev = version;
     fetchSubmodules = true;
     sha256 = "sha256-fDm6fCI6XA4DHKCN3zm9B7Qbdh3LTHYGK8fPmeEnhjI=";
-  });
+  };
 
-  src-bin = fetchurl ({
+  src-bin = fetchurl {
     url = "https://github.com/MatsuriDayo/nekoray/releases/download/${version}/nekoray-${version}-${release-date}-linux64.zip";
     hash = "sha256-CVdYYnV0KU/AjFksg48TAtM2gwAjhvKHMwwfJkPWfTE=";
-  });
+  };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake ninja go zxing-cpp wrapQtAppsHook unzip ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    go
+    zxing-cpp
+    wrapQtAppsHook
+    unzip
+  ];
 
-  buildInputs = [ protobuf yaml-cpp qtbase qtsvg qttools qtx11extras ];
+  buildInputs = [
+    protobuf
+    yaml-cpp
+    qtbase
+    qtsvg
+    qttools
+    qtx11extras
+  ];
 
   postUnpack = ''
     unzip ${src-bin} -d nekoray-bin

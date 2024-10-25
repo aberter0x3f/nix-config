@@ -1,10 +1,10 @@
-{ stdenv
-, fetchurl
-, lib
-, autoPatchelfHook
-, ...
-} @ args:
-
+{
+  stdenv,
+  fetchurl,
+  lib,
+  autoPatchelfHook,
+  ...
+}@args:
 stdenv.mkDerivation rec {
   pname = "mireu";
   version = "3.2.0";
@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [
-  ];
+  buildInputs = [ ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,7 +1,14 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   # You can import other NixOS modules here
   imports = [
     ../cachix.nix
@@ -11,6 +18,7 @@
 
     # Or modules from other flakes (such as nixos-hardware):
     inputs.nur.nixosModules.nur
+    inputs.niri.nixosModules.niri
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
@@ -30,6 +38,7 @@
 
       # You can also add overlays exported from other flakes:
       inputs.rust-overlay.overlays.default
+      inputs.niri.overlays.niri
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -44,8 +53,7 @@
       # Disable if you don't want unfree packages
       allowUnfree = true;
 
-      permittedInsecurePackages = [
-      ];
+      permittedInsecurePackages = [ ];
     };
   };
 
@@ -60,17 +68,17 @@
 
     settings = {
       # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes repl-flake";
+      experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
 
-      substituters = [
-        "https://mirrors.cernet.edu.cn/nix-channels/store"
+      substituters = [ "https://mirrors.cernet.edu.cn/nix-channels/store" ];
+
+      trusted-users = [
+        "root"
+        "yzy1"
       ];
-
-      trusted-users = [ "root" "yzy1" ];
     };
-
   };
 
   networking = {
@@ -78,9 +86,7 @@
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     firewall = {
       enable = true;
-      trustedInterfaces = [
-        "virbr0"
-      ];
+      trustedInterfaces = [ "virbr0" ];
       allowedTCPPorts = [ 25565 ];
       allowedUDPPorts = [ 25565 ];
     };
@@ -128,7 +134,11 @@
   # Select internationalisation properties.
   i18n = rec {
     defaultLocale = "en_XX.UTF-8@POSIX";
-    supportedLocales = [ "en_XX.UTF-8@POSIX/UTF-8" "en_SE.UTF-8/UTF-8" "en_CA.UTF-8/UTF-8" "C.UTF-8/UTF-8" ];
+    supportedLocales = [
+      "en_XX.UTF-8@POSIX/UTF-8"
+      "en_CA.UTF-8/UTF-8"
+      "C.UTF-8/UTF-8"
+    ];
     extraLocaleSettings = {
       LANGUAGE = "en_XX.UTF-8@POSIX:en_CA:en:C";
       LC_CTYPE = "en_CA.UTF-8";
@@ -144,8 +154,10 @@
       enable = true;
       type = "fcitx5";
       fcitx5 = {
+        waylandFrontend = true;
         addons = with pkgs; [
           fcitx5-rime
+          fcitx5-nord
         ];
       };
     };
@@ -163,7 +175,7 @@
         monospace = [
           "CommitMono Nerd Font"
           "Noto Sans Mono"
-          "Redfish Sans"
+          "RedFish Sans"
           "Plangothic P2"
           "Plangothic P1"
         ];
@@ -406,16 +418,25 @@
       };
     };
   };
-  # services.blueman.enable = true;
+  services.blueman.enable = true;
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     yzy1 = {
       isNormalUser = true;
-      openssh.authorizedKeys.keys = [
+      openssh.authorizedKeys.keys = [ ];
+      subUidRanges = [
+        {
+          count = 65536;
+          startUid = 524288;
+        }
       ];
-      subUidRanges = [{ count = 65536; startUid = 524288; }];
-      subGidRanges = [{ count = 65536; startGid = 524288; }];
+      subGidRanges = [
+        {
+          count = 65536;
+          startGid = 524288;
+        }
+      ];
       extraGroups = [
         "wheel"
         "audio"
@@ -473,7 +494,10 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    config.common.default = "*";
+    # extraPortals = with pkgs; [
+    #   xdg-desktop-portal-gtk
+    # ];
+    # config.common.default = "*";
   };
 
   # List services that you want to enable:
@@ -483,7 +507,13 @@
     enable = true;
     dpi = 144;
 
-    displayManager.startx.enable = true;
+    # displayManager.startx.enable = true;
+
+    displayManager.lightdm = {
+      enable = true;
+    };
+
+    desktopManager.runXdgAutostartIfNone = true;
 
     # Configure keymap in X11
     xkb = {
@@ -492,27 +522,34 @@
     };
   };
 
-  services.displayManager.sddm = {
+  programs.niri = {
     enable = true;
-    wayland.enable = true;
+    package = pkgs.niri-unstable;
   };
 
-  services.displayManager.defaultSession = "plasma";
+  # services.displayManager.ly.enable = true;
 
-  services.desktopManager.plasma6.enable = true;
-
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    oxygen
-    oxygen-icons
-    discover
-    konsole
-    kate
-    gwenview
-    elisa
-  ];
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  # };
+  #
+  # services.displayManager.defaultSession = "plasma";
+  #
+  # services.desktopManager.plasma6.enable = true;
+  #
+  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
+  #   oxygen
+  #   oxygen-icons
+  #   discover
+  #   konsole
+  #   kate
+  #   gwenview
+  #   elisa
+  # ];
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   services.pipewire = {
     enable = true;
@@ -531,7 +568,10 @@
 
   services.dae = {
     enable = true;
-    assets = with pkgs; [ v2ray-geoip v2ray-domain-list-community ];
+    assets = with pkgs; [
+      v2ray-geoip
+      v2ray-domain-list-community
+    ];
     config = ''
       global {
         # 绑定到 LAN 和/或 WAN 接口。将下述接口替换成你自己的接口名。
@@ -543,27 +583,28 @@
         auto_config_kernel_parameter: true
       }
 
-      # 默认使用 alidns，如果疑似污染使用 googledns 重查。
+      # Use alidns for all DNS queries and fallback to cloudflaredns if pollution result detected.
       dns {
         upstream {
-          googledns: 'tcp+udp://dns.google.com:53'
+          cloudflaredns: 'tcp+udp://one.one.one.one:53'
+          googledns: 'tcp+udp://dns.google:53'
           alidns: 'udp://dns.alidns.com:53'
         }
         routing {
-          # 根据 DNS 查询，决定使用哪个 DNS 上游。
-          # 按由上到下的顺序匹配。
+          # According to the request of dns query, decide to use which DNS upstream.
+          # Match rules from top to bottom.
           request {
-            # fallback 意为 default。
+            # fallback is also called default.
             fallback: alidns
           }
-          # 根据 DNS 查询的回复，决定接受或使用其他 upstream 重新查询。
-          # 按由上到下的顺序匹配。
+          # According to the response of dns query, decide to accept or re-lookup using another DNS upstream.
+          # Match rules from top to bottom.
           response {
-            # 可信的 upstream。总是接受它的回复。
+            # Trusted upstream. Always accept its result.
             upstream(googledns) -> accept
-            # 疑似被污染结果，向 'googledns' 重查。
+            # Possibly polluted, re-lookup using googledns.
             ip(geoip:private) && !qname(geosite:cn) -> googledns
-            # fallback 意为 default。
+            # fallback is also called default.
             fallback: accept
           }
         }
@@ -603,6 +644,9 @@
         domain(suffix: crashlytics.com) -> block
         domain(suffix: google-analytics.com) -> block
 
+        # 禁用 h3，因为它通常消耗很多 CPU 和内存资源
+        l4proto(udp) && dport(443) -> block
+
         dip(geoip:private) -> direct
         dip(geoip:cn) -> direct
         domain(geosite:cn) -> direct
@@ -627,7 +671,9 @@
 
   # Increase open file limit for sudoers
   security.pam = {
-    services = { swaylock = { }; };
+    services = {
+      swaylock = { };
+    };
     loginLimits = [
       {
         domain = "@wheel";
@@ -661,54 +707,59 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-    [
-      cachix
-      pulseaudio
-      virtiofsd
-      iptables
-      pm2
-      # C & C++
-      gcc
-      gnumake
-      cmake
-      pkgconf
-      gdb
-      clang
-      clang-tools
-      llvm
-      # Lua
-      luajit
-      # Node.js
-      nodejs
-      corepack
-      # Go
-      go
-      # Java
-      jdk
-      gradle
-      # Python
-      (
-        let my-python-packages = python-packages: with python-packages; [
-          pandas
-          requests
-          pyyaml
-          python-lsp-server
-          python-lsp-black
-          flake8
-          black
-        ];
-        in python3.withPackages my-python-packages
-      )
-      # Rust
-      (rust-bin.stable.latest.default.override {
-        extensions = [ "rust-src" ];
-        targets = [ "wasm32-wasi" "wasm32-unknown-unknown" ];
-      })
-      # Editor
-      neovim-unwrapped
-      tree-sitter
-    ];
+  environment.systemPackages = with pkgs; [
+    cachix
+    pulseaudio
+    virtiofsd
+    iptables
+    pm2
+    # C & C++
+    gcc
+    gnumake
+    cmake
+    pkgconf
+    gdb
+    clang
+    clang-tools
+    llvm
+    # Lua
+    luajit
+    # Node.js
+    nodejs
+    corepack
+    # Go
+    go
+    # Java
+    jdk
+    gradle
+    # Python
+    (
+      let
+        my-python-packages =
+          python-packages: with python-packages; [
+            pandas
+            requests
+            pyyaml
+            python-lsp-server
+            python-lsp-black
+            flake8
+            black
+          ];
+      in
+      python3.withPackages my-python-packages
+    )
+    # Rust
+    (rust-bin.stable.latest.default.override {
+      extensions = [ "rust-src" ];
+      targets = [
+        "wasm32-wasi"
+        "wasm32-unknown-unknown"
+      ];
+    })
+    # Editor
+    neovim-unwrapped
+    tree-sitter
+  ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

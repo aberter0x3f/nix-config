@@ -1,14 +1,15 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example' or (legacy) 'nix-build -A example'
-
 { pkgs, inputs }:
 {
+  # bubblemail = pkgs.callPackage ./bubblemail { };
   chws-tool = pkgs.callPackage ./chws-tool { inherit inputs; };
   commit-mono = pkgs.callPackage ./commit-mono { };
   cpt-fetcher = pkgs.callPackage ./cpt-fetcher { };
   cpt = pkgs.callPackage ./cpt { };
-  eww-tray = pkgs.callPackage ./eww-tray { };
-  fonttools-opentype-feature-freezer = pkgs.callPackage ./fonttools-opentype-feature-freezer { inherit inputs; };
+  fonttools-opentype-feature-freezer = pkgs.callPackage ./fonttools-opentype-feature-freezer {
+    inherit inputs;
+  };
   hyde = pkgs.callPackage ./hyde { };
   hysteria-1 = pkgs.callPackage ./hysteria-1 { };
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };

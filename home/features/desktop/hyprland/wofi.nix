@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 let
   colors = config.colorscheme.palette;
 in
