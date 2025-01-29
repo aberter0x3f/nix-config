@@ -1,4 +1,3 @@
-{ }:
 {
   "battery.yuck" = builtins.readFile ./battery.yuck;
   "ip.yuck" = builtins.readFile ./ip.yuck;

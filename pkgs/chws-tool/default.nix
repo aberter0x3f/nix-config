@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   inputs,
   python3,
@@ -11,7 +10,7 @@
 let
   poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; };
 in
-poetry2nix.mkPoetryApplication rec {
+poetry2nix.mkPoetryApplication {
   inherit projectDir pyproject poetrylock;
   python = python3;
 

@@ -8,7 +8,6 @@
       :space-evenly false
       (for i in v_workspaces
         (button
-          :onclick "niri msg action focus-workspace ${i.index}"
           :class "workspace workspace-${i.status}"
           (label :class "workspace-text" :text "${i.index}")
         )

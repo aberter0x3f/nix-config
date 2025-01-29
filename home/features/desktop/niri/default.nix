@@ -11,13 +11,15 @@
 
     ../common
     ./eww
-    ./anyrun.nix
+    # ./anyrun.nix
     # ./fuzzel.nix
     ./gtk.nix
     # ./ime.nix
     ./mako.nix
     ./qt.nix
     ./swaylock.nix
+    # ./tofi.nix
+    ./wmenu.nix
   ];
 
   home.packages = with pkgs; [
@@ -26,6 +28,7 @@
     thunderbird
     nautilus # https://github.com/YaLTeR/niri/issues/702#issuecomment-2392162552
     evince
+    xwayland-satellite-stable
   ];
 
   programs.niri.package = pkgs.niri-unstable;
@@ -40,8 +43,11 @@
       keyboard = {
         repeat-delay = 300;
         repeat-rate = 25;
-
-        xkb.options = "ctrl:nocaps";
+        xkb = {
+          layout = "us,qwerty-aberter,workman-aberter";
+          options = "ctrl:nocaps";
+        };
+        track-layout = "global";
       };
 
       touchpad = {
@@ -91,7 +97,7 @@
       };
 
     cursor = {
-      hide-on-key-press = true;
+      # hide-on-key-press = true;
       hide-after-inactive-ms = 3000;
     };
 
@@ -179,9 +185,11 @@
     binds = with config.lib.niri.actions; {
       "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-      "Mod+Return".action = spawn "${config.home.sessionVariables.TERMINAL}";
-      "Mod+D".action = spawn "anyrun";
-      "Super+Backspace".action = spawn "swaylock";
+      "Mod+apostrophe".action = switch-layout "next";
+
+      "Mod+Return".action = spawn "foot";
+      "Mod+D".action = spawn "wmenu-run";
+      "Mod+Backspace".action = spawn "swaylock";
 
       "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "0.05+";
       "XF86AudioRaiseVolume".allow-when-locked = true;
@@ -205,6 +213,10 @@
       "Mod+J".action = focus-window-down;
       "Mod+K".action = focus-window-up;
       "Mod+L".action = focus-column-right;
+      "Mod+N".action = focus-column-left;
+      "Mod+E".action = focus-window-down;
+      "Mod+O".action = focus-window-up;
+      "Mod+I".action = focus-column-right;
 
       "Mod+Shift+Left".action = move-column-left;
       "Mod+Shift+Down".action = move-window-down;
@@ -214,6 +226,10 @@
       "Mod+Shift+J".action = move-window-down;
       "Mod+Shift+K".action = move-window-up;
       "Mod+Shift+L".action = move-column-right;
+      "Mod+Shift+N".action = move-column-left;
+      "Mod+Shift+E".action = move-window-down;
+      "Mod+Shift+O".action = move-window-up;
+      "Mod+Shift+I".action = move-column-right;
 
       "Mod+1".action = focus-workspace 1;
       "Mod+2".action = focus-workspace 2;
@@ -224,6 +240,15 @@
       "Mod+7".action = focus-workspace 7;
       "Mod+8".action = focus-workspace 8;
       "Mod+9".action = focus-workspace 9;
+      "Mod+parenleft".action = focus-workspace 1;
+      "Mod+parenright".action = focus-workspace 2;
+      "Mod+braceleft".action = focus-workspace 3;
+      "Mod+braceright".action = focus-workspace 4;
+      "Mod+bracketleft".action = focus-workspace 5;
+      "Mod+bracketright".action = focus-workspace 6;
+      "Mod+less".action = focus-workspace 7;
+      "Mod+greater".action = focus-workspace 8;
+      "Mod+numbersign".action = focus-workspace 9;
 
       "Mod+Shift+1".action = move-column-to-workspace 1;
       "Mod+Shift+2".action = move-column-to-workspace 2;
@@ -234,12 +259,18 @@
       "Mod+Shift+7".action = move-column-to-workspace 7;
       "Mod+Shift+8".action = move-column-to-workspace 8;
       "Mod+Shift+9".action = move-column-to-workspace 9;
+      "Mod+Shift+parenleft".action = move-column-to-workspace 1;
+      "Mod+Shift+parenright".action = move-column-to-workspace 2;
+      "Mod+Shift+braceleft".action = move-column-to-workspace 3;
+      "Mod+Shift+braceright".action = move-column-to-workspace 4;
+      "Mod+Shift+bracketleft".action = move-column-to-workspace 5;
+      "Mod+Shift+bracketright".action = move-column-to-workspace 6;
+      "Mod+Shift+less".action = move-column-to-workspace 7;
+      "Mod+Shift+greater".action = move-column-to-workspace 8;
+      "Mod+Shift+numbersign".action = move-column-to-workspace 9;
 
       "Mod+Comma".action = consume-window-into-column;
       "Mod+Period".action = expel-window-from-column;
-
-      "Mod+BracketLeft".action = consume-or-expel-window-left;
-      "Mod+BracketRight".action = consume-or-expel-window-right;
 
       "Mod+R".action = switch-preset-column-width;
       "Mod+Shift+R".action = switch-preset-window-height;

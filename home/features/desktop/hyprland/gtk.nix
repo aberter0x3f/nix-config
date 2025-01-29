@@ -1,45 +1,56 @@
+{ pkgs, ... }:
 {
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
-let
-  inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
-in
-{
-  gtk = {
+  stylix.targets.gtk = {
     enable = true;
-    font = {
-      name = config.fontProfiles.sans-serif.family;
-      size = 11;
-    };
-    theme = {
-      package = pkgs.gnome.gnome-themes-extra;
-      name = "Adwaita";
-      #   package = gtkThemeFromScheme { scheme = config.colorscheme; };
-      #   name = "${config.colorscheme.slug}";
-    };
-    cursorTheme = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 24;
-    };
+    extraCss = ''
+      .titlebar,
+      .titlebar .background,
+      decoration,
+      window,
+      window.background {
+        border-radius: 0;
+      }
+
+      decoration, decoration:backdrop {
+        box-shadow: none;
+      }
+
+      /* Always use background color */
+      GtkWindow {
+        background-color: @theme_bg_color;
+      }
+
+      /* Fix tooltip background override */
+      .tooltip {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .tooltip * {
+        background-color: transparent;
+      }
+
+      /* Fix Nautilus desktop window background override */
+      NautilusWindow {
+        background-color: transparent;
+      }
+    '';
+  };
+
+  stylix.targets.xresources.enable = true;
+
+  gtk = {
     iconTheme = {
       package = pkgs.tela-icon-theme;
-      name = "Tela";
+      name = "Tela-nord-dark";
     };
   };
 
-  services.xsettingsd = {
+  dconf = {
     enable = true;
     settings = {
-      "Net/ThemeName" = "${config.gtk.theme.name}";
-      "Net/IconThemeName" = "${config.gtk.iconTheme.name}";
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
     };
   };
-
-  # home.packages = with pkgs; [
-  #   gnome.gnome-themes-extra
-  # ];
 }

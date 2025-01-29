@@ -9,7 +9,7 @@
       colors = config.lib.stylix.colors.withHashtag;
       fonts = config.stylix.fonts;
     };
-    scripts = import ./scripts { };
-    modules = import ./modules { };
+    scripts = import ./scripts;
+    modules = import ./modules;
   };
 }

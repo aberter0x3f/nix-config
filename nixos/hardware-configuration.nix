@@ -21,9 +21,10 @@
     "sdhci_pci"
   ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  #boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "amdgpu.dcdebugmask=0x10" ]; # https://bbs.archlinux.org/viewtopic.php?id=296990
 
   fileSystems."/" = {
     device = "/dev/nvme0n1p2";

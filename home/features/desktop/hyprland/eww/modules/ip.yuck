@@ -1,0 +1,8 @@
+(defpoll v_ip :interval "10s" "scripts/ip.sh")
+
+(defwidget ip []
+  (box :class "ip" :orientation "h" :space-evenly false :halign "start"
+    (label :class "icon" :text "${v_ip.icon}")
+    (label :class "text" :text "${v_ip.text}")
+  )
+)

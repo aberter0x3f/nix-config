@@ -19,13 +19,27 @@
 
     enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      styles = {
+        comment = "none";
+      };
+    };
 
     initExtra = ''
-      autoload -U promptinit; promptinit
-      prompt pure
-
       eval "$(dircolors)"
+
+      function osc7-pwd() {
+        emulate -L zsh # also sets localoptions for us
+        setopt extendedglob
+        local LC_ALL=C
+        printf '\e]7;file://%s%s\e\' $HOST ''${PWD//(#m)([^@-Za-z&-;_~])/%''${(l:2::0:)$(([##16]#MATCH))}}
+      }
+
+      function chpwd-osc7-pwd() {
+        (( ZSH_SUBSHELL )) || osc7-pwd
+      }
+      add-zsh-hook -Uz chpwd chpwd-osc7-pwd
     '';
 
     plugins = [
@@ -36,7 +50,7 @@
           owner = "ael-code";
           repo = "zsh-colored-man-pages";
           rev = "57bdda68e52a09075352b18fa3ca21abd31df4cb";
-          sha256 = "sha256-087bNmB5gDUKoSriHIjXOVZiUG5+Dy9qv3D69E8GBhs=";
+          hash = "sha256-087bNmB5gDUKoSriHIjXOVZiUG5+Dy9qv3D69E8GBhs=";
         };
       }
       {
@@ -45,8 +59,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "chisui";
           repo = "zsh-nix-shell";
-          rev = "v0.7.0";
-          sha256 = "sha256-oQpYKBt0gmOSBgay2HgbXiDoZo5FoUKwyHSlUrOAP5E=";
+          rev = "v0.8.0";
+          hash = "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=";
         };
       }
       {
@@ -55,20 +69,129 @@
         src = pkgs.fetchFromGitHub {
           owner = "clarketm";
           repo = "zsh-completions";
-          rev = "9eb27c3f45bb4d8af66d928fb5a51e4ae0019714";
-          sha256 = "sha256-NfHo8Nc8DZpDNO25lVyZ2LLVv+sJPdyWt1Feg6jcNe4=";
+          rev = "7ca4fd85f9a3c1cf01c64d38bfb006eee468e320";
+          hash = "sha256-3dSmtO7UutyvwCw+wvtXSIiiVUt0sLX9EF/g6Tidieg=";
         };
       }
       {
-        name = "pure";
-        file = "pure.zsh";
+        name = "zsh-window-title";
+        file = "zsh-window-title.plugin.zsh";
         src = pkgs.fetchFromGitHub {
-          owner = "sindresorhus";
-          repo = "pure";
-          rev = "v1.22.0";
-          sha256 = "sha256-TR4CyBZ+KoZRs9XDmWE5lJuUXXU1J8E2Z63nt+FS+5w=";
+          owner = "olets";
+          repo = "zsh-window-title";
+          rev = "f859d445d416385abcf4a4d5460ce7c48d4bddf9";
+          hash = "sha256-RqJmb+XYK35o+FjUyqGZHD6r1Ku1lmckX41aXtVIUJQ=";
         };
       }
     ];
+  };
+
+  programs.carapace = {
+    enable = true;
+    enableBashIntegration = false;
+    enableZshIntegration = true;
+    enableFishIntegration = false;
+    enableNushellIntegration = false;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = false;
+    enableZshIntegration = true;
+    enableFishIntegration = false;
+    enableIonIntegration = false;
+    enableNushellIntegration = false;
+    settings = {
+      add_newline = true;
+      aws.symbol = "  ";
+      buf.symbol = " ";
+      c.symbol = " ";
+      conda.symbol = " ";
+      crystal.symbol = " ";
+      dart.symbol = " ";
+      directory.read_only = " 󰌾";
+      docker_context.symbol = " ";
+      elixir.symbol = " ";
+      elm.symbol = " ";
+      fennel.symbol = " ";
+      fossil_branch.symbol = " ";
+      git_branch.symbol = " ";
+      git_commit.tag_symbol = "  ";
+      golang.symbol = " ";
+      guix_shell.symbol = " ";
+      haskell.symbol = " ";
+      haxe.symbol = " ";
+      hg_branch.symbol = " ";
+      hostname.ssh_symbol = " ";
+      java.symbol = " ";
+      julia.symbol = " ";
+      kotlin.symbol = " ";
+      lua.symbol = " ";
+      memory_usage.symbol = "󰍛 ";
+      meson.symbol = "󰔷 ";
+      nim.symbol = "󰆥 ";
+      nix_shell.symbol = " ";
+      nodejs.symbol = " ";
+      ocaml.symbol = " ";
+      os = {
+        symbols = {
+          Alpaquita = " ";
+          Alpine = " ";
+          AlmaLinux = " ";
+          Amazon = " ";
+          Android = " ";
+          Arch = " ";
+          Artix = " ";
+          CentOS = " ";
+          Debian = " ";
+          DragonFly = " ";
+          Emscripten = " ";
+          EndeavourOS = " ";
+          Fedora = " ";
+          FreeBSD = " ";
+          Garuda = "󰛓 ";
+          Gentoo = " ";
+          HardenedBSD = "󰞌 ";
+          Illumos = "󰈸 ";
+          Kali = " ";
+          Linux = " ";
+          Mabox = " ";
+          Macos = " ";
+          Manjaro = " ";
+          Mariner = " ";
+          MidnightBSD = " ";
+          Mint = " ";
+          NetBSD = " ";
+          NixOS = " ";
+          OpenBSD = "󰈺 ";
+          openSUSE = " ";
+          OracleLinux = "󰌷 ";
+          Pop = " ";
+          Raspbian = " ";
+          Redhat = " ";
+          RedHatEnterprise = " ";
+          RockyLinux = " ";
+          Redox = "󰀘 ";
+          Solus = "󰠳 ";
+          SUSE = " ";
+          Ubuntu = " ";
+          Unknown = " ";
+          Void = " ";
+          Windows = "󰍲 ";
+        };
+      };
+      package.symbol = "󰏗 ";
+      perl.symbol = " ";
+      php.symbol = " ";
+      pijul_channel.symbol = " ";
+      python.symbol = " ";
+      rlang.symbol = "󰟔 ";
+      ruby.symbol = " ";
+      rust.symbol = "󱘗 ";
+      scala.symbol = " ";
+      swift.symbol = " ";
+      zig.symbol = " ";
+      gradle.symbol = " ";
+    };
   };
 }

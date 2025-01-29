@@ -21,18 +21,6 @@ status() {
   fi
 }
 
-status_activity() {
-  if [ "${o[$1]}" -eq 1 ]; then
-    if [ $focusedws -eq "$1" ]; then
-      echo -n "active"
-    else
-      echo -n "inactive"
-    fi
-  else
-    echo -n "empty"
-  fi
-}
-
 # handle workspace create/destroy
 workspace_event() {
   o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0)
@@ -55,8 +43,6 @@ generate() {
     echo -n ''$([ $i -eq 1 ] || echo ,)'{"index":"'$i'","status":"'$(status "$i")'"}'
   done
 
-  # echo -n ',{"num":"'$focusedws'","clr":"'$(status "$focusedws")'"}'
-
   echo ']'
 }
 
@@ -72,7 +58,7 @@ done
 # generate initial widget
 generate
 
-socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - | while read -r line; do
+socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
   # echo "${#workspaces[@]} ${#o[@]}"
   # echo $line
   case ${line%>>*} in

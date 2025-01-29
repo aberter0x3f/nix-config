@@ -1,0 +1,10 @@
+(deflisten v_net-speed "scripts/net-speed.sh")
+
+(defwidget net-speed []
+  (box :class "net-speed" :orientation "h" :space-evenly false :halign "start"
+    (label :class "icon" :text "↓")
+    (label :class "text" :text "${v_net-speed.down}")
+    (label :class "icon" :text "↑")
+    (label :class "text" :text "${v_net-speed.up}")
+  )
+)

@@ -1,0 +1,34 @@
+partial alphanumeric_keys
+xkb_symbols "basic" {
+
+  include "us(basic)"
+  name[Group1] = "QWERTY-A";
+
+  // ~_7531902468+
+  // `-<[{(#@)}]>=
+  // |^%
+  // &*$
+  // ?!\
+  // ,./
+  key <AE01> { [ minus, underscore ] };
+  key <AE02> { [ less, 7 ] };
+  key <AE03> { [ bracketleft, 5 ] };
+  key <AE04> { [ braceleft, 3 ] };
+  key <AE05> { [ parenleft, 1 ] };
+  key <AE06> { [ numbersign, 9 ] };
+
+  key <AE07> { [ at, 0 ] };
+  key <AE08> { [ parenright, 2 ] };
+  key <AE09> { [ braceright, 4 ] };
+  key <AE10> { [ bracketright, 6 ] };
+  key <AE11> { [ greater, 8 ] };
+  key <AE12> { [ equal, plus ] };
+
+  key <AD11> { [ ampersand, bar ] };
+  key <AD12> { [ asterisk, asciicircum ] };
+  key <BKSL> { [ dollar, percent ] };
+
+  key <AB08> { [ comma, question ] };
+  key <AB09> { [ period, exclam ] };
+  key <AB10> { [ slash, backslash ] };
+};

@@ -3,11 +3,14 @@
 
   inputs = {
     # nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
+    # nixpkgs-unstable
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # home-manager
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,15 +23,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # # nix-colors
-    # nix-colors.url = "github:misterio77/nix-colors";
-
     # Hyprland
-    # hyprland = {
-    #   url = github:hyprwm/Hyprland/v0.38.0;
-    #   # url = github:yzy-1/Hyprland;
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.46.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins/7634792d199d32ed9396d5864e6431cde1cca6bd";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     # Codeium
     codeium = {
@@ -48,28 +51,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # wezterm
-    wezterm = {
-      url = "github:wez/wezterm/main?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
+    # # wezterm
+    # wezterm = {
+    #   url = "github:wez/wezterm/main?dir=nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.rust-overlay.follows = "rust-overlay";
+    # };
 
     # # AAGL
     # aagl.url = "github:ezKEa/aagl-gtk-on-nix";
 
-    # niri
-    niri.url = "github:sodiboo/niri-flake";
-    # niri.url = "github:yzy-1/niri-flake";
+    # # niri
+    # niri.url = "github:sodiboo/niri-flake";
+    # # niri.url = "github:yzy-1/niri-flake";
 
     # stylix
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.11";
 
-    # anyrun
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # # anyrun
+    # anyrun = {
+    #   url = "github:anyrun-org/anyrun";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =

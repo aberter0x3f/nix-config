@@ -1,13 +1,12 @@
 {
   stdenv,
   fetchurl,
-  lib,
   autoPatchelfHook,
   zlib,
   ncurses,
   libgcc,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   pname = "hyde";
   version = "2.0.0";

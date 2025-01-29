@@ -8,9 +8,10 @@
   imports = [
     inputs.stylix.homeManagerModules.stylix
 
+    ./foot.nix
     ./proxy.nix
     ./stylix.nix
-    ./wezterm.nix
+    # ./wezterm.nix
   ];
 
   home.packages = with pkgs; [
@@ -28,6 +29,7 @@
     qq
     # GUI editor
     vscode-fhs
+    zed-editor
     # DAW
     # lmms-nightly
   ];

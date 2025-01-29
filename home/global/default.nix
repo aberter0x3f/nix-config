@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    inputs.nur.hmModules.nur
+    inputs.nur.modules.homeManager.default
     inputs.nix-index-database.hmModules.nix-index
 
     ../features/cli
@@ -22,7 +22,7 @@
 
       # You can also add overlays exported from other flakes:
       inputs.rust-overlay.overlays.default
-      inputs.niri.overlays.niri
+      # inputs.niri.overlays.niri
 
       # Or define it inline, for example:
       # (final: prev: {

@@ -21,5 +21,8 @@
       signByDefault = true;
       key = null;
     };
+    delta = {
+      enable = true;
+    };
   };
 }

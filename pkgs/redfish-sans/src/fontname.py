@@ -22,12 +22,18 @@ import sys
 
 from fontTools import ttLib
 
-old_name = ''
-font_name = ''
+old_name = ""
+font_name = ""
+
 
 def replace_str(x):
     global old_name, font_name
-    return x.replace(old_name, font_name).replace(old_name.replace(' ','-'), font_name.replace(' ', '')).replace(old_name.replace(' ', ''), font_name.replace(' ',''))
+    return (
+        x.replace(old_name, font_name)
+        .replace(old_name.replace(" ", "-"), font_name.replace(" ", ""))
+        .replace(old_name.replace(" ", ""), font_name.replace(" ", ""))
+    )
+
 
 def main(argv):
     global old_name, font_name
@@ -82,21 +88,21 @@ def main(argv):
 
         # modify the opentype table data in memory with updated values
         for record in namerecord_list:
-            if record.nameID in (3,4,6,16):
-                record.string = replace_str(record.string.decode('utf-16be')).encode('utf-16be')
+            if record.nameID in (3, 4, 6, 16):
+                record.string = replace_str(record.string.decode("utf-16be")).encode("utf-16be")
             if record.nameID == 1:
-                record.string = font_name.encode('utf-16be')
-                nameID1_string = record.string.decode('utf-16be')
+                record.string = font_name.encode("utf-16be")
+                nameID1_string = record.string.decode("utf-16be")
             elif record.nameID == 3:
-                nameID3_string = record.string.decode('utf-16be')
+                nameID3_string = record.string.decode("utf-16be")
             elif record.nameID == 4:
-                nameID4_string = record.string.decode('utf-16be')
+                nameID4_string = record.string.decode("utf-16be")
             elif record.nameID == 6:
-                nameID6_string = record.string.decode('utf-16be')
+                nameID6_string = record.string.decode("utf-16be")
 
         for record in namerecord_list:
             if record.nameID == 2:
-                record.string = nameID3_string[len(font_name)+1:].encode('utf-16be')
+                record.string = nameID3_string[len(font_name) + 1 :].encode("utf-16be")
 
         # for record in namerecord_list:
         #     print(record.nameID, record.string.decode('utf-16be'))

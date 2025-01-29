@@ -17,13 +17,13 @@
     # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
-    inputs.nur.nixosModules.nur
-    inputs.niri.nixosModules.niri
+    inputs.nur.modules.nixos.default
+    # inputs.niri.nixosModules.niri
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
     # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
+    ./fhs.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
@@ -38,7 +38,7 @@
 
       # You can also add overlays exported from other flakes:
       inputs.rust-overlay.overlays.default
-      inputs.niri.overlays.niri
+      # inputs.niri.overlays.niri
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -132,24 +132,28 @@
   time.timeZone = "Asia/Shanghai";
 
   # Select internationalisation properties.
-  i18n = rec {
-    defaultLocale = "en_XX.UTF-8@POSIX";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
     supportedLocales = [
-      "en_XX.UTF-8@POSIX/UTF-8"
-      "en_CA.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
       "C.UTF-8/UTF-8"
+      "zh_CN.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
-      LANGUAGE = "en_XX.UTF-8@POSIX:en_CA:en:C";
-      LC_CTYPE = "en_CA.UTF-8";
-      LC_PAPER = "C";
-      LC_MEASUREMENT = "C";
-      LC_NUMERIC = "C";
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "zh_CN.UTF-8";
+      LC_MEASUREMENT = "zh_CN.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "zh_CN.UTF-8";
+      LC_PAPER = "zh_CN.UTF-8";
+      LC_TELEPHONE = "zh_CN.UTF-8";
+      LC_TIME = "zh_CN.UTF-8";
     };
-    glibcLocales = pkgs.glibcLocalesCustom.override {
-      allLocales = false;
-      locales = supportedLocales;
-    };
+    # glibcLocales = pkgs.glibcLocalesCustom.override {
+    #   allLocales = false;
+    #   locales = supportedLocales;
+    # };
     inputMethod = {
       enable = true;
       type = "fcitx5";
@@ -399,7 +403,7 @@
       redfish-serif
       # kulia-mono
       commit-mono
-      config.nur.repos.xddxdd.plangothic-fonts.allideo
+      pkgs.nur.repos.xddxdd.plangothic-fonts.allideo
       libertinus
     ];
   };
@@ -449,7 +453,7 @@
         "libvirtd"
         "adbusers"
       ];
-      shell = pkgs.zsh;
+      shell = pkgs.dash;
     };
   };
 
@@ -490,15 +494,16 @@
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   programs.adb.enable = true;
+  programs.light.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # extraPortals = with pkgs; [
-    #   xdg-desktop-portal-gtk
-    # ];
-    # config.common.default = "*";
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   wlr.enable = true;
+  #   # extraPortals = with pkgs; [
+  #   #   xdg-desktop-portal-gtk
+  #   # ];
+  #   # config.common.default = "*";
+  # };
 
   # List services that you want to enable:
 
@@ -507,33 +512,54 @@
     enable = true;
     dpi = 144;
 
-    # displayManager.startx.enable = true;
+    displayManager.startx.enable = true;
 
-    displayManager.lightdm = {
-      enable = true;
-    };
-
+    # displayManager.lightdm = {
+    #   enable = true;
+    # };
     desktopManager.runXdgAutostartIfNone = true;
 
     # Configure keymap in X11
     xkb = {
-      layout = "us";
+      layout = "us,qwerty-aberter,workman-aberter";
       options = "ctrl:nocaps";
+      extraLayouts = {
+        qwerty-aberter = {
+          description = "QWERTY (Modified).";
+          languages = [ "eng" ];
+          symbolsFile = ./xkb-keymaps/qwerty;
+        };
+        workman-aberter = {
+          description = "Workman (Modified).";
+          languages = [ "eng" ];
+          symbolsFile = ./xkb-keymaps/workman;
+        };
+      };
     };
   };
 
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
-
-  # services.displayManager.ly.enable = true;
+  services.displayManager.ly.enable = true;
 
   # services.displayManager.sddm = {
   #   enable = true;
   #   wayland.enable = true;
   # };
-  #
+
+  # programs.niri = {
+  #   enable = true;
+  #   package = pkgs.niri-unstable;
+  # };
+
+  programs.hyprland = {
+    enable = true;
+    # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland.override
+        { stdenv = pkgs.gcc14Stdenv; };
+  };
+
   # services.displayManager.defaultSession = "plasma";
   #
   # services.desktopManager.plasma6.enable = true;
@@ -547,6 +573,8 @@
   #   gwenview
   #   elisa
   # ];
+
+  services.gvfs.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
@@ -631,6 +659,8 @@
         dip(224.0.0.0/3, 'ff00::/8') -> direct
 
         dip(172.3.10.0/24) -> direct
+
+        dip(43.167.166.174) -> direct
 
         domain(geosite:microsoft) -> proxy
         domain(suffix: hoyoverse.com) -> proxy
@@ -719,8 +749,8 @@
     cmake
     pkgconf
     gdb
-    clang
-    clang-tools
+    llvmPackages_19.clang-tools
+    llvmPackages_19.clang
     llvm
     # Lua
     luajit
@@ -752,10 +782,13 @@
     (rust-bin.stable.latest.default.override {
       extensions = [ "rust-src" ];
       targets = [
-        "wasm32-wasi"
+        "wasm32-wasip1"
+        "wasm32-wasip1-threads"
         "wasm32-unknown-unknown"
       ];
     })
+    # protobuf
+    protobuf
     # Editor
     neovim-unwrapped
     tree-sitter

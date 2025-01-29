@@ -1,19 +1,25 @@
-(include "./modules/workspaces.yuck")
-(include "./modules/network.yuck")
 (include "./modules/battery.yuck")
+(include "./modules/ip.yuck")
+(include "./modules/network.yuck")
+(include "./modules/net-speed.yuck")
+(include "./modules/workspaces.yuck")
 
 (deflisten v_volume "scripts/volume.sh")
 
 (defwidget bar []
   (centerbox :orientation "h"
     (box :orientation "h" :space-evenly false :halign "start"
-      (systray :class "systray" :pack_direction "ltr"))
-    (workspaces)
+      (workspaces)
+      (systray :class "systray" :pack_direction "ltr")
+    )
+    (box)
     (right)))
 
 (defwidget right []
   (box :class "right" :orientation "h" :space-evenly false :halign "end"
     (network)
+    (net-speed)
+    (ip)
     (label :text "${v_volume.sink_icon} ${v_volume.shik_percent} ${v_volume.source_icon} ${v_volume.source_percent}")
     (label :text "󰍛 ${round(EWW_RAM.available_mem / 1024 / 1024, 0)} MiB")
     (label :text "󰔄 ${EWW_TEMPS.ACPITZ_TEMP1}")
@@ -27,7 +33,7 @@
   :geometry (geometry
     :x "0%"
     :y "0%"
-    :width "100%"
+    :width "1920px"
     :height "32px"
     :anchor "top center")
   :exclusive true

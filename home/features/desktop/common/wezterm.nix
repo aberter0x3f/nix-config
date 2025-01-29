@@ -31,6 +31,8 @@
         return list
       end
 
+      config.default_prog = { "/home/yzy1/.nix-profile/bin/zsh", "-l" }
+
       config.font = wezterm.font_with_fallback {
         { family="${config.stylix.fonts.monospace.name}", weight=450 },
         "Noto Sans Mono",
@@ -106,7 +108,7 @@
           { key = "v", mods = "NONE", action = act.CopyMode{ SetSelectionMode =  "Cell" } },
           { key = "v", mods = "CTRL", action = act.CopyMode{ SetSelectionMode =  "Block" } },
           { key = "w", mods = "NONE", action = act.CopyMode "MoveForwardWord" },
-          { key = "y", mods = "NONE", action = act.Multiple{ { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" } } },
+          { key = "y", mods = "NONE", action = act.Multiple{ { CopyTo = "Clipboard" }, { CopyMode = "Close" } } },
           { key = "PageUp", mods = "NONE", action = act.CopyMode "PageUp" },
           { key = "PageDown", mods = "NONE", action = act.CopyMode "PageDown" },
           { key = "End", mods = "NONE", action = act.CopyMode "MoveToEndOfLineContent" },
@@ -166,6 +168,11 @@
           mods = "ALT",
           action = act.ActivateTab(i - 1),
         })
+        table.insert(config.keys, {
+          key = tostring(i),
+          mods = "ALT|SHIFT",
+          action = act.ActivateTab(i - 1),
+        })
       end
 
       config.mouse_bindings = {
@@ -206,6 +213,8 @@
       config.hide_mouse_cursor_when_typing = false
 
       -- config.front_end = "WebGpu"
+
+      config.check_for_updates = false
 
       return config
     '';

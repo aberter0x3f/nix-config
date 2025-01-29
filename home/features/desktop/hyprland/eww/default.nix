@@ -1,18 +1,15 @@
-{
-  outputs,
-  config,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 {
   programs.eww = {
     enable = true;
-    package = pkgs.eww-tray;
   };
   ewwConfig = {
     yuck = builtins.readFile ./yuck.yuck;
-    scss = import ./scss.nix { inherit (config) colorscheme fontProfiles; };
-    scripts = import ./scripts { };
-    modules = import ./modules { };
+    scss = import ./scss.nix {
+      colors = config.lib.stylix.colors.withHashtag;
+      fonts = config.stylix.fonts;
+    };
+    scripts = import ./scripts;
+    modules = import ./modules;
   };
 }

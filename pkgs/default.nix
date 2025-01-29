@@ -1,6 +1,21 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example' or (legacy) 'nix-build -A example'
-{ pkgs, inputs }:
+{
+  pkgs,
+  inputs,
+}:
+
+let
+  callHyprlandPluginPackage =
+    (import inputs.nixpkgs {
+      inherit (pkgs) system;
+      overlays = [
+        inputs.hyprland-plugins.overlays.hyprland-plugins
+        inputs.hyprland-plugins.overlays.gcc14Stdenv
+        inputs.hyprland.overlays.hyprland-packages
+      ];
+    }).callPackage;
+in
 {
   # bubblemail = pkgs.callPackage ./bubblemail { };
   chws-tool = pkgs.callPackage ./chws-tool { inherit inputs; };
@@ -11,6 +26,8 @@
     inherit inputs;
   };
   hyde = pkgs.callPackage ./hyde { };
+  hyprscroller = callHyprlandPluginPackage ./hyprscroller { };
+  hyprslidr = callHyprlandPluginPackage ./hyprslidr { };
   hysteria-1 = pkgs.callPackage ./hysteria-1 { };
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
   kwin-effect-hide-cursor = pkgs.kdePackages.callPackage ./kwin-effect-hide-cursor { };
