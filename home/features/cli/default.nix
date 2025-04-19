@@ -2,13 +2,14 @@
 {
   imports = [
     # ./nushell
+    ./yazi
     ./fd.nix
     ./fzf.nix
     ./git.nix
     ./gpg.nix
     ./lazygit.nix
+    ./nh.nix
     ./ripgrep.nix
-    ./yazi.nix
     ./typst.nix
     ./zsh.nix
   ];
@@ -31,6 +32,7 @@
     lua-language-server
     nixfmt-rfc-style
     vscode-langservers-extracted
+    emmet-language-server
     inputs.codeium.packages.${system}.codeium-lsp
     typos-lsp
     bat

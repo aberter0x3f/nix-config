@@ -53,7 +53,7 @@ in
       ];
 
       input = {
-        kb_layout = "qwerty-aberter,us,workman-aberter";
+        kb_layout = "workman-aberter,qwerty-aberter,us";
         kb_options = "ctrl:nocaps,grp:alt_space_toggle";
         repeat_rate = 25;
         repeat_delay = 300;

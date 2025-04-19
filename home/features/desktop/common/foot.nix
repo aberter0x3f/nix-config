@@ -23,6 +23,7 @@
         font-increase = "none";
         font-decrease = "none";
         font-reset = "none";
+        spawn-terminal = "Control+Shift+t";
       };
     };
   };

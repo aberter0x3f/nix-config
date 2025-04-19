@@ -1,5 +1,5 @@
 {
-  description = "nixos-yzy1";
+  description = "nixos-aberter";
 
   inputs = {
     # nixpkgs
@@ -73,6 +73,9 @@
     #   url = "github:anyrun-org/anyrun";
     #   # inputs.nixpkgs.follows = "nixpkgs";
     # };
+
+    # # Zen browser
+    # zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs =
@@ -133,7 +136,7 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "yzy1@yzy1-thinkbook" = mkHome [ ./home/yzy1.nix ] nixpkgs.legacyPackages."x86_64-linux";
+        "aberter@yzy1-thinkbook" = mkHome [ ./home/aberter.nix ] nixpkgs.legacyPackages."x86_64-linux";
       };
     };
 }

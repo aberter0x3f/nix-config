@@ -17,10 +17,11 @@
   home.packages = with pkgs; [
     # Web broswer
     librewolf
+    # inputs.zen-browser.packages."${system}".beta
     tor-browser
-    # (brave.override {
-    #   commandLineArgs = "--enable-wayland-ime --wayland-text-input-version=3";
-    # })
+    (brave.override {
+      commandLineArgs = "--enable-wayland-ime";
+    })
     # Terminal
     kitty
     # IM
@@ -29,7 +30,7 @@
     qq
     # GUI editor
     vscode-fhs
-    zed-editor
+    # zed-editor
     # DAW
     # lmms-nightly
   ];

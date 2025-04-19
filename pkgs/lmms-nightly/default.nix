@@ -1,11 +1,11 @@
 {
   lib,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   pkg-config,
-  perl538,
-  perl538Packages,
   alsa-lib ? null,
+  carla ? null,
   fftwFloat,
   fltk13,
   fluidsynth ? null,
@@ -24,15 +24,16 @@
   SDL2 ? null,
   mkDerivation,
 }:
+
 mkDerivation rec {
-  pname = "lmms-nightly";
-  version = "43fbcca9cb341e7f759faf9070278fcc20b988f7";
+  pname = "lmms";
+  version = "17215343e40e68854d6a5b150ed29248f8111b51";
 
   src = fetchFromGitHub {
     owner = "LMMS";
     repo = "lmms";
     rev = "${version}";
-    sha256 = "sha256-f3mfvdwReSF0DyXrfLXNVwXgVYdoQ9gfa9zPY8ttUe8=";
+    hash = "sha256-MIzVa28ChNCGWCm79nd+4+LfOwKTIq+eMiO275psgtA=";
     fetchSubmodules = true;
   };
 
@@ -40,10 +41,10 @@ mkDerivation rec {
     cmake
     qttools
     pkg-config
-    perl538
   ];
 
   buildInputs = [
+    carla
     alsa-lib
     fftwFloat
     fltk13
@@ -56,34 +57,23 @@ mkDerivation rec {
     libsndfile
     libsoundio
     libvorbis
-    perl538
-    perl538Packages.ListMoreUtils
-    perl538Packages.XMLParser
     portaudio
     qtbase
     qtx11extras
-    SDL2
+    SDL2 # TODO: switch to SDL2 in the next version
   ];
-
-  preConfigurePhases = "preConfigure";
-  preConfigure = ''
-    substituteInPlace plugins/LadspaEffect/swh/ladspa/*.pl \
-      --replace '/usr/bin/perl -w' '${perl538}/bin/perl'
-  '';
 
   cmakeFlags = [ "-DWANT_QT5=ON" ];
 
   meta = with lib; {
     description = "DAW similar to FL Studio (music production software)";
+    mainProgram = "lmms";
     homepage = "https://lmms.io";
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [
-      goibhniu
-      yana
-    ];
+    maintainers = [ ];
   };
 }

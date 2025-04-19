@@ -31,7 +31,7 @@
         return list
       end
 
-      config.default_prog = { "/home/yzy1/.nix-profile/bin/zsh", "-l" }
+      config.default_prog = { "${config.home.homeDirectory}/.nix-profile/bin/zsh", "-l" }
 
       config.font = wezterm.font_with_fallback {
         { family="${config.stylix.fonts.monospace.name}", weight=450 },

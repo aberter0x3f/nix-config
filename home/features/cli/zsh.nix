@@ -103,6 +103,8 @@
     enableNushellIntegration = false;
     settings = {
       add_newline = true;
+      directory.fish_style_pwd_dir_length = 1;
+
       aws.symbol = "  ";
       buf.symbol = " ";
       c.symbol = " ";

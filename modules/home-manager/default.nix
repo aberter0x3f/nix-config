@@ -6,4 +6,5 @@
   # wallpaper = import ./wallpaper.nix;
   # fonts = import ./fonts.nix;
   eww-config = import ./eww-config.nix;
+  yazi-new = import ./yazi-new.nix;
 }

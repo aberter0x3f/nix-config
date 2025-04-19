@@ -11,5 +11,5 @@
     ./features/games
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  home.username = "yzy1";
+  home.username = "aberter";
 }

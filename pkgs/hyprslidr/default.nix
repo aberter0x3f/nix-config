@@ -9,14 +9,14 @@
 
 hyprlandPlugins.mkHyprlandPlugin hyprland rec {
   pluginName = "hyprslidr";
-  version = "7e3059d5fc536aa4616e125b0818d6fc971690e0";
+  version = "e737bf49e3c372f4678345b6803ad3a710b9e217";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "aberter0x3f";
     repo = pluginName;
     rev = version;
-    hash = "sha256-MFH2ZkpYNIleL1GerrM2K2EtjjR+dbU+Q2FOYEcDm3s=";
+    hash = "sha256-RIGgyFNCmyOQV8bGZB8AEP1USUGuL+s4vGI+pLHi8i0=";
   };
 
   nativeBuildInputs = [ cmake ];

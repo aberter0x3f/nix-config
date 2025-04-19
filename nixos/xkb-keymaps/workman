@@ -34,13 +34,13 @@ xkb_symbols "basic" {
   key <AB06> {  [   k,  K   ] };
   key <AB07> {  [   l,  L   ] };
 
-  // ~_7531902468+
-  // `-<[{(#@)}]>=
+  // ~"7531902468+
+  // `'<[{(#@)}]>=
   // |^%
   // &*$
   // ?!\
   // ,./
-  key <AE01> { [ minus, underscore ] };
+  key <AE01> { [ apostrophe, quotedbl ] };
   key <AE02> { [ less, 7 ] };
   key <AE03> { [ bracketleft, 5 ] };
   key <AE04> { [ braceleft, 3 ] };
@@ -57,6 +57,8 @@ xkb_symbols "basic" {
   key <AD11> { [ ampersand, bar ] };
   key <AD12> { [ asterisk, asciicircum ] };
   key <BKSL> { [ dollar, percent ] };
+
+  key <AC11> { [ minus, underscore ] };
 
   key <AB08> { [ comma, question ] };
   key <AB09> { [ period, exclam ] };

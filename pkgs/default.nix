@@ -28,7 +28,7 @@ in
   hyde = pkgs.callPackage ./hyde { };
   hyprscroller = callHyprlandPluginPackage ./hyprscroller { };
   hyprslidr = callHyprlandPluginPackage ./hyprslidr { };
-  hysteria-1 = pkgs.callPackage ./hysteria-1 { };
+  # hysteria-1 = pkgs.callPackage ./hysteria-1 { };
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
   kwin-effect-hide-cursor = pkgs.kdePackages.callPackage ./kwin-effect-hide-cursor { };
   lmms-nightly = pkgs.libsForQt5.callPackage ./lmms-nightly { };
@@ -36,6 +36,7 @@ in
   locale-en_xx = pkgs.callPackage ./locale-en_xx { };
   mieru = pkgs.callPackage ./mieru { };
   nekoray = pkgs.libsForQt5.callPackage ./nekoray { };
+  openutau = pkgs.callPackage ./openutau { };
   redfish-sans = pkgs.callPackage ./redfish-sans { inherit inputs; };
   redfish-serif = pkgs.callPackage ./redfish-serif { inherit inputs; };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./some-qt5-package { };

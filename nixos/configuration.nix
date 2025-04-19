@@ -11,8 +11,6 @@
 {
   # You can import other NixOS modules here
   imports = [
-    ../cachix.nix
-
     # If you want to use modules your own flake exports (from modules/nixos):
     # outputs.nixosModules.example
 
@@ -72,11 +70,14 @@
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
 
-      substituters = [ "https://mirrors.cernet.edu.cn/nix-channels/store" ];
+      substituters = [
+        "https://mirrors.cernet.edu.cn/nix-channels/store"
+        "https://cache.nixos.org/"
+      ];
 
       trusted-users = [
         "root"
-        "yzy1"
+        "aberter"
       ];
     };
   };
@@ -426,7 +427,7 @@
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    yzy1 = {
+    aberter = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
       subUidRanges = [
@@ -476,6 +477,7 @@
     enable = true;
     qemu.ovmf.enable = true;
   };
+  virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -573,6 +575,36 @@
   #   gwenview
   #   elisa
   # ];
+
+  # services.xserver.desktopManager.gnome = {
+  #   enable = true;
+  #   extraGSettingsOverridePackages = [ pkgs.mutter ];
+  #   extraGSettingsOverrides = ''
+  #     [org.gnome.mutter]
+  #     experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
+  #   '';
+  # };
+  #
+  # environment.gnome.excludePackages = (
+  #   with pkgs;
+  #   [
+  #     atomix # puzzle game
+  #     cheese # webcam tool
+  #     epiphany # web browser
+  #     evince # document viewer
+  #     geary # email reader
+  #     gedit # text editor
+  #     gnome-characters
+  #     gnome-music
+  #     gnome-photos
+  #     gnome-terminal
+  #     gnome-tour
+  #     hitori # sudoku game
+  #     iagno # go game
+  #     tali # poker game
+  #     totem # video player
+  #   ]
+  # );
 
   services.gvfs.enable = true;
 
@@ -703,6 +735,7 @@
   security.pam = {
     services = {
       swaylock = { };
+      ly.enableGnomeKeyring = true;
     };
     loginLimits = [
       {
