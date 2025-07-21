@@ -1,0 +1,12 @@
+{ pkgs, ... }:
+{
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.ovmf.enable = true;
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+  environment.systemPackages = with pkgs; [
+    virtiofsd
+  ];
+}

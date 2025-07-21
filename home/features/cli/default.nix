@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     # ./nushell
@@ -8,6 +8,7 @@
     ./git.nix
     ./gpg.nix
     ./lazygit.nix
+    ./less.nix
     ./nh.nix
     ./ripgrep.nix
     ./typst.nix
@@ -16,9 +17,8 @@
 
   home.packages = with pkgs; [
     bc
-    lf
     wget
-    gojq
+    jq
     socat
     comma
     lesspass-cli
@@ -31,16 +31,10 @@
     nixd
     lua-language-server
     nixfmt-rfc-style
-    vscode-langservers-extracted
-    emmet-language-server
-    inputs.codeium.packages.${system}.codeium-lsp
-    typos-lsp
+    # inputs.codeium.packages.${system}.codeium-lsp
     bat
     eza
-    cpt
-    cpt-fetcher
     ouch
-    rar
     acpi
     htop-vim
     p7zip

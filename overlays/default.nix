@@ -16,7 +16,7 @@
     unstable = import inputs.nixpkgs-unstable {
       system = prev.system;
     };
-    bash-env-json = unstable.bash-env-json;
+    # bash-env-json = unstable.bash-env-json;
     # glibcLocalesCustom = prev.glibcLocales.overrideAttrs (oldAttrs: {
     #   patchPhase = ''
     #     echo 'en_XX.UTF-8@POSIX/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED

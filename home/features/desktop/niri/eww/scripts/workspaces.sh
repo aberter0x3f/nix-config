@@ -5,11 +5,11 @@ empty='empty'       # Empty workspaces
 declare -A workspaces
 
 add_workspaces() {
-  while read -r k v; do workspaces[$k]="$v"; done < <(niri msg -j workspaces | gojq -r '.[]|"\(.id) \(if .active_window_id == null then 0 else 1 end)"')
+  while read -r k v; do workspaces[$k]="$v"; done < <(niri msg -j workspaces | jq -r '.[]|"\(.id) \(if .active_window_id == null then 0 else 1 end)"')
 }
 
 update_focusedws() {
-  focusedws=$(niri msg -j workspaces | gojq -r '.[] | select(.is_focused == true) | .idx')
+  focusedws=$(niri msg -j workspaces | jq -r '.[] | select(.is_focused == true) | .idx')
 }
 
 update_focusedws
@@ -59,8 +59,8 @@ add_workspaces
 generate
 
 niri msg -j event-stream | while read -r line; do
-  # Check if the event is WorkspaceActivated or WorkspacesChanged using gojq
-  if echo "$line" | gojq -e 'has("WorkspaceActivated") or has("WorkspacesChanged") or has("WindowsChanged") or has("WindowOpenedOrChanged") or has("WindowClosed")' > /dev/null; then
+  # Check if the event is WorkspaceActivated or WorkspacesChanged using jq
+  if echo "$line" | jq -e 'has("WorkspaceActivated") or has("WorkspacesChanged") or has("WindowsChanged") or has("WindowOpenedOrChanged") or has("WindowClosed")' > /dev/null; then
     workspace_event
     generate
   fi

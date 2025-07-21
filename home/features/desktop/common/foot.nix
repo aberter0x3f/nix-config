@@ -15,9 +15,7 @@
     settings = {
       main = {
         shell = lib.meta.getExe config.programs.zsh.package;
-      };
-      csd = {
-        preferred = "none";
+        line-height = 12;
       };
       key-bindings = {
         font-increase = "none";

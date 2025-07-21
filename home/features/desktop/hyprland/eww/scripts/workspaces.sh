@@ -3,7 +3,7 @@ inactive="inactive" # Inactive workspaces
 empty='empty'       # Empty workspaces
 
 # get initial focused workspace
-focusedws=$(hyprctl -j monitors | gojq -r '.[] | select(.focused == true) | .activeWorkspace.id')
+focusedws=$(hyprctl -j monitors | jq -r '.[] | select(.focused == true) | .activeWorkspace.id')
 
 declare -A o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0)
 declare -A workspaces
@@ -26,13 +26,13 @@ workspace_event() {
   o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0)
   workspaces=()
   # add workspaces
-  while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | gojq -r '.[]|"\(.id) \(.monitor)"')
+  while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | jq -r '.[]|"\(.id) \(.monitor)"')
   # check occupied workspaces
   for num in "${!workspaces[@]}"; do
     o[$num]=1
   done
 
-  focusedws=$(hyprctl -j monitors | gojq -r '.[] | select(.focused == true) | .activeWorkspace.id')
+  focusedws=$(hyprctl -j monitors | jq -r '.[] | select(.focused == true) | .activeWorkspace.id')
 }
 
 # generate the json for eww
@@ -49,7 +49,7 @@ generate() {
 # setup
 
 # add workspaces
-while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | gojq -r '.[]|"\(.id) \(.monitor)"')
+while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | jq -r '.[]|"\(.id) \(.monitor)"')
 
 # check occupied workspaces
 for num in "${!workspaces[@]}"; do

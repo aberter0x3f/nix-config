@@ -3,14 +3,14 @@
 
   inputs = {
     # nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     # nixpkgs-unstable
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # home-manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,21 +23,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprland
-    hyprland = {
-      url = "github:hyprwm/Hyprland/v0.46.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins/7634792d199d32ed9396d5864e6431cde1cca6bd";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # # Hyprland
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland/v0.46.2";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins/7634792d199d32ed9396d5864e6431cde1cca6bd";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
 
-    # Codeium
-    codeium = {
-      url = "github:jcdickinson/codeium.nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # # Codeium
+    # codeium = {
+    #   url = "github:jcdickinson/codeium.nvim";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # poetry2nix
     poetry2nix = {
@@ -61,12 +61,13 @@
     # # AAGL
     # aagl.url = "github:ezKEa/aagl-gtk-on-nix";
 
-    # # niri
-    # niri.url = "github:sodiboo/niri-flake";
-    # # niri.url = "github:yzy-1/niri-flake";
+    # niri
+    niri = {
+      url = "github:sodiboo/niri-flake";
+    };
 
     # stylix
-    stylix.url = "github:danth/stylix/release-24.11";
+    stylix.url = "github:danth/stylix/release-25.05";
 
     # # anyrun
     # anyrun = {
@@ -76,13 +77,25 @@
 
     # # Zen browser
     # zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    # agenix
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+    };
+
+    # Impermanence
+    impermanence.url = "github:nix-community/impermanence";
+
+    # colmena
+    colmena.url = "github:zhaofengli/colmena";
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      home-manager,
       ...
     }@inputs:
     let
@@ -98,14 +111,6 @@
         nixpkgs.lib.nixosSystem {
           inherit modules;
           specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-      mkHome =
-        modules: pkgs:
-        home-manager.lib.homeManagerConfiguration {
-          inherit modules pkgs;
-          extraSpecialArgs = {
             inherit inputs outputs;
           };
         };
@@ -130,13 +135,25 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        yzy1-thinkbook = mkNixos [ ./nixos/configuration.nix ];
+        aberter-thinkbook = mkNixos [ ./nixos/hosts/thinkbook ];
+        aberter-thinkstation = mkNixos [ ./nixos/hosts/thinkstation ];
       };
 
-      # Standalone home-manager configuration entrypoint
-      # Available through 'home-manager --flake .#your-username@your-hostname'
-      homeConfigurations = {
-        "aberter@yzy1-thinkbook" = mkHome [ ./home/aberter.nix ] nixpkgs.legacyPackages."x86_64-linux";
+      colmenaHive = inputs.colmena.lib.makeHive {
+        meta = {
+          nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+
+        "aberter-thinkstation" = {
+          deployment.targetHost = "192.168.10.77";
+          deployment.targetUser = "root";
+          imports = [
+            ./nixos/hosts/thinkstation
+          ];
+        };
       };
     };
 }

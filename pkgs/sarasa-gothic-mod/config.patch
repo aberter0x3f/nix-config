@@ -1,0 +1,44 @@
+diff --git a/config.json b/config.json
+index 31b4dd9..423af80 100644
+--- a/config.json
++++ b/config.json
+@@ -1,6 +1,8 @@
+ {
+ 	"buildOptions": {},
+-	"familyOrder": ["Gothic", "Ui", "Mono", "MonoSlab", "Term", "TermSlab", "Fixed", "FixedSlab"],
++	"familyOrder": [
++		"Ui"
++	],
+ 	"families": {
+ 		"Gothic": {
+ 			"isGothic": true,
+@@ -119,7 +121,17 @@
+ 	"latinGroups": {
+ 		"Inter": {
+ 			"isCff": false,
+-			"bakeFeatures": [{ "tag": "ss03" }, { "tag": "cv10" }],
++			"bakeFeatures": [
++				{
++					"tag": "ss03"
++				},
++				{
++					"tag": "cv10"
++				},
++				{
++					"tag": "ss02"
++				}
++			],
+ 			"dropFeatures": [
+ 				"cv01",
+ 				"cv02",
+@@ -182,7 +194,9 @@
+ 			"uprightStyleMap": "Bold"
+ 		}
+ 	},
+-	"subfamilyOrder": ["CL", "SC", "TC", "HC", "J", "K"],
++	"subfamilyOrder": [
++		"SC"
++	],
+ 	"os2encodings": {
+ 		"J": {
+ 			"gbk": false,

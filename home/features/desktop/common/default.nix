@@ -1,38 +1,17 @@
 {
   config,
-  pkgs,
   inputs,
   ...
 }:
 {
   imports = [
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
 
     ./foot.nix
+    ./ime.nix
     ./proxy.nix
     ./stylix.nix
     # ./wezterm.nix
-  ];
-
-  home.packages = with pkgs; [
-    # Web broswer
-    librewolf
-    # inputs.zen-browser.packages."${system}".beta
-    tor-browser
-    (brave.override {
-      commandLineArgs = "--enable-wayland-ime";
-    })
-    # Terminal
-    kitty
-    # IM
-    # kotatogram-desktop-iso-date
-    _64gram
-    qq
-    # GUI editor
-    vscode-fhs
-    # zed-editor
-    # DAW
-    # lmms-nightly
   ];
 
   xdg = {

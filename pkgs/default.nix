@@ -32,12 +32,17 @@ in
   kotatogram-desktop-iso-date = pkgs.callPackage ./kotatogram-desktop-iso-date { };
   kwin-effect-hide-cursor = pkgs.kdePackages.callPackage ./kwin-effect-hide-cursor { };
   lmms-nightly = pkgs.libsForQt5.callPackage ./lmms-nightly { };
-  # locale-en_se = pkgs.callPackage ./locale-en_se { };
   locale-en_xx = pkgs.callPackage ./locale-en_xx { };
   mieru = pkgs.callPackage ./mieru { };
   nekoray = pkgs.libsForQt5.callPackage ./nekoray { };
   openutau = pkgs.callPackage ./openutau { };
-  redfish-sans = pkgs.callPackage ./redfish-sans { inherit inputs; };
-  redfish-serif = pkgs.callPackage ./redfish-serif { inherit inputs; };
+  openutau-lunai = pkgs.callPackage ./openutau-lunai { };
+  # openutau_1 = pkgs.callPackage ./openutau_1 { };
+  project-lemonlime = pkgs.callPackage ./project-lemonlime { };
+  # redfish-sans = pkgs.callPackage ./redfish-sans { inherit inputs; };
+  # redfish-serif = pkgs.callPackage ./redfish-serif { inherit inputs; };
+  rime-alpha-pinyin = pkgs.callPackage ./rime-alpha-pinyin { };
+  sarasa-gothic-mod = pkgs.callPackage ./sarasa-gothic-mod { };
+  sarasa-ubuntu-mono = pkgs.callPackage ./sarasa-ubuntu-mono { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./some-qt5-package { };
 }

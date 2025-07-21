@@ -26,7 +26,7 @@
       };
     };
 
-    initExtra = ''
+    initContent = ''
       eval "$(dircolors)"
 
       function osc7-pwd() {
@@ -40,6 +40,10 @@
         (( ZSH_SUBSHELL )) || osc7-pwd
       }
       add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
+      if command -v nix-your-shell > /dev/null; then
+        nix-your-shell zsh | source /dev/stdin
+      fi
     '';
 
     plugins = [
@@ -54,23 +58,13 @@
         };
       }
       {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.8.0";
-          hash = "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=";
-        };
-      }
-      {
         name = "zsh-completions";
         file = "zsh-completions.plugin.zsh";
         src = pkgs.fetchFromGitHub {
           owner = "clarketm";
           repo = "zsh-completions";
-          rev = "7ca4fd85f9a3c1cf01c64d38bfb006eee468e320";
-          hash = "sha256-3dSmtO7UutyvwCw+wvtXSIiiVUt0sLX9EF/g6Tidieg=";
+          rev = "8940cfb20960e793f3fd759fab7842ca23b2bf2b";
+          hash = "sha256-iwQQjprYoVrisxF0l7H6Op1fQm7cASJad1JxKN6GCrI=";
         };
       }
       {
@@ -196,4 +190,8 @@
       gradle.symbol = " ";
     };
   };
+
+  home.packages = with pkgs; [
+    nix-your-shell
+  ];
 }

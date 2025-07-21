@@ -1,0 +1,79 @@
+diff --git a/config.json b/config.json
+index 31b4dd9..453e8f4 100644
+--- a/config.json
++++ b/config.json
+@@ -1,6 +1,8 @@
+ {
+ 	"buildOptions": {},
+-	"familyOrder": ["Gothic", "Ui", "Mono", "MonoSlab", "Term", "TermSlab", "Fixed", "FixedSlab"],
++	"familyOrder": [
++		"Mono"
++	],
+ 	"families": {
+ 		"Gothic": {
+ 			"isGothic": true,
+@@ -29,14 +31,15 @@
+ 		},
+ 		"Mono": {
+ 			"isMono": true,
+-			"latinGroup": "IosevkaN",
++			"isTerm": true,
++			"latinGroup": "UbuntuSansMono",
+ 			"naming": {
+ 				"en_US": "Sarasa Mono",
+-				"zh_CN": "等距更纱黑体",
+-				"zh_TW": "等距更紗黑體",
+-				"zh_HK": "等距更紗黑體",
+-				"ja_JP": "更紗等幅ゴシック",
+-				"ko_KR": "사라사 고정 폭고딕"
++				"zh_CN": "Sarasa Mono",
++				"zh_TW": "Sarasa Mono",
++				"zh_HK": "Sarasa Mono",
++				"ja_JP": "Sarasa Mono",
++				"ko_KR": "Sarasa Mono"
+ 			}
+ 		},
+ 		"Term": {
+@@ -105,10 +108,6 @@
+ 		}
+ 	},
+ 	"styleOrder": [
+-		"ExtraLight",
+-		"ExtraLightItalic",
+-		"Light",
+-		"LightItalic",
+ 		"Regular",
+ 		"Italic",
+ 		"SemiBold",
+@@ -146,20 +152,6 @@
+ 		}
+ 	},
+ 	"styles": {
+-		"ExtraLight": {
+-			"name": "ExtraLight"
+-		},
+-		"ExtraLightItalic": {
+-			"name": "ExtraLight Italic",
+-			"uprightStyleMap": "ExtraLight"
+-		},
+-		"Light": {
+-			"name": "Light"
+-		},
+-		"LightItalic": {
+-			"name": "Light Italic",
+-			"uprightStyleMap": "Light"
+-		},
+ 		"Regular": {
+ 			"name": "Regular"
+ 		},
+@@ -182,7 +199,9 @@
+ 			"uprightStyleMap": "Bold"
+ 		}
+ 	},
+-	"subfamilyOrder": ["CL", "SC", "TC", "HC", "J", "K"],
++	"subfamilyOrder": [
++		"SC"
++	],
+ 	"os2encodings": {
+ 		"J": {
+ 			"gbk": false,

@@ -17,11 +17,6 @@ buildGoModule rec {
 
   vendorHash = "sha256-2PdbP0mbQ13ShRPxSj26M0AXPX1mDrL0decxDcqwee4=";
 
-  CGO_ENABLED = 0;
-  ldflags = [
-    "-s"
-    "-w"
-  ];
   doCheck = false;
 
   meta = with lib; {

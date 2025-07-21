@@ -4,9 +4,9 @@
 }:
 
 {
-  programs.yazi-new = {
+  programs.yazi = {
     enable = true;
-    package = pkgs.unstable.yazi;
+    # package = pkgs.unstable.yazi;
     keymap =
       let
         cursorMoveMaps = [
@@ -33,7 +33,7 @@
         ];
       in
       {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = "q";
             run = "close";
@@ -108,7 +108,7 @@
           }
           {
             on = "<C-g>";
-            run = "plugin fr --args='rg'";
+            run = "plugin fr rg";
             desc = "find file by content";
           }
           # Find
@@ -167,31 +167,17 @@
         ];
       };
     };
-    plugins =
-      let
-        pluginSrc = pkgs.fetchFromGitHub {
-          owner = "yazi-rs";
-          repo = "plugins";
-          rev = "a1738e8088366ba73b33da5f45010796fb33221e";
-          hash = "sha256-eiLkIWviGzG9R0XP1Cik3Bg0s6lgk3nibN6bZvo8e9o=";
-        };
-      in
-      {
-        smart-enter = pluginSrc + "/smart-enter.yazi";
-        git = pluginSrc + "/git.yazi";
-        starship = pkgs.fetchFromGitHub {
-          owner = "Rolv-Apneseth";
-          repo = "starship.yazi";
-          rev = "c0707544f1d526f704dab2da15f379ec90d613c2";
-          hash = "sha256-H8j+9jcdcpPFXVO/XQZL3zq1l5f/WiOm4YUxAMduSRs=";
-        };
-        fr = pkgs.fetchFromGitHub {
-          owner = "lpnh";
-          repo = "fr.yazi";
-          rev = "92edf0b4bfce831d6b3178117b1aa7d8557f424e";
-          hash = "sha256-6PEKX9IOAZwuoTnPXH7UnCOcnmyKsE/gKvkm0T3cS74=";
-        };
+    plugins = {
+      git = pkgs.yaziPlugins.git;
+      starship = pkgs.yaziPlugins.starship;
+      smart-enter = pkgs.yaziPlugins.smart-enter;
+      fr = pkgs.fetchFromGitHub {
+        owner = "lpnh";
+        repo = "fr.yazi";
+        rev = "9e1264965d7cca362dce8c63817268ce46f65184";
+        hash = "sha256-1O3qkB/CXXmYvFP5vnNaxq0e00usiTCOG9ZyAIU3Ek4=";
       };
+    };
     initLua = builtins.readFile ./init.lua;
   };
 }

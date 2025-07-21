@@ -5,20 +5,36 @@
   fetchFromGitHub,
   dotnetCorePackages,
   dbus,
-  fontconfig,
   portaudio,
+  copyDesktopItems,
+  makeDesktopItem,
 }:
 
 buildDotnetModule rec {
   pname = "OpenUtau";
-  version = "0.1.549";
+  version = "0.1.550";
 
   src = fetchFromGitHub {
     owner = "stakira";
     repo = "OpenUtau";
     rev = version;
-    hash = "sha256-j6/5FhvqfesAeSwP599WCfccnJZzifR1UFpAO9VaCuM=";
+    hash = "sha256-K/gwyufPNj8qZbXD7yHrWfbsrzqvRbmnJoVGyuFA1sw=";
   };
+
+  nativeBuildInputs = [ copyDesktopItems ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "openutau";
+      desktopName = "OpenUtau";
+      startupWMClass = "openutau";
+      icon = "openutau";
+      genericName = "Utau";
+      comment = "Open source UTAU successor";
+      exec = "OpenUtau";
+      categories = [ "Music" ];
+    })
+  ];
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
@@ -42,13 +58,6 @@ buildDotnetModule rec {
   # socket cannot bind to localhost on darwin for tests
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  # net8.0 replacement needed until upstream bumps to dotnet 8
-  postPatch = ''
-    substituteInPlace OpenUtau/Program.cs --replace \
-      '/usr/bin/fc-match' \
-      '${lib.getExe' fontconfig "fc-match"}'
-  '';
-
   # need to make sure proprietary worldline resampler is copied
   postInstall =
     let
@@ -61,9 +70,16 @@ buildDotnetModule rec {
           "osx"
         else
           null;
+      shouldInstallResampler = lib.optionalString (runtime != null) ''
+        cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
+      '';
+      shouldInstallDesktopItem = lib.optionalString stdenv.hostPlatform.isLinux ''
+        install -Dm655 -t $out/share/icons/hicolor/scalable/apps Logo/openutau.svg
+      '';
     in
-    lib.optionalString (runtime != null) ''
-      cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
+    ''
+      ${shouldInstallResampler}
+      ${shouldInstallDesktopItem}
     '';
 
   passthru.updateScript = ./update.sh;

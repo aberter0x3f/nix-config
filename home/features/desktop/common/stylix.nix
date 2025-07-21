@@ -8,16 +8,16 @@
 
     fonts = {
       monospace = {
-        name = "CommitMono Nerd Font Medium";
-        package = pkgs.commit-mono;
+        name = "SarasaMonoSC Nerd Font";
+        package = pkgs.sarasa-ubuntu-mono;
       };
       sansSerif = {
-        name = "RedFish Sans";
-        package = pkgs.redfish-sans;
+        name = "Sarasa UI SC";
+        package = pkgs.sarasa-gothic-mod;
       };
       serif = {
-        name = "RedFish Serif";
-        package = pkgs.redfish-serif;
+        name = "Noto Serif CJK SC";
+        package = pkgs.noto-fonts-cjk-serif;
       };
 
       sizes = {
