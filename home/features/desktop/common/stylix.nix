@@ -16,8 +16,8 @@
         package = pkgs.sarasa-gothic-mod;
       };
       serif = {
-        name = "Noto Serif CJK SC";
-        package = pkgs.noto-fonts-cjk-serif;
+        name = "Source Han Serif SC";
+        package = pkgs.source-han-serif;
       };
 
       sizes = {

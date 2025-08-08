@@ -5,13 +5,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rime-alpha-pinyin";
-  version = "e6171152d11c997d9117382a4bbcfa5b8e5ce600";
+  version = "8bbbba49ee6b9c43b3eb9075d72a7bf6c731d29b";
 
   src = fetchFromGitHub {
     owner = "aberter0x3f";
     repo = "rime-alpha-pinyin";
     rev = finalAttrs.version;
-    hash = "sha256-qeEaZryfT/WOkB1l2er90Zz8/ZMrTTBra5xmeE17Gzk=";
+    hash = "sha256-55ZSGpXwpgBhx4tBfcd5oj+mjEC+HiU3foOTgKY+4NM=";
   };
 
   installPhase = ''

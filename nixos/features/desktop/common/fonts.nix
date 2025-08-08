@@ -23,7 +23,7 @@
           "Plangothic P1"
         ];
         serif = [
-          "Noto Serif CJK SC"
+          "Source Han Serif SC"
           "Noto Serif"
           "Plangothic P2"
           "Plangothic P1"
@@ -233,12 +233,11 @@
       noto-fonts
       noto-fonts-color-emoji
       sarasa-gothic-mod
-      noto-fonts-cjk-serif
+      source-han-serif
       # kulia-mono
       # commit-mono
       sarasa-ubuntu-mono
       pkgs.nur.repos.xddxdd.plangothic-fonts.allideo
-      libertinus
     ];
   };
 }

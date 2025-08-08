@@ -52,7 +52,7 @@ in
           repeat-delay = 300;
           repeat-rate = 25;
           xkb = {
-            layout = "workman_aberter,us";
+            layout = "us(workman-p)";
             options = "ctrl:nocaps";
           };
           track-layout = "global";
@@ -263,15 +263,24 @@ in
         "Mod+7".action = focus-workspace 7;
         "Mod+8".action = focus-workspace 8;
         "Mod+9".action = focus-workspace 9;
-        "Mod+parenleft".action = focus-workspace 1;
-        "Mod+parenright".action = focus-workspace 2;
-        "Mod+braceleft".action = focus-workspace 3;
-        "Mod+braceright".action = focus-workspace 4;
-        "Mod+bracketleft".action = focus-workspace 5;
-        "Mod+bracketright".action = focus-workspace 6;
-        "Mod+less".action = focus-workspace 7;
-        "Mod+greater".action = focus-workspace 8;
-        "Mod+numbersign".action = focus-workspace 9;
+        "Mod+exclam".action = focus-workspace 1;
+        "Mod+at".action = focus-workspace 2;
+        "Mod+numbersign".action = focus-workspace 3;
+        "Mod+dollar".action = focus-workspace 4;
+        "Mod+percent".action = focus-workspace 5;
+        "Mod+asciicircum".action = focus-workspace 6;
+        "Mod+ampersand".action = focus-workspace 7;
+        "Mod+asterisk".action = focus-workspace 8;
+        "Mod+parenleft".action = focus-workspace 9;
+        # "Mod+parenleft".action = focus-workspace 1;
+        # "Mod+parenright".action = focus-workspace 2;
+        # "Mod+braceleft".action = focus-workspace 3;
+        # "Mod+braceright".action = focus-workspace 4;
+        # "Mod+bracketleft".action = focus-workspace 5;
+        # "Mod+bracketright".action = focus-workspace 6;
+        # "Mod+less".action = focus-workspace 7;
+        # "Mod+greater".action = focus-workspace 8;
+        # "Mod+numbersign".action = focus-workspace 9;
 
         # FIXME: sodiboo/niri-flake #1018
         "Mod+Shift+1".action = spawn [
@@ -346,7 +355,7 @@ in
           "9"
           "--focus=false"
         ];
-        "Mod+Shift+parenleft".action = spawn [
+        "Mod+Shift+exclam".action = spawn [
           niri
           "msg"
           "action"
@@ -354,7 +363,7 @@ in
           "1"
           "--focus=false"
         ];
-        "Mod+Shift+parenright".action = spawn [
+        "Mod+Shift+at".action = spawn [
           niri
           "msg"
           "action"
@@ -362,7 +371,7 @@ in
           "2"
           "--focus=false"
         ];
-        "Mod+Shift+braceleft".action = spawn [
+        "Mod+Shift+numbersign".action = spawn [
           niri
           "msg"
           "action"
@@ -370,7 +379,7 @@ in
           "3"
           "--focus=false"
         ];
-        "Mod+Shift+braceright".action = spawn [
+        "Mod+Shift+dollar".action = spawn [
           niri
           "msg"
           "action"
@@ -378,7 +387,7 @@ in
           "4"
           "--focus=false"
         ];
-        "Mod+Shift+bracketleft".action = spawn [
+        "Mod+Shift+percent".action = spawn [
           niri
           "msg"
           "action"
@@ -386,7 +395,7 @@ in
           "5"
           "--focus=false"
         ];
-        "Mod+Shift+bracketright".action = spawn [
+        "Mod+Shift+asciicircum".action = spawn [
           niri
           "msg"
           "action"
@@ -394,7 +403,7 @@ in
           "6"
           "--focus=false"
         ];
-        "Mod+Shift+less".action = spawn [
+        "Mod+Shift+ampersand".action = spawn [
           niri
           "msg"
           "action"
@@ -402,7 +411,7 @@ in
           "7"
           "--focus=false"
         ];
-        "Mod+Shift+greater".action = spawn [
+        "Mod+Shift+asterisk".action = spawn [
           niri
           "msg"
           "action"
@@ -410,7 +419,7 @@ in
           "8"
           "--focus=false"
         ];
-        "Mod+Shift+numbersign".action = spawn [
+        "Mod+Shift+parenleft".action = spawn [
           niri
           "msg"
           "action"
@@ -418,6 +427,78 @@ in
           "9"
           "--focus=false"
         ];
+        # "Mod+Shift+parenleft".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "1"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+parenright".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "2"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+braceleft".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "3"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+braceright".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "4"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+bracketleft".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "5"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+bracketright".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "6"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+less".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "7"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+greater".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "8"
+        #   "--focus=false"
+        # ];
+        # "Mod+Shift+numbersign".action = spawn [
+        #   niri
+        #   "msg"
+        #   "action"
+        #   "move-column-to-workspace"
+        #   "9"
+        #   "--focus=false"
+        # ];
 
         "Mod+Comma".action = consume-window-into-column;
         "Mod+Period".action = expel-window-from-column;

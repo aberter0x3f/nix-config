@@ -16,7 +16,7 @@ let
       ];
     }).callPackage;
 in
-{
+rec {
   # bubblemail = pkgs.callPackage ./bubblemail { };
   chws-tool = pkgs.callPackage ./chws-tool { inherit inputs; };
   commit-mono = pkgs.callPackage ./commit-mono { };
@@ -44,5 +44,10 @@ in
   rime-alpha-pinyin = pkgs.callPackage ./rime-alpha-pinyin { };
   sarasa-gothic-mod = pkgs.callPackage ./sarasa-gothic-mod { };
   sarasa-ubuntu-mono = pkgs.callPackage ./sarasa-ubuntu-mono { };
+  wasi-libclang_rt-judge = pkgs.callPackage ./wasi-libclang_rt-judge { };
+  wasi-sysroot-judge = pkgs.callPackage ./wasi-sysroot-judge { };
+  wasm-judge-clang = pkgs.callPackage ./wasm-judge-clang {
+    inherit wasi-libclang_rt-judge wasi-sysroot-judge;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./some-qt5-package { };
 }

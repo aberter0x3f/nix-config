@@ -10,15 +10,18 @@
   wrapGAppsHook,
 }:
 
+let
+  version = "8ceb3d5a2cbc3401ed1c21a1d9dd32374c30f8e0";
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "project-lemonlime";
-  version = "0.3.5";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "aberter0x3f";
     repo = "Project_LemonLime";
-    rev = "39cf82e5c45ada9a77b9cbffe65d3d2b8b691da6";
-    hash = "sha256-T6WeJdXBB8TqM2EJ+DNKwe4OvtLBVVINd2xieILJOJo=";
+    rev = version;
+    hash = "sha256-RMMEIwshmpVl7R8pznZYCDDBx7NFlL9sbVjF1rIoZOk=";
     fetchSubmodules = true;
   };
 

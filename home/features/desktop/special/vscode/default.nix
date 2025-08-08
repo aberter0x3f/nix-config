@@ -256,6 +256,22 @@ in
         ];
         # 前端特定设置，例如 Node.js 路径等
       };
+
+      typst = mkDerivedProfile {
+        extensions = with pkgs.vscode-extensions; [
+          myriad-dreamin.tinymist
+        ];
+        userSettings = {
+          "tinymist.fontPaths" = [ "/run/current-system/sw/share/X11/fonts" ];
+          "tinymist.formatterMode" = "typstyle";
+          "tinymist.formatterPrintWidth" = 100;
+          "tinymist.lint.enabled" = true;
+          "tinymist.preview.scrollSync" = "onSelectionChange";
+          "[typst]" = {
+            "editor.defaultFormatter" = "myriad-dreamin.tinymist";
+          };
+        };
+      };
     };
   };
 }

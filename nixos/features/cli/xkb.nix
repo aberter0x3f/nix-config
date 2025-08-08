@@ -6,7 +6,7 @@
 
   services.xserver = {
     xkb = {
-      layout = "workman_aberter,us";
+      layout = "us(workman-p),us";
       options = "ctrl:nocaps";
       extraLayouts = {
         qwerty_aberter = {

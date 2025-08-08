@@ -7,6 +7,8 @@
     ./home-manager.nix
     ./locale.nix
     ./pam.nix
+    ./sudo.nix
+    ./unsafe-wifi.nix
     ./xkb.nix
   ];
 

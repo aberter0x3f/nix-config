@@ -88,6 +88,7 @@
         domain(suffix: hoyoverse.com) -> proxy
         domain(suffix: gamersky.com) -> proxy
         domain(suffix: yuanshen.com) -> proxy
+        domain(suffix: oneplus.com) -> proxy
 
         domain(geosite:category-ads-all) -> block
         domain(suffix: appcenter.ms) -> block
