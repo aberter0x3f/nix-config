@@ -11,9 +11,10 @@
     ../../features/special/libvirt.nix
     ../../features/special/light.nix
     ../../features/special/podman.nix
-    ../../features/special/proxy.nix
     ./hardware-configuration.nix
     ./home.nix
+
+    (import ../../features/special/proxy.nix "auto")
   ];
 
   nixpkgs = {
@@ -207,72 +208,60 @@
     };
   };
 
-  services.ollama = {
-    enable = true;
-    acceleration = "rocm";
-    environmentVariables = {
-      HCC_AMDGPU_TARGET = "gfx1035";
-      OLLAMA_ORIGINS = "*";
-    };
-    rocmOverrideGfx = "10.3.5";
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "rocm";
+  #   environmentVariables = {
+  #     HCC_AMDGPU_TARGET = "gfx1035";
+  #     OLLAMA_ORIGINS = "*";
+  #   };
+  #   rocmOverrideGfx = "10.3.5";
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    cachix
-    pulseaudio
-    iptables
-    pm2
-    # C & C++
-    gcc
-    gnumake
-    cmake
-    pkgconf
-    gdb
-    llvmPackages_19.clang-tools
-    llvmPackages_19.clang
-    llvm
-    # Lua
-    luajit
-    # Node.js
-    nodejs
-    corepack
-    # # Go
-    # go
-    # # Java
-    # jdk
-    # gradle
-    # Python
-    (
-      let
-        my-python-packages =
-          python-packages: with python-packages; [
-            pandas
-            requests
-            pyyaml
-            python-lsp-server
-            python-lsp-black
-            flake8
-            black
-          ];
-      in
-      python3.withPackages my-python-packages
-    )
-    # Rust
-    (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-src" ];
-      targets = [
-        "wasm32-wasip1"
-        "wasm32-unknown-unknown"
-      ];
-    })
-    # # protobuf
-    # protobuf
-    # Editor
-    neovim-unwrapped
-    tree-sitter
-  ];
+  environment.systemPackages =
+    with pkgs;
+    let
+      myPythonPackages =
+        python-packages: with python-packages; [
+          pandas
+          requests
+          pyyaml
+          python-lsp-server
+          python-lsp-black
+          flake8
+          black
+        ];
+    in
+    [
+      cachix
+      pulseaudio
+      iptables
+      pm2
+      # C & C++
+      gcc
+      gnumake
+      pkgconf
+      gdb
+      llvmPackages.clang-tools
+      llvmPackages.clang
+      # Lua
+      luajit
+      # Node.js
+      nodejs
+      corepack
+      # # Go
+      # go
+      # # Java
+      # jdk
+      # gradle
+      # Python
+      (python3.withPackages myPythonPackages)
+      # Editor
+      neovim-unwrapped
+      tree-sitter
+    ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";

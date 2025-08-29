@@ -122,21 +122,26 @@ let
     "markdown.preview.scrollEditorWithPreview" = false;
 
     "nix.enableLanguageServer" = true;
-    "nix.serverPath" = "nixd";
+    "nix.serverPath" = "nil";
     "nix.serverSettings" = {
-      nixd = {
+      nil = {
         formatting = {
           command = [ "nixfmt" ];
         };
-        options = {
-          nixos = {
-            expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options";
-          };
-          home-manager = {
-            expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
-          };
-        };
       };
+      # nixd = {
+      #   formatting = {
+      #     command = [ "nixfmt" ];
+      #   };
+      #   options = {
+      #     nixos = {
+      #       expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options";
+      #     };
+      #     home-manager = {
+      #       expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
+      #     };
+      #   };
+      # };
     };
 
     "redhat.telemetry.enabled" = false;
@@ -237,6 +242,7 @@ in
         ];
         userSettings = {
           "rust-analyzer.lens.implementations.enable" = true;
+          "rust-analyzer.server.path" = "rust-analyzer";
         };
       };
 

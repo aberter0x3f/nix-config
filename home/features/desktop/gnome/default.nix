@@ -14,7 +14,7 @@
     wl-clipboard
     ydotool
     gnomeExtensions.kimpanel
-    refine # gnome tweaks
+    gnome-tweaks
   ];
 
   home.sessionVariables = {

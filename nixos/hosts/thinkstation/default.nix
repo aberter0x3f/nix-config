@@ -13,9 +13,10 @@
     ../../global
     ../../features/desktop/gnome.nix
     ../../features/special/podman.nix
-    ../../features/special/proxy.nix
     ./hardware-configuration.nix
     ./home.nix
+
+    (import ../../features/special/proxy.nix "auto")
   ];
 
   nixpkgs = {

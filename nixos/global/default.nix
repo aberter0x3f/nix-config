@@ -20,7 +20,7 @@
       outputs.overlays.modifications
 
       # You can also add overlays exported from other flakes:
-      inputs.rust-overlay.overlays.default
+      # inputs.fenix.overlays.default
 
       # Or define it inline, for example:
       # (final: prev: {

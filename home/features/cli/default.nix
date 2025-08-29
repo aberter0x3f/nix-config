@@ -27,8 +27,8 @@
     tealdeer
     file
     imagemagick
-    rust-analyzer
-    nixd
+    nil
+    # nixd
     lua-language-server
     nixfmt-rfc-style
     # inputs.codeium.packages.${system}.codeium-lsp

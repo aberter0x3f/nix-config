@@ -1,3 +1,4 @@
+wanInterface:
 {
   pkgs,
   config,
@@ -19,7 +20,7 @@
       global {
         # 绑定到 LAN 和/或 WAN 接口。将下述接口替换成你自己的接口名。
         lan_interface: virbr0
-        wan_interface: auto # 使用 "auto" 自动侦测 WAN 接口。
+        wan_interface: ${wanInterface} # 使用 "auto" 自动侦测 WAN 接口。
 
         log_level: info
         allow_insecure: false

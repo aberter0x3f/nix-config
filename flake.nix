@@ -17,12 +17,6 @@
     # NUR
     nur.url = "github:nix-community/NUR";
 
-    # rust-overlay
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # # Hyprland
     # hyprland = {
     #   url = "github:hyprwm/Hyprland/v0.46.2";
@@ -31,12 +25,6 @@
     # hyprland-plugins = {
     #   url = "github:hyprwm/hyprland-plugins/7634792d199d32ed9396d5864e6431cde1cca6bd";
     #   inputs.hyprland.follows = "hyprland";
-    # };
-
-    # # Codeium
-    # codeium = {
-    #   url = "github:jcdickinson/codeium.nvim";
-    #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
     # poetry2nix
@@ -121,7 +109,7 @@
       packages = forEachPkgs (pkgs: (import ./pkgs { inherit pkgs inputs; }));
       # Formatter for your nix files, available through 'nix fmt'
       # Other options beside 'alejandra' include 'nixpkgs-fmt'
-      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
@@ -148,7 +136,8 @@
         };
 
         "aberter-thinkstation" = {
-          deployment.targetHost = "192.168.10.77";
+          # deployment.targetHost = "192.168.10.77";
+          deployment.targetHost = "10.82.91.2";
           deployment.targetUser = "root";
           imports = [
             ./nixos/hosts/thinkstation

@@ -37,15 +37,12 @@
       repeat-interval = mkUint32 25;
     };
     "org/gnome/desktop/input-sources" = {
+      show-all-sources = true;
       current = mkUint32 0;
       sources = [
         (mkTuple [
           "xkb"
-          "workman_aberter"
-        ])
-        (mkTuple [
-          "xkb"
-          "us"
+          "us+workman-p"
         ])
       ];
       xkb-options = [
@@ -73,6 +70,9 @@
     };
     "org/gnome/shell/extensions/kimpanel" = {
       vertical = true;
+    };
+    "org/gnome/tweaks" = {
+      show-extensions-notice = false;
     };
   };
 }
