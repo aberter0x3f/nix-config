@@ -5,7 +5,9 @@
     # ./features/desktop/hyprland
     # ./features/desktop/plasma
     ./features/desktop/niri
+    ./features/desktop/special/godot.nix
     ./features/desktop/special/vscode
+    ./features/desktop/special/zed-editor
   ];
 
   home.packages = with pkgs; [

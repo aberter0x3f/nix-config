@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  hostName,
   ...
 }:
 
@@ -144,7 +143,16 @@ let
       # };
     };
 
+    "telemetry.telemetryLevel" = "off";
+    "telemetry.enableCrashReporter" = false;
     "redhat.telemetry.enabled" = false;
+
+    # --- Disable AI Features ---
+    "chat.disableAIFeatures" = true;
+    "chat.agent.enabled" = false;
+    "chat.commandCenter.enabled" = false;
+    "inlineChat.accessibleDiffView" = "off";
+    "terminal.integrated.initialHint" = false;
 
     # --- Language-specific Settings ---
     "[markdown]" = {
@@ -229,7 +237,7 @@ in
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium; # 使用 VSCodium
+    package = pkgs.vscode;
     mutableExtensionsDir = false; # 推荐设置为 false，由 Nix 管理扩展
 
     profiles = {
@@ -272,7 +280,6 @@ in
           "tinymist.formatterMode" = "typstyle";
           "tinymist.formatterPrintWidth" = 100;
           "tinymist.lint.enabled" = true;
-          "tinymist.preview.scrollSync" = "onSelectionChange";
           "[typst]" = {
             "editor.defaultFormatter" = "myriad-dreamin.tinymist";
           };

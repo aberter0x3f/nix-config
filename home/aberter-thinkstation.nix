@@ -9,12 +9,12 @@
 
     ./global
     ./features/desktop/gnome
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ]
+  ++ (builtins.attrValues outputs.homeManagerModules);
 
   home.packages = with pkgs; [
     librewolf
-    blender
-    prismlauncher
+    # davinci-resolve-paid
   ];
 
   home.username = "aberter";

@@ -10,9 +10,9 @@
 }:
 
 let
-  version = "1.0.30";
+  version = "1.0.34";
   rev = "v${version}";
-  sha256 = "sha256-LgW2vVtP3w3nwTBiLsRqSnnYXn9rUL7s4k9GDzE1Jjk=";
+  sha256 = "sha256-0DkNqljdiJgsgWNcPzICpo0PSEhUsDmoYSUQNLOg1Qw=";
 in
 buildNpmPackage rec {
   pname = "sarasa-ubuntu-mono";

@@ -22,6 +22,7 @@
   commit-mono = pkgs.callPackage ./commit-mono { };
   cpt-fetcher = pkgs.callPackage ./cpt-fetcher { };
   cpt = pkgs.callPackage ./cpt { };
+  davinci-resolve-paid = pkgs.callPackage ./davinci-resolve-paid { };
   fonttools-opentype-feature-freezer = pkgs.callPackage ./fonttools-opentype-feature-freezer {
     inherit inputs;
   };

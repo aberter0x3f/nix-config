@@ -228,6 +228,8 @@
           pandas
           requests
           pyyaml
+          numpy
+          sympy
           python-lsp-server
           python-lsp-black
           flake8

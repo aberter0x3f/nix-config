@@ -1,7 +1,6 @@
 {
   lib,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
   pkg-config,
   alsa-lib ? null,
@@ -62,8 +61,6 @@ mkDerivation rec {
     qtx11extras
     SDL2 # TODO: switch to SDL2 in the next version
   ];
-
-  cmakeFlags = [ "-DWANT_QT5=ON" ];
 
   meta = with lib; {
     description = "DAW similar to FL Studio (music production software)";

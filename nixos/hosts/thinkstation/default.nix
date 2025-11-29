@@ -24,6 +24,7 @@
       allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
+          "davinci-resolve-studio"
         ];
     };
   };
@@ -198,6 +199,7 @@
         ".local/share/keyrings"
         ".local/share/containers"
         ".local/share/PrismLauncher"
+        ".local/share/DaVinciResolve"
         # {
         #   directory = ".local/share/containers";
         #   method = "symlink";

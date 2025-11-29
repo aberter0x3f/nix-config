@@ -30,7 +30,7 @@ in
     ydotool
     thunderbird
     nautilus # https://github.com/YaLTeR/niri/issues/702#issuecomment-2392162552
-    evince
+    papers
     xwayland-satellite-stable
   ];
 
@@ -91,7 +91,7 @@ in
           struts = {
             left = -8;
             right = -8;
-            top = 0;
+            top = -8;
             bottom = -8;
           };
           border.width = 2;
@@ -99,6 +99,7 @@ in
             { proportion = 1.0 / 3.0 - eps; }
             { proportion = 1.0 / 2.0 - eps; }
             { proportion = 2.0 / 3.0 - eps; }
+            { proportion = 1.0 - eps; }
           ];
           default-column-width = {
             proportion = 1.0 / 2.0 - eps;
@@ -272,15 +273,6 @@ in
         "Mod+ampersand".action = focus-workspace 7;
         "Mod+asterisk".action = focus-workspace 8;
         "Mod+parenleft".action = focus-workspace 9;
-        # "Mod+parenleft".action = focus-workspace 1;
-        # "Mod+parenright".action = focus-workspace 2;
-        # "Mod+braceleft".action = focus-workspace 3;
-        # "Mod+braceright".action = focus-workspace 4;
-        # "Mod+bracketleft".action = focus-workspace 5;
-        # "Mod+bracketright".action = focus-workspace 6;
-        # "Mod+less".action = focus-workspace 7;
-        # "Mod+greater".action = focus-workspace 8;
-        # "Mod+numbersign".action = focus-workspace 9;
 
         # FIXME: sodiboo/niri-flake #1018
         "Mod+Shift+1".action = spawn [
@@ -427,78 +419,6 @@ in
           "9"
           "--focus=false"
         ];
-        # "Mod+Shift+parenleft".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "1"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+parenright".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "2"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+braceleft".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "3"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+braceright".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "4"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+bracketleft".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "5"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+bracketright".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "6"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+less".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "7"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+greater".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "8"
-        #   "--focus=false"
-        # ];
-        # "Mod+Shift+numbersign".action = spawn [
-        #   niri
-        #   "msg"
-        #   "action"
-        #   "move-column-to-workspace"
-        #   "9"
-        #   "--focus=false"
-        # ];
 
         "Mod+Comma".action = consume-window-into-column;
         "Mod+Period".action = expel-window-from-column;
@@ -510,8 +430,18 @@ in
         "Mod+Shift+C".action = center-column;
         "Mod+Shift+F".action = toggle-window-floating;
 
-        "Print".action = screenshot;
-        "Mod+Shift+S".action = screenshot;
+        "Print".action = spawn [
+          niri
+          "msg"
+          "action"
+          "screenshot"
+        ];
+        "Mod+Shift+S".action = spawn [
+          niri
+          "msg"
+          "action"
+          "screenshot"
+        ];
         # "Ctrl+Print".action = screenshot-screen;
         # "Alt+Print".action = screenshot-window;
 

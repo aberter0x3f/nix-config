@@ -12,13 +12,13 @@
 
 buildDotnetModule rec {
   pname = "OpenUtau-Lunai";
-  version = "0.1.1.9";
+  version = "0.1.2.5";
 
   src = fetchFromGitHub {
     owner = "keirokeer";
     repo = "OpenUtau-DiffSinger-Lunai";
     rev = version;
-    hash = "sha256-AObyUgZDr2HcAfDZxdW/4aDqaPJ+O0ghaSo+9Rf5oEc=";
+    hash = "sha256-LBPk5+psJUW8VHwcwoy4+ZpTFWUrMUEXV717ojfO80E=";
   };
 
   nativeBuildInputs = [ copyDesktopItems ];
@@ -44,7 +44,7 @@ buildDotnetModule rec {
   enableParallelBuilding = false;
 
   projectFile = "OpenUtau.sln";
-  nugetDeps = ./deps.nix;
+  nugetDeps = ./deps.json;
 
   executables = [ "OpenUtau" ];
 

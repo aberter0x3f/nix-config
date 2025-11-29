@@ -11,7 +11,7 @@
 }:
 
 let
-  version = "8ceb3d5a2cbc3401ed1c21a1d9dd32374c30f8e0";
+  version = "4e6c77fbd17195f124f2a17efd8db2205680e149";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "project-lemonlime";
@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "aberter0x3f";
     repo = "Project_LemonLime";
     rev = version;
-    hash = "sha256-RMMEIwshmpVl7R8pznZYCDDBx7NFlL9sbVjF1rIoZOk=";
+    hash = "sha256-zUBtdzywMgLbLUZ5uhQ3iQHIYOyzu/aXbDFE1V4FHOo=";
     fetchSubmodules = true;
   };
 
