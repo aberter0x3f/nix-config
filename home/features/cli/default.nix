@@ -3,6 +3,7 @@
   imports = [
     # ./nushell
     ./yazi
+    ./delta.nix
     ./fd.nix
     ./fzf.nix
     ./git.nix
@@ -44,7 +45,6 @@
     dos2unix
     duf
     dust
-    delta
     trashy
   ];
 }

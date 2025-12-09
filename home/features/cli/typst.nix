@@ -2,7 +2,8 @@
 {
   home.packages = with pkgs; [
     typst
-    # typst-lsp
+    tinymist
+    typstyle
   ];
 
   home.sessionVariables = {

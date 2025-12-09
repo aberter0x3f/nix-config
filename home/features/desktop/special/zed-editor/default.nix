@@ -1,14 +1,11 @@
 {
   config,
-  inputs,
-  pkgs,
   ...
 }:
 
 {
   programs.zed-editor = {
     enable = true;
-    package = pkgs.unstable.zed-editor;
     installRemoteServer = false; # As client only.
 
     userSettings = {
@@ -114,6 +111,12 @@
       # --- Language-specific Settings ---
       lsp = {
         nil.initialization_options.formatting.command = [ "nixfmt" ];
+        tinymist.settings = {
+          fontPaths = [ "/run/current-system/sw/share/X11/fonts" ];
+          formatterMode = "typstyle";
+          formatterPrintWidth = 100;
+          lint.enabled = true;
+        };
       };
 
       languages = {

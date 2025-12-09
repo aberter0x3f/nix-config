@@ -1,7 +1,7 @@
 {
   programs.less = {
     enable = true;
-    keys = ''
+    config = ''
       # --- Workman-like Movement (from Neovim 'n', 'e', 'o', 'i') ---
       # Neovim 'h' (left) is 'n' in Workman. Less equivalent: left-scroll.
       n          left-scroll

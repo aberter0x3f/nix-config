@@ -75,7 +75,6 @@
   hardware.firmware = [ ];
 
   hardware.amdgpu = {
-    # amdvlk.enable = true;
     opencl.enable = true;
   };
 

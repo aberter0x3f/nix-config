@@ -73,10 +73,10 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  services.logind.extraConfig = ''
-    IdleAction=ignore
-    HandleLidSwitch=ignore
-  '';
+  services.logind.settings.Login = {
+    IdleAction = "ignore";
+    HandleLidSwitch = "ignore";
+  };
 
   users.mutableUsers = false;
   users.users =
@@ -111,6 +111,7 @@
           "video"
           "networkmanager"
           "input"
+          "uinput"
           "tty"
           "camera"
           "libvirtd"

@@ -23,5 +23,17 @@
         nativeCheckInputs = [ ];
       });
     };
+
+    # https://github.com/NixOS/nixpkgs/issues/463367
+    llvmPackages = prev.llvmPackages // {
+      clang-tools = prev.llvmPackages.clang-tools.overrideAttrs (
+        old:
+        prev.lib.optionalAttrs (prev.lib.versionOlder old.version "21.1.2.bug") {
+          installPhase = old.installPhase + ''
+            substituteInPlace $out/bin/clangd --replace-fail "-isystem)" "-isystem|-cxx-isystem)"
+          '';
+        }
+      );
+    };
   };
 }
