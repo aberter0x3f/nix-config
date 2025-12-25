@@ -6,7 +6,7 @@ in
 {
   home.packages = [
     godotPackages.godot-mono
-    pkgs.dotnet-sdk_9
+    # pkgs.dotnet-sdk_9
     pkgs.omnisharp-roslyn
   ];
 }

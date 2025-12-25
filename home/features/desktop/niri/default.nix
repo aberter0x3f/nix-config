@@ -52,7 +52,8 @@ in
           repeat-delay = 300;
           repeat-rate = 25;
           xkb = {
-            layout = "us(workman-p)";
+            layout = "us";
+            variant = "workman-p";
             options = "ctrl:nocaps";
           };
           track-layout = "global";

@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 
@@ -106,7 +107,8 @@
 
       # --- Nix Specific ---
       auto_update = false;
-      language_servers = [ ]; # Manage langauge servers manually
+      # Manage language servers manually
+      language_servers = [ "typos" ];
 
       # --- Language-specific Settings ---
       lsp = {
@@ -122,17 +124,29 @@
       languages = {
         C = {
           format_on_save = "on";
-          language_servers = [ "clangd" ];
+          language_servers = [
+            "clangd"
+            "typos"
+          ];
         };
         "C++" = {
           format_on_save = "on";
-          language_servers = [ "clangd" ];
+          language_servers = [
+            "clangd"
+            "typos"
+          ];
         };
         Rust = {
-          language_servers = [ "rust-analyzer" ];
+          language_servers = [
+            "rust-analyzer"
+            "typos"
+          ];
         };
         Nix = {
-          language_servers = [ "nil" ];
+          language_servers = [
+            "nil"
+            "typos"
+          ];
         };
         Markdown = {
           formatter = "prettier";
@@ -140,17 +154,26 @@
         };
         Typst = {
           soft_wrap = "editor_width";
-          language_servers = [ "tinymist" ];
+          language_servers = [
+            "tinymist"
+            "typos"
+          ];
         };
         JSON = {
           formatter = "prettier";
-          language_servers = [ "json-language-server" ];
+          language_servers = [
+            "json-language-server"
+            "typos"
+          ];
         };
         YAML = {
           formatter = "prettier";
         };
         TOML = {
-          language_servers = [ "tombi" ];
+          language_servers = [
+            "tombi"
+            "typos"
+          ];
         };
         HTML = {
           formatter = "prettier";
@@ -170,7 +193,28 @@
           code_actions_on_format."source.fixAll.eslint" = true;
         };
         CSharp = {
-          language_servers = [ "omnisharp" ];
+          language_servers = [
+            "omnisharp"
+            "typos"
+          ];
+        };
+        CMake = {
+          language_servers = [
+            "cmake"
+            "typos"
+          ];
+        };
+        Python = {
+          language_servers = [
+            "ruff"
+            "typos"
+          ];
+        };
+        Fortran = {
+          language_servers = [
+            "fortls"
+            "typos"
+          ];
         };
       };
     };
@@ -203,21 +247,16 @@
             "5 i"
           ];
 
-          # --- 反向映射 (h, j, k, l) ---
-          # h -> i (insert)
-          "h" = [
-            "vim::PushObject"
-            { "around" = false; }
-          ];
+          # --- 搜索跳转 ---
           "j" = "vim::MoveToNextMatch"; # j -> n (next search match)
-          "k" = "vim::NextWordEnd"; # k -> e (end of word)
-          "l" = "vim::InsertLineBelow"; # l -> o (open line below)
-
-          # --- 反向映射大写 (H, J, K, L) ---
-          "H" = "vim::InsertFirstNonWhitespace"; # H -> I (Insert at begin of line)
           "J" = "vim::MoveToPreviousMatch"; # J -> N (prev search match)
-          "K" = "vim::NextWordEnd"; # K -> E (end of WORD)
-          "L" = "vim::InsertLineAbove"; # L -> O (open line above)
+
+          # --- 单词移动 ---
+          "k" = "vim::NextWordEnd";
+          "K" = [
+            "vim::NextWordEnd"
+            { "ignore_punctuation" = true; }
+          ];
 
           # --- 窗口/窗格 (Pane) 导航 ---
           "ctrl-w n" = "workspace::ActivatePaneLeft";
@@ -230,10 +269,10 @@
           "ctrl-w ctrl-i" = "workspace::ActivatePaneRight";
 
           # --- 移动当前窗格 ---
-          "ctrl-w N" = "workspace::SwapPaneLeft";
-          "ctrl-w E" = "workspace::SwapPaneDown";
-          "ctrl-w O" = "workspace::SwapPaneUp";
-          "ctrl-w I" = "workspace::SwapPaneRight";
+          "ctrl-w N" = "workspace::MovePaneLeft";
+          "ctrl-w E" = "workspace::MovePaneDown";
+          "ctrl-w O" = "workspace::MovePaneUp";
+          "ctrl-w I" = "workspace::MovePaneRight";
 
           # --- 窗格分割 ---
           "space s n" = "pane::SplitLeft";
@@ -257,17 +296,6 @@
           "g E" = "editor::GoToPreviousDiagnostic"; # marker.prev
           "g e" = "editor::GoToDiagnostic"; # marker.next
 
-          # --- 其他通用映射 ---
-          "<" = "editor::Outdent";
-          ">" = "editor::Indent";
-          "space space" = [
-            "workspace::SendKeystrokes"
-            "v h w"
-          ];
-          ";" = "command_palette::Toggle";
-          "_" = "vim::Decrement";
-          "+" = "vim::Increment";
-
           # --- 禁用 F1 ---
           "f1" = null;
         };
@@ -275,8 +303,26 @@
       {
         context = "vim_mode == normal";
         bindings = {
-          "h" = "vim::InsertBefore";
+          "h" = "vim::InsertBefore"; # h -> i (insert)
+          "H" = "vim::InsertFirstNonWhitespace"; # H -> I (Insert at begin of line)
+          "l" = "vim::InsertLineBelow"; # l -> o (open line below)
+          "L" = "vim::InsertLineAbove"; # L -> O (open line above)
           "U" = "editor::Redo";
+          ";" = "command_palette::Toggle";
+          "<" = "editor::Outdent";
+          ">" = "editor::Indent";
+          "space space" = [
+            "workspace::SendKeystrokes"
+            "v h w"
+          ];
+          "_" = "vim::Decrement";
+          "+" = "vim::Increment";
+        };
+      }
+      {
+        context = "VimControl && VimCount";
+        bindings = {
+          ";" = "vim::CountCommand";
         };
       }
       {
@@ -286,6 +332,8 @@
             "vim::PushObject"
             { "around" = false; }
           ];
+          "H" = "vim::InsertBefore";
+          ";" = "vim::VisualCommand";
         };
       }
       {
@@ -307,6 +355,15 @@
       "make"
       "csharp"
       "git-firefly"
+      "neocmake" # cmake
+      "typos"
+      "fortran"
     ];
   };
+
+  home.packages = [
+    pkgs.typos
+    pkgs.typos-lsp
+    pkgs.fortls
+  ];
 }

@@ -1,11 +1,14 @@
 {
+  alsa-lib,
   lib,
   stdenv,
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
   dbus,
+  fontconfig,
   portaudio,
+  libXi,
   copyDesktopItems,
   makeDesktopItem,
 }:
@@ -51,6 +54,11 @@ buildDotnetModule rec {
   runtimeDeps = [
     dbus
     portaudio
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    alsa-lib
+    fontconfig
+    libXi
   ];
 
   dotnetInstallFlags = [ "-p:PublishReadyToRun=false" ];

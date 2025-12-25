@@ -32,6 +32,8 @@
     # nixd
     lua-language-server
     nixfmt-rfc-style
+    neocmakelsp
+    ruff
     # inputs.codeium.packages.${system}.codeium-lsp
     bat
     eza

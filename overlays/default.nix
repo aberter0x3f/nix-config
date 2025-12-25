@@ -17,12 +17,12 @@
       system = prev.system;
     };
 
-    pkgsi686Linux = prev.pkgsi686Linux // {
-      libsecret = prev.pkgsi686Linux.libsecret.overrideAttrs (old: {
-        doCheck = false;
-        nativeCheckInputs = [ ];
-      });
-    };
+    # pkgsi686Linux = prev.pkgsi686Linux // {
+    #   libsecret = prev.pkgsi686Linux.libsecret.overrideAttrs (old: {
+    #     doCheck = false;
+    #     nativeCheckInputs = [ ];
+    #   });
+    # };
 
     # https://github.com/NixOS/nixpkgs/issues/463367
     llvmPackages = prev.llvmPackages // {
